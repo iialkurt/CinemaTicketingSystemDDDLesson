@@ -31,7 +31,8 @@ public static class ServiceCollectionExtensions
                 continue;
             }
 
-            foreach (var serviceType in serviceTypes) services.Add(new ServiceDescriptor(serviceType, implementationType, lifetime.Value));
+            foreach (var serviceType in serviceTypes)
+                services.Add(new ServiceDescriptor(serviceType, implementationType, lifetime.Value));
         }
 
         return services;
