@@ -2,23 +2,25 @@
 
 public class SeatNumber : ValueObject
 {
-    public SeatNumber(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-            throw new ArgumentException("Seat number cannot be empty.");
+    public string Row { get; }
+    public int Number { get; }
 
-        Value = value.ToUpperInvariant();
+    public SeatNumber(string row, int number)
+    {
+        if (string.IsNullOrWhiteSpace(row))
+            throw new ArgumentException("Row cannot be empty.", nameof(row));
+        if (number <= 0)
+            throw new ArgumentException("Seat number must be positive.", nameof(number));
+
+        Row = row.ToUpper();
+        Number = number;
     }
 
-    public string Value { get; }
-
-    protected override IEnumerable<object?> GetEqualityComponents()
+    protected override IEnumerable<object> GetEqualityComponents()
     {
-        yield return Value;
+        yield return Row;
+        yield return Number;
     }
 
-    public override string ToString()
-    {
-        return Value;
-    }
+    public override string ToString() => $"{Row}{Number}";
 }

@@ -14,6 +14,13 @@ public class TicketSale : Entity<Guid>
         IsUsed = false;
     }
 
+
+    // TicketSale tek başına eklenmesin diye
+    //public Guid MovieTicketId { get; set; }
+
+
+    public MovieTicket MovieTicket { get; set; }
+
     public SeatNumber SeatNumber { get; }
     public Price Price { get; }
     public string TicketCode { get; }

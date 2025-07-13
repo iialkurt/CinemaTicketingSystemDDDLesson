@@ -13,11 +13,12 @@ public class MovieTicket : AggregateRoot<Guid>
     public Guid MovieSessionId { get; private set; }
     public bool IsDiscountApplied { get; private set; }
 
-    private List<TicketSale> _purchasedTickets { get; } = [];
+    private List<TicketSale> _TicketSales { get; set; } = [];
 
-    public IReadOnlyCollection<TicketSale> PurchasedTickets => _purchasedTickets.AsReadOnly();
+    public IReadOnlyCollection<TicketSale> TicketSales => _TicketSales.AsReadOnly();
 
-    public void Create(Guid movieSessionId, Guid customerId)
+    private MovieTicket() { }
+    public MovieTicket(Guid movieSessionId, Guid customerId)
     {
         Id = Guid.CreateVersion7();
         MovieSessionId = movieSessionId;
@@ -26,24 +27,24 @@ public class MovieTicket : AggregateRoot<Guid>
 
     public void AddTicket(TicketSale ticket)
     {
-        if (_purchasedTickets.Count >= MaxTicketsPerPurchase)
+        if (_TicketSales.Count >= MaxTicketsPerPurchase)
             throw new MaxTicketLimitExceededException(MaxTicketsPerPurchase);
 
-        if (_purchasedTickets.Any(t => t.SeatNumber == ticket.SeatNumber))
+        if (_TicketSales.Any(t => t.SeatNumber == ticket.SeatNumber))
             throw new DuplicateSeatException(ticket.SeatNumber);
 
-        _purchasedTickets.Add(ticket);
+        _TicketSales.Add(ticket);
         ApplyBulkDiscountIfEligible();
         AddDomainEvent(new TicketPurchasedEvent(ticket.Id, CustomerId!.Value, ticket.Price));
     }
 
     public void RemoveTicket(SeatNumber seatNumber)
     {
-        var ticket = _purchasedTickets.FirstOrDefault(t => t.SeatNumber == seatNumber);
+        var ticket = _TicketSales.FirstOrDefault(t => t.SeatNumber == seatNumber);
         if (ticket is null)
             throw new TicketNotFoundException(seatNumber);
 
-        _purchasedTickets.Remove(ticket);
+        _TicketSales.Remove(ticket);
         AddDomainEvent(new TicketReleasedEvent(ticket.Id));
 
         ApplyBulkDiscountIfEligible();
@@ -57,12 +58,12 @@ public class MovieTicket : AggregateRoot<Guid>
 
     private void ApplyBulkDiscountIfEligible()
     {
-        if (_purchasedTickets.Count >= 3 && !IsDiscountApplied) IsDiscountApplied = true;
+        if (_TicketSales.Count >= 3 && !IsDiscountApplied) IsDiscountApplied = true;
     }
 
     public Price GetTotalPrice()
     {
-        var baseTotal = _purchasedTickets
+        var baseTotal = _TicketSales
             .Select(t => t.Price)
             .Aggregate((total, next) => total + next);
 
@@ -74,7 +75,7 @@ public class MovieTicket : AggregateRoot<Guid>
 
     public void MarkTicketsAsUsed()
     {
-        foreach (var ticket in _purchasedTickets)
+        foreach (var ticket in _TicketSales)
         {
             ticket.MarkAsUsed();
             AddDomainEvent(new TicketUsedEvent(ticket.Id, CustomerId!.Value, DateTime.UtcNow));
@@ -83,6 +84,6 @@ public class MovieTicket : AggregateRoot<Guid>
 
     public bool HasTicketForSeat(SeatNumber seatNumber)
     {
-        return _purchasedTickets.Any(t => t.SeatNumber == seatNumber);
+        return _TicketSales.Any(t => t.SeatNumber == seatNumber);
     }
 }
