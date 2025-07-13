@@ -2,9 +2,6 @@
 
 public class Price : ValueObject
 {
-    public decimal Amount { get; }
-    public string Currency { get; }
-
     public Price(decimal amount, string currency)
     {
         if (amount < 0)
@@ -17,13 +14,19 @@ public class Price : ValueObject
         Currency = currency.ToUpperInvariant(); // Örn: "TRY", "USD"
     }
 
+    public decimal Amount { get; }
+    public string Currency { get; }
+
     protected override IEnumerable<object?> GetEqualityComponents()
     {
         yield return Amount;
         yield return Currency;
     }
 
-    public override string ToString() => $"{Amount} {Currency}";
+    public override string ToString()
+    {
+        return $"{Amount} {Currency}";
+    }
 
     public static Price operator +(Price a, Price b)
     {

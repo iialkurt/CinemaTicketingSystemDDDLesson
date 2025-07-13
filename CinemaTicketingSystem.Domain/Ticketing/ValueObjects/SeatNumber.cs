@@ -2,8 +2,6 @@
 
 public class SeatNumber : ValueObject
 {
-    public string Value { get; }
-
     public SeatNumber(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -12,10 +10,15 @@ public class SeatNumber : ValueObject
         Value = value.ToUpperInvariant();
     }
 
+    public string Value { get; }
+
     protected override IEnumerable<object?> GetEqualityComponents()
     {
         yield return Value;
     }
 
-    public override string ToString() => Value;
+    public override string ToString()
+    {
+        return Value;
+    }
 }

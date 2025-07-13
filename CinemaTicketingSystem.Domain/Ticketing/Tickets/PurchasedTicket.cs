@@ -1,0 +1,50 @@
+﻿using CinemaTicketingSystem.Domain.Ticketing.Tickets.Exceptions;
+
+namespace CinemaTicketingSystem.Domain.Ticketing.Tickets;
+
+public class PurchasedTicket : Entity<Guid>
+{
+    internal PurchasedTicket(SeatNumber seatNumber, Price price)
+    {
+        Id = Guid.CreateVersion7();
+        SeatNumber = seatNumber;
+        Price = price;
+        TicketCode = GenerateTicketCode();
+        IsUsed = false;
+    }
+
+    public SeatNumber SeatNumber { get; }
+    public Price Price { get; }
+    public string TicketCode { get; }
+    public bool IsUsed { get; private set; }
+    public DateTime? UsedAt { get; private set; }
+
+    public bool CanBeUsed()
+    {
+        return !IsUsed;
+    }
+
+    public string GetTicketInfo()
+    {
+        return $"Ticket: {TicketCode}, Seat: {SeatNumber}, Price: {Price}";
+    }
+
+    private static string GenerateTicketCode()
+    {
+        const string chars = "abcdefghijklmnopqrstuvwxyz";
+        var random = new Random();
+
+        return new string(Enumerable.Range(0, 6)
+            .Select(_ => chars[random.Next(chars.Length)])
+            .ToArray());
+    }
+
+    public void MarkAsUsed()
+    {
+        if (IsUsed)
+            throw new TicketAlreadyUsedException(TicketCode);
+
+        IsUsed = true;
+        UsedAt = DateTime.UtcNow;
+    }
+}

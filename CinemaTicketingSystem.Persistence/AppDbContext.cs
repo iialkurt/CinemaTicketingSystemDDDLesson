@@ -6,17 +6,12 @@ internal class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
-
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        foreach (var mutableProperty in entityType.GetProperties())
         {
-
-            foreach (var mutableProperty in entityType.GetProperties())
-            {
-                if (!ReferenceEquals(mutableProperty.ClrType, typeof(decimal))) continue;
-                mutableProperty.SetPrecision(9);
-                mutableProperty.SetScale(2);
-            }
+            if (!ReferenceEquals(mutableProperty.ClrType, typeof(decimal))) continue;
+            mutableProperty.SetPrecision(9);
+            mutableProperty.SetScale(2);
         }
 
 
