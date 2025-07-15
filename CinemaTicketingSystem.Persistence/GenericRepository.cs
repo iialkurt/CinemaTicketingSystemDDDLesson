@@ -1,11 +1,11 @@
-﻿using System.Linq.Expressions;
-using CinemaTicketingSystem.Domain;
+﻿using CinemaTicketingSystem.Domain;
 using CinemaTicketingSystem.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace CinemaTicketingSystem.Persistence;
 
-internal class GenericRepository<TId, TEntity> : IGenericRepository<TId, TEntity> where TEntity : Entity<TId>
+public class GenericRepository<TId, TEntity> : IGenericRepository<TId, TEntity> where TEntity : Entity<TId>
 {
     protected readonly AppDbContext _context;
     private readonly DbSet<TEntity> _dbSet;

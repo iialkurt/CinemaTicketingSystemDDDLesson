@@ -1,6 +1,16 @@
-@CinemaTicketingSystem.Host_HostAddress = http://localhost:5094
+@HostAddress = http://localhost:5094
 
-GET {{CinemaTicketingSystem.Host_HostAddress}}/weatherforecast/
+###
+POST {{HostAddress}}/api/v1/movies
 Accept: application/json
+Content-Type: application/json
+{
+  
+  "title": "Inception",
+  "originalTitle": "Inception",
+  "description": "A mind-bending thriller that delves into the world of dreams.",
+  "EarliestShowingDate": "2026-07-16T00:00:00Z",
+  "duration": "02:30:00"
 
+}
 ###

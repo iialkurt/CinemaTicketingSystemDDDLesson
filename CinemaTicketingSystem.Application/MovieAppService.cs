@@ -7,8 +7,8 @@ using CinemaTicketingSystem.Domain.Repositories;
 
 namespace CinemaTicketingSystem.Application;
 
-internal class MovieAppService(IMovieRepository movieRepository, IUnitOfWork unitOfWork)
-    : IScopedDependency, IMovieAppService
+public class MovieAppService(IMovieRepository movieRepository, IUnitOfWork unitOfWork)
+    : IMovieAppService, IScopedDependency
 {
     public async Task<AppResult<CreateMovieResponse>> CreateAsync(CreateMovieRequest request)
     {

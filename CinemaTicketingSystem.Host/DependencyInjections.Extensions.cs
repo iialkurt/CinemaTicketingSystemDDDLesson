@@ -1,9 +1,9 @@
-﻿using System.Reflection;
-using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
+﻿using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Domain.Repositories;
 using CinemaTicketingSystem.Persistence;
 using CinemaTicketingSystem.Persistence.Accounts;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace CinemaTicketingSystem.Host;
 
@@ -32,7 +32,7 @@ public static class ServiceCollectionExtensions
         }).AddEntityFrameworkStores<AppDbContext>();
 
 
-        services.AddScoped(typeof(IGenericRepository<,>), typeof(IGenericRepository<,>));
+        services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.RegisterRepositories();

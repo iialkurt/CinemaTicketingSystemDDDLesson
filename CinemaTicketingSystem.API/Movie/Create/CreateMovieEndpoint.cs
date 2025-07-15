@@ -4,6 +4,7 @@ using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Movie;
 using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Movie.Create;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace CinemaTicketingSystem.API.Movie.Create;
@@ -12,8 +13,8 @@ public static class CreateMovieEndpoint
 {
     public static RouteGroupBuilder CreateMovieGroupItemEndpoint(this RouteGroupBuilder group)
     {
-        group.MapPost("/item",
-                async (CreateMovieRequest request, IMovieAppService movieAppService) =>
+        group.MapPost("/",
+                async (CreateMovieRequest request, [FromServices] IMovieAppService movieAppService) =>
                     (await movieAppService.CreateAsync(request)).ToGenericResult())
             .WithName("CreateMovie")
             .MapToApiVersion(1, 0)
