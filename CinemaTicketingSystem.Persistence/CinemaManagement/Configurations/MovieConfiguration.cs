@@ -40,8 +40,5 @@ public class MovieConfiguration : IEntityTypeConfiguration<Movie>
             duration.Ignore(d => d.Hours);
             duration.Ignore(d => d.RemainingMinutes);
         });
-
-
-
     }
 }

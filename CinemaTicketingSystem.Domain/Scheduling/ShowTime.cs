@@ -2,11 +2,9 @@
 
 public class ShowTime : Entity<Guid>
 {
-    public TimeSpan StartTime { get; private set; }
-    public TimeSpan EndTime { get; private set; }
-    public TimeSpan Duration => EndTime - StartTime;
-    public virtual MovieSchedule MovieSchedule { get; set; } = null!;
-    private ShowTime() { }
+    private ShowTime()
+    {
+    }
 
     public ShowTime(TimeSpan startTime, TimeSpan endTime)
     {
@@ -22,6 +20,11 @@ public class ShowTime : Entity<Guid>
         StartTime = startTime;
         EndTime = endTime;
     }
+
+    public TimeSpan StartTime { get; private set; }
+    public TimeSpan EndTime { get; private set; }
+    public TimeSpan Duration => EndTime - StartTime;
+    public virtual MovieSchedule MovieSchedule { get; set; } = null!;
 
     // Factory methods
     public static ShowTime Create(int startHour, int startMinute, int endHour, int endMinute)
@@ -90,7 +93,6 @@ public class ShowTime : Entity<Guid>
     {
         return GetTimeRange();
     }
-
 
 
     //    // Farklı oluşturma yöntemleri

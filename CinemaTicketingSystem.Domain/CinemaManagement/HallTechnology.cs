@@ -3,7 +3,6 @@ namespace CinemaTicketingSystem.Domain.CinemaManagement;
 [Flags]
 public enum HallTechnology
 {
-
     None = 0,
     Standard = 1,
     IMAX = 2,
@@ -12,5 +11,4 @@ public enum HallTechnology
     ScreenX = 16,
     DolbyAtmos = 32,
     DolbyCinema = 64
-
 }

@@ -1,6 +1,5 @@
-﻿namespace CinemaTicketingSystem.Application.Abstraction
+﻿namespace CinemaTicketingSystem.Application.Abstraction;
+
+public struct ApplicationAbstractionAssembly
 {
-    public struct ApplicationAbstractionAssembly
-    {
-    }
 }

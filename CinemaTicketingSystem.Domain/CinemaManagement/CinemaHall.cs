@@ -2,12 +2,22 @@
 
 public class CinemaHall : Entity<Guid>
 {
+    private readonly List<Seat> seats = [];
+
+    private CinemaHall()
+    {
+    }
+
+    // Constructor
+    public CinemaHall(string name, HallTechnology supportedTechnologies = HallTechnology.Standard)
+    {
+        Name = name;
+        SupportedTechnologies = supportedTechnologies;
+    }
 
 
     public string? Name { get; private set; }
     public HallTechnology SupportedTechnologies { get; private set; } = HallTechnology.Standard;
-
-    private readonly List<Seat> seats = [];
     public virtual IReadOnlyList<Seat> Seats => seats.AsReadOnly();
     public bool IsOperational { get; private set; } = true;
 
@@ -18,14 +28,6 @@ public class CinemaHall : Entity<Guid>
 
 
     public virtual Cinema Cinema { get; set; } = null!;
-    private CinemaHall() { }
-
-    // Constructor
-    public CinemaHall(string name, HallTechnology supportedTechnologies = HallTechnology.Standard)
-    {
-        Name = name;
-        SupportedTechnologies = supportedTechnologies;
-    }
 
     // Technology management methods
     public void AddTechnology(HallTechnology technology)
@@ -89,7 +91,6 @@ public class CinemaHall : Entity<Guid>
 
     public bool CanShowMovie(HallTechnology movieRequiredTechnology)
     {
-
         if (movieRequiredTechnology == HallTechnology.None || movieRequiredTechnology == HallTechnology.Standard)
             return true;
 
@@ -143,7 +144,7 @@ public class CinemaHall : Entity<Guid>
     public Seat GetSeat(string row, int number)
     {
         return seats.FirstOrDefault(s => s.Row == row && s.Number == number)
-            ?? throw new InvalidOperationException($"Seat {row}{number} not found");
+               ?? throw new InvalidOperationException($"Seat {row}{number} not found");
     }
 
     public bool HasSeat(string row, int number)

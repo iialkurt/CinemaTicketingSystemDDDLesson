@@ -79,6 +79,7 @@ public class Address : ValueObject
     {
         return string.Equals(Country, other.Country, StringComparison.OrdinalIgnoreCase);
     }
+
     public bool HasDescription()
     {
         return !string.IsNullOrWhiteSpace(Description);
@@ -93,7 +94,8 @@ public class Address : ValueObject
                !string.IsNullOrWhiteSpace(PostalCode);
     }
 
-    public static Address Create(string country, string city, string district, string street, string postalCode, string? description = null)
+    public static Address Create(string country, string city, string district, string street, string postalCode,
+        string? description = null)
     {
         return new Address(country, city, district, street, postalCode, description);
     }

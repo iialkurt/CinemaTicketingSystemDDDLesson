@@ -2,15 +2,12 @@
 
 public class Cinema : AuditedAggregateRoot<Guid>
 {
-
-    public string? Name { get; private set; }
-    public Address? Address { get; private set; }
-
     private readonly List<CinemaHall> cinemaHalls = [];
-    public virtual IReadOnlyCollection<CinemaHall> Halls => cinemaHalls.AsReadOnly();
 
 
-    public Cinema() { }
+    public Cinema()
+    {
+    }
 
 
     // Constructor
@@ -20,6 +17,10 @@ public class Cinema : AuditedAggregateRoot<Guid>
         Name = name;
         Address = address;
     }
+
+    public string? Name { get; private set; }
+    public Address? Address { get; private set; }
+    public virtual IReadOnlyCollection<CinemaHall> Halls => cinemaHalls.AsReadOnly();
 
     // Business behavior methods
     public void UpdateName(string newName)

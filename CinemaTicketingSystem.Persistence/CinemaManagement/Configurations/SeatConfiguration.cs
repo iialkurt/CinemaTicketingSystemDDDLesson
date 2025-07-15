@@ -32,9 +32,5 @@ public class SeatConfiguration : IEntityTypeConfiguration<Seat>
         builder.Property(s => s.IsAvailable)
             .IsRequired()
             .HasDefaultValue(true);
-
-
-
-
     }
 }

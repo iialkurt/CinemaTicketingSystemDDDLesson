@@ -15,7 +15,11 @@ public class Duration : ValueObject
     public int Minutes { get; }
     public int Hours => Minutes / 60;
     public int RemainingMinutes => Minutes % 60;
-    public TimeSpan ToTimeSpan() => TimeSpan.FromMinutes(Minutes);
+
+    public TimeSpan ToTimeSpan()
+    {
+        return TimeSpan.FromMinutes(Minutes);
+    }
 
     public string GetFormattedDuration()
     {
@@ -27,17 +31,38 @@ public class Duration : ValueObject
             : $"{Hours}h {RemainingMinutes}m";
     }
 
-    public bool IsShortMovie() => Minutes < 90;
-    public bool IsFeatureLength() => Minutes >= 90;
-    public bool IsLongMovie() => Minutes > 180;
+    public bool IsShortMovie()
+    {
+        return Minutes < 90;
+    }
+
+    public bool IsFeatureLength()
+    {
+        return Minutes >= 90;
+    }
+
+    public bool IsLongMovie()
+    {
+        return Minutes > 180;
+    }
 
     protected override IEnumerable<object?> GetEqualityComponents()
     {
         yield return Minutes;
     }
 
-    public static Duration FromHours(int hours) => new(hours * 60);
-    public static Duration FromHoursAndMinutes(int hours, int minutes) => new(hours * 60 + minutes);
+    public static Duration FromHours(int hours)
+    {
+        return new Duration(hours * 60);
+    }
 
-    public override string ToString() => GetFormattedDuration();
+    public static Duration FromHoursAndMinutes(int hours, int minutes)
+    {
+        return new Duration(hours * 60 + minutes);
+    }
+
+    public override string ToString()
+    {
+        return GetFormattedDuration();
+    }
 }

@@ -80,11 +80,6 @@ public class CinemaConfiguration : IEntityTypeConfiguration<Cinema>
         builder.Metadata.FindNavigation(nameof(Cinema.Halls))!.SetField("cinemaHalls");
 
 
-
         builder.HasQueryFilter(c => !c.IsDeleted);
-
-
-
-
     }
 }

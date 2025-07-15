@@ -1,6 +1,5 @@
-﻿namespace CinemaTicketingSystem.Application
+﻿namespace CinemaTicketingSystem.Application;
+
+public struct ApplicationAssembly
 {
-    public struct ApplicationAssembly
-    {
-    }
 }
