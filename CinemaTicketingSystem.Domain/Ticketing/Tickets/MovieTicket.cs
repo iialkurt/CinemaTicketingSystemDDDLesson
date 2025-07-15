@@ -8,22 +8,25 @@ public class MovieTicket : AggregateRoot<Guid>
 {
     private const int MaxTicketsPerPurchase = 10;
 
-
-    public Guid? CustomerId { get; private set; }
-    public Guid MovieSessionId { get; private set; }
-    public bool IsDiscountApplied { get; private set; }
-
     private readonly List<TicketSale> ticketSales = [];
 
-    public virtual IReadOnlyCollection<TicketSale> TicketSales => ticketSales.AsReadOnly();
+    private MovieTicket()
+    {
+    }
 
-    private MovieTicket() { }
     public MovieTicket(Guid movieSessionId, Guid customerId)
     {
         Id = Guid.CreateVersion7();
         MovieSessionId = movieSessionId;
         CustomerId = customerId;
     }
+
+
+    public Guid? CustomerId { get; }
+    public Guid MovieSessionId { get; private set; }
+    public bool IsDiscountApplied { get; private set; }
+
+    public virtual IReadOnlyCollection<TicketSale> TicketSales => ticketSales.AsReadOnly();
 
     public void AddTicket(TicketSale ticket)
     {

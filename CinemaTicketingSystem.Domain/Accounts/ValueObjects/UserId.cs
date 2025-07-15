@@ -2,8 +2,6 @@ namespace CinemaTicketingSystem.Domain.Accounts.ValueObjects;
 
 public class UserId : ValueObject
 {
-    public Guid Value { get; }
-
     public UserId(Guid value)
     {
         if (value == Guid.Empty)
@@ -12,9 +10,17 @@ public class UserId : ValueObject
         Value = value;
     }
 
-    public static UserId New() => new(Guid.CreateVersion7());
+    public Guid Value { get; }
 
-    public static UserId From(Guid value) => new(value);
+    public static UserId New()
+    {
+        return new UserId(Guid.CreateVersion7());
+    }
+
+    public static UserId From(Guid value)
+    {
+        return new UserId(value);
+    }
 
     public static UserId From(string value)
     {
@@ -29,8 +35,18 @@ public class UserId : ValueObject
         yield return Value;
     }
 
-    public override string ToString() => Value.ToString();
+    public override string ToString()
+    {
+        return Value.ToString();
+    }
 
-    public static implicit operator Guid(UserId userId) => userId.Value;
-    public static implicit operator UserId(Guid value) => new(value);
+    public static implicit operator Guid(UserId userId)
+    {
+        return userId.Value;
+    }
+
+    public static implicit operator UserId(Guid value)
+    {
+        return new UserId(value);
+    }
 }

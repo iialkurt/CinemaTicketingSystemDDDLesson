@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CinemaTicketingSystem.Persistence.Accounts
+namespace CinemaTicketingSystem.Persistence.Accounts;
+
+public class AppRole : IdentityRole<Guid>
 {
-    public class AppRole : IdentityRole<Guid>
-    {
-    }
 }

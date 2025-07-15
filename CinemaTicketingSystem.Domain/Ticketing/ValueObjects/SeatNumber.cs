@@ -2,9 +2,6 @@
 
 public class SeatNumber : ValueObject
 {
-    public string Row { get; }
-    public int Number { get; }
-
     public SeatNumber(string row, int number)
     {
         if (string.IsNullOrWhiteSpace(row))
@@ -16,11 +13,17 @@ public class SeatNumber : ValueObject
         Number = number;
     }
 
+    public string Row { get; }
+    public int Number { get; }
+
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Row;
         yield return Number;
     }
 
-    public override string ToString() => $"{Row}{Number}";
+    public override string ToString()
+    {
+        return $"{Row}{Number}";
+    }
 }

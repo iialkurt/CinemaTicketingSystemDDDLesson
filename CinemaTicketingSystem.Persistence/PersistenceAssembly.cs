@@ -1,6 +1,5 @@
-﻿namespace CinemaTicketingSystem.Persistence
+﻿namespace CinemaTicketingSystem.Persistence;
+
+public struct PersistenceAssembly
 {
-    public struct PersistenceAssembly
-    {
-    }
 }

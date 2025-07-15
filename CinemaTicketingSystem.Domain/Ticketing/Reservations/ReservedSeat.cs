@@ -9,11 +9,15 @@ public class ReservedSeat : Entity<Guid>
         Id = Guid.CreateVersion7();
         SeatNumber = seatNumber;
     }
-    private ReservedSeat() { }
+
+    private ReservedSeat()
+    {
+    }
 
     public SeatNumber SeatNumber { get; }
 
     public virtual SeatReservation SeatReservation { get; set; } = null!;
+
     public string GetSeatInfo()
     {
         return $"Seat: {SeatNumber}";

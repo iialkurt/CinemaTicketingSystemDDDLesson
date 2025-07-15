@@ -8,8 +8,6 @@ public class Email : ValueObject
         @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
         RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-    public string Value { get; }
-
     public Email(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -26,10 +24,15 @@ public class Email : ValueObject
         Value = normalizedEmail;
     }
 
-    public static Email From(string value) => new(value);
+    public string Value { get; }
 
     public string Domain => Value.Split('@')[1];
     public string LocalPart => Value.Split('@')[0];
+
+    public static Email From(string value)
+    {
+        return new Email(value);
+    }
 
     private static bool IsValidEmail(string email)
     {
@@ -51,8 +54,18 @@ public class Email : ValueObject
         yield return Value;
     }
 
-    public override string ToString() => Value;
+    public override string ToString()
+    {
+        return Value;
+    }
 
-    public static implicit operator string(Email email) => email.Value;
-    public static implicit operator Email(string value) => new(value);
+    public static implicit operator string(Email email)
+    {
+        return email.Value;
+    }
+
+    public static implicit operator Email(string value)
+    {
+        return new Email(value);
+    }
 }

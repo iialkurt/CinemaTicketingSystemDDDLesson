@@ -4,7 +4,6 @@ namespace CinemaTicketingSystem.Domain.Accounts;
 
 public class User : Entity<UserId>
 {
-
     internal User(Email email, string firstName, string lastName)
     {
         Id = UserId.New();
@@ -23,7 +22,6 @@ public class User : Entity<UserId>
     public DateTime? UpdatedAt { get; private set; }
 
     public string FullName => $"{FirstName} {LastName}";
-
 
 
     public void UpdateProfile(string firstName, string lastName)

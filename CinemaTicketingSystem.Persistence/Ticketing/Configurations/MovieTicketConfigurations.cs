@@ -2,37 +2,29 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CinemaTicketingSystem.Persistence.Ticketing.Configurations
+namespace CinemaTicketingSystem.Persistence.Ticketing.Configurations;
+
+internal class MovieTicketConfigurations : IEntityTypeConfiguration<MovieTicket>
 {
-    internal class MovieTicketConfigurations : IEntityTypeConfiguration<MovieTicket>
+    public void Configure(EntityTypeBuilder<MovieTicket> builder)
     {
-        public void Configure(EntityTypeBuilder<MovieTicket> builder)
-        {
-            // Configure primary key and table
-            builder.ToTable("MovieTickets", "Ticketing");
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).ValueGeneratedNever();
+        // Configure primary key and table
+        builder.ToTable("MovieTickets", "Ticketing");
+        builder.HasKey(x => x.Id);
+        builder.Property(x => x.Id).ValueGeneratedNever();
 
-            // Configure properties
-            builder.Property(x => x.CustomerId);
-            builder.Property(x => x.MovieSessionId);
-            builder.Property(x => x.IsDiscountApplied);
+        // Configure properties
+        builder.Property(x => x.CustomerId);
+        builder.Property(x => x.MovieSessionId);
+        builder.Property(x => x.IsDiscountApplied);
 
 
+        //builder.Metadata.FindNavigation(nameof(MovieTicket.TicketSales))!.SetPropertyAccessMode(
+        //    PropertyAccessMode.Field);
+
+        builder.Metadata.FindNavigation(nameof(MovieTicket.TicketSales))!.SetField("ticketSales");
 
 
-            //builder.Metadata.FindNavigation(nameof(MovieTicket.TicketSales))!.SetPropertyAccessMode(
-            //    PropertyAccessMode.Field);
-
-            builder.Metadata.FindNavigation(nameof(MovieTicket.TicketSales))!.SetField("ticketSales");
-
-
-
-            builder.HasMany(x => x.TicketSales).WithOne(y => y.MovieTicket);
-
-
-
-
-        }
+        builder.HasMany(x => x.TicketSales).WithOne(y => y.MovieTicket);
     }
 }

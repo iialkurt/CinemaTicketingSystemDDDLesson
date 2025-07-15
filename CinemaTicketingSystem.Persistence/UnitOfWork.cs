@@ -1,13 +1,11 @@
 ﻿using CinemaTicketingSystem.Domain.Repositories;
 
-namespace CinemaTicketingSystem.Persistence
-{
-    internal class UnitOfWork(AppDbContext context) : IUnitOfWork
-    {
-        public Task<int> SaveChangesAsync()
-        {
+namespace CinemaTicketingSystem.Persistence;
 
-            return context.SaveChangesAsync();
-        }
+internal class UnitOfWork(AppDbContext context) : IUnitOfWork
+{
+    public Task<int> SaveChangesAsync()
+    {
+        return context.SaveChangesAsync();
     }
 }
