@@ -19,7 +19,7 @@ public class SeatReservation : AggregateRoot<Guid>
 
     private readonly List<ReservedSeat> reservedSeats = [];
 
-    public IReadOnlyCollection<ReservedSeat> ReservedSeats => reservedSeats.AsReadOnly();
+    public virtual IReadOnlyCollection<ReservedSeat> ReservedSeats => reservedSeats.AsReadOnly();
 
 
     private SeatReservation() { }

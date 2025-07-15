@@ -1,10 +1,50 @@
+using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
+using CinemaTicketingSystem.Persistence;
+using CinemaTicketingSystem.Persistence.UserManagement;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using CinemaTicketingSystem.Application.DependencyInjections;
 
 namespace CinemaTicketingSystem.Host;
 
 public static class ServiceCollectionExtensions
 {
+
+
+
+    public static IServiceCollection RegisterPersistenceServices(this IServiceCollection services, IConfiguration configuration)
+    {
+
+        services.AddDbContext<AppDbContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("CinemaTicketingDb"), options =>
+            {
+                options.MigrationsAssembly(typeof(PersistenceAssembly).Assembly);
+            });
+        });
+
+
+
+        services.AddIdentity<AppUser, AppRole>(options =>
+        {
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredLength = 6;
+            options.Password.RequireNonAlphanumeric = false;
+        }).AddEntityFrameworkStores<AppDbContext>();
+
+
+        return services;
+    }
+
+
+
+
+
+
+
+
+
     public static IServiceCollection AddWithConventions(this IServiceCollection services, params Assembly[] assemblies)
     {
         var allTypes = assemblies

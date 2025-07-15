@@ -15,7 +15,7 @@ public class MovieTicket : AggregateRoot<Guid>
 
     private readonly List<TicketSale> ticketSales = [];
 
-    public IReadOnlyCollection<TicketSale> TicketSales => ticketSales.AsReadOnly();
+    public virtual IReadOnlyCollection<TicketSale> TicketSales => ticketSales.AsReadOnly();
 
     private MovieTicket() { }
     public MovieTicket(Guid movieSessionId, Guid customerId)

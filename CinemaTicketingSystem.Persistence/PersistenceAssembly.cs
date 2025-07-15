@@ -1,6 +1,6 @@
 ﻿namespace CinemaTicketingSystem.Persistence
 {
-    internal struct PersistenceAssembly
+    public struct PersistenceAssembly
     {
     }
 }

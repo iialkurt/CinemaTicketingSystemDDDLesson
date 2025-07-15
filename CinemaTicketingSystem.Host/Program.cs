@@ -1,4 +1,4 @@
-using CinemaTicketingSystem.Persistence;
+using CinemaTicketingSystem.Host;
 
 var builder = WebApplication.CreateBuilder(args);
 
