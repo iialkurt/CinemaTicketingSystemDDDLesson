@@ -13,9 +13,9 @@ public class MovieTicket : AggregateRoot<Guid>
     public Guid MovieSessionId { get; private set; }
     public bool IsDiscountApplied { get; private set; }
 
-    private List<TicketSale> _TicketSales { get; set; } = [];
+    private readonly List<TicketSale> ticketSales = [];
 
-    public IReadOnlyCollection<TicketSale> TicketSales => _TicketSales.AsReadOnly();
+    public IReadOnlyCollection<TicketSale> TicketSales => ticketSales.AsReadOnly();
 
     private MovieTicket() { }
     public MovieTicket(Guid movieSessionId, Guid customerId)
@@ -27,24 +27,24 @@ public class MovieTicket : AggregateRoot<Guid>
 
     public void AddTicket(TicketSale ticket)
     {
-        if (_TicketSales.Count >= MaxTicketsPerPurchase)
+        if (ticketSales.Count >= MaxTicketsPerPurchase)
             throw new MaxTicketLimitExceededException(MaxTicketsPerPurchase);
 
-        if (_TicketSales.Any(t => t.SeatNumber == ticket.SeatNumber))
+        if (ticketSales.Any(t => t.SeatNumber == ticket.SeatNumber))
             throw new DuplicateSeatException(ticket.SeatNumber);
 
-        _TicketSales.Add(ticket);
+        ticketSales.Add(ticket);
         ApplyBulkDiscountIfEligible();
         AddDomainEvent(new TicketPurchasedEvent(ticket.Id, CustomerId!.Value, ticket.Price));
     }
 
     public void RemoveTicket(SeatNumber seatNumber)
     {
-        var ticket = _TicketSales.FirstOrDefault(t => t.SeatNumber == seatNumber);
+        var ticket = ticketSales.FirstOrDefault(t => t.SeatNumber == seatNumber);
         if (ticket is null)
             throw new TicketNotFoundException(seatNumber);
 
-        _TicketSales.Remove(ticket);
+        ticketSales.Remove(ticket);
         AddDomainEvent(new TicketReleasedEvent(ticket.Id));
 
         ApplyBulkDiscountIfEligible();
@@ -58,12 +58,12 @@ public class MovieTicket : AggregateRoot<Guid>
 
     private void ApplyBulkDiscountIfEligible()
     {
-        if (_TicketSales.Count >= 3 && !IsDiscountApplied) IsDiscountApplied = true;
+        if (ticketSales.Count >= 3 && !IsDiscountApplied) IsDiscountApplied = true;
     }
 
     public Price GetTotalPrice()
     {
-        var baseTotal = _TicketSales
+        var baseTotal = ticketSales
             .Select(t => t.Price)
             .Aggregate((total, next) => total + next);
 
@@ -75,7 +75,7 @@ public class MovieTicket : AggregateRoot<Guid>
 
     public void MarkTicketsAsUsed()
     {
-        foreach (var ticket in _TicketSales)
+        foreach (var ticket in ticketSales)
         {
             ticket.MarkAsUsed();
             AddDomainEvent(new TicketUsedEvent(ticket.Id, CustomerId!.Value, DateTime.UtcNow));
@@ -84,6 +84,6 @@ public class MovieTicket : AggregateRoot<Guid>
 
     public bool HasTicketForSeat(SeatNumber seatNumber)
     {
-        return _TicketSales.Any(t => t.SeatNumber == seatNumber);
+        return ticketSales.Any(t => t.SeatNumber == seatNumber);
     }
 }

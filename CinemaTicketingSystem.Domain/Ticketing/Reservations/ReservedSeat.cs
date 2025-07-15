@@ -9,6 +9,7 @@ public class ReservedSeat : Entity<Guid>
         Id = Guid.CreateVersion7();
         SeatNumber = seatNumber;
     }
+    private ReservedSeat() { }
 
     public SeatNumber SeatNumber { get; }
 

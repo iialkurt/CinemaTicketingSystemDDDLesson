@@ -13,6 +13,7 @@ public class TicketSale : Entity<Guid>
         TicketCode = GenerateTicketCode();
         IsUsed = false;
     }
+    private TicketSale() { }
 
 
     // TicketSale tek başına eklenmesin diye

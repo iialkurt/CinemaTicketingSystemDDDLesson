@@ -21,14 +21,14 @@ namespace CinemaTicketingSystem.Persistence.Ticketing.Configurations
 
 
 
-            builder.Metadata.FindNavigation(nameof(MovieTicket.TicketSales))!.SetPropertyAccessMode(
-                PropertyAccessMode.Field);
+            //builder.Metadata.FindNavigation(nameof(MovieTicket.TicketSales))!.SetPropertyAccessMode(
+            //    PropertyAccessMode.Field);
 
-            //builder.Metadata.FindNavigation(nameof(MovieTicket.PurchasedTickets))!.SetField("_purchasedTickets");
+            builder.Metadata.FindNavigation(nameof(MovieTicket.TicketSales))!.SetField("ticketSales");
 
 
 
-            //builder.HasMany(x => x.TicketSales).WithOne(y => y.MovieTicket);
+            builder.HasMany(x => x.TicketSales).WithOne(y => y.MovieTicket);
 
 
 

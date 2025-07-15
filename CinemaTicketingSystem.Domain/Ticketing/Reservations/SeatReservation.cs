@@ -6,6 +6,9 @@ namespace CinemaTicketingSystem.Domain.Ticketing.Reservations;
 
 public class SeatReservation : AggregateRoot<Guid>
 {
+
+
+
     private const int MaxSeatsPerReservation = 10;
     private const int ReservationExpiryMinutes = 30;
     public Guid CustomerId { get; private set; }
@@ -14,9 +17,13 @@ public class SeatReservation : AggregateRoot<Guid>
     public DateTime ExpirationTime { get; private set; }
     public ReservationStatus Status { get; private set; }
 
-    private List<ReservedSeat> reservedSeats { get; } = [];
+    private readonly List<ReservedSeat> reservedSeats = [];
 
     public IReadOnlyCollection<ReservedSeat> ReservedSeats => reservedSeats.AsReadOnly();
+
+
+    private SeatReservation() { }
+
 
     public void Create(Guid movieSessionId, Guid customerId)
     {
