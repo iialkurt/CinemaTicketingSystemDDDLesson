@@ -1,21 +1,18 @@
-﻿
-
-using CinemaTicketingSystem.Domain.CinemaManagement.DomainEvents;
+﻿using CinemaTicketingSystem.Domain.CinemaManagement.DomainEvents;
 
 namespace CinemaTicketingSystem.Domain.CinemaManagement
 {
     public class Movie : AggregateRoot<Guid>
     {
-
         public string Title { get; private set; } = null!;
         public string? OriginalTitle { get; private set; }
         public string? Description { get; private set; }
         public Duration Duration { get; private set; } = null!;
+        public DateTime? EarliestShowingDate { get; private set; }
         public DateTime? ShowingStartDate { get; private set; }
         public DateTime? ShowingEndDate { get; private set; }
-
-
         public bool IsCurrentlyShowing { get; private set; }
+
         private Movie() { }
 
         public Movie(string title, Duration duration)
@@ -23,6 +20,46 @@ namespace CinemaTicketingSystem.Domain.CinemaManagement
             Id = Guid.CreateVersion7();
             SetTitle(title);
             Duration = duration ?? throw new ArgumentNullException(nameof(duration));
+        }
+
+        // Earliest Showing Date Management
+        public void SetEarliestShowingDate(DateTime earliestDate)
+        {
+            EarliestShowingDate = earliestDate.Date;
+
+            // Eğer mevcut gösterim tarihi bu tarihten erken ise uyarı ver
+            if (ShowingStartDate.HasValue && ShowingStartDate < EarliestShowingDate)
+            {
+                throw new InvalidOperationException(
+                    $"Current showing start date ({ShowingStartDate:yyyy-MM-dd}) cannot be earlier than earliest showing date ({EarliestShowingDate:yyyy-MM-dd})");
+            }
+        }
+
+        public void ClearEarliestShowingDate()
+        {
+            EarliestShowingDate = null;
+        }
+
+        public bool CanStartShowingOn(DateTime date)
+        {
+            if (!EarliestShowingDate.HasValue)
+                return true;
+
+            return date.Date >= EarliestShowingDate.Value;
+        }
+
+        public int GetDaysUntilEarliestShowing()
+        {
+            if (!EarliestShowingDate.HasValue)
+                return 0;
+
+            var days = (EarliestShowingDate.Value - DateTime.Today).Days;
+            return Math.Max(0, days);
+        }
+
+        public bool IsAvailableForImmediateShowing()
+        {
+            return !EarliestShowingDate.HasValue || DateTime.Today >= EarliestShowingDate.Value;
         }
 
         public void SetCurrentlyShowing(bool isShowing)
@@ -37,7 +74,6 @@ namespace CinemaTicketingSystem.Domain.CinemaManagement
             {
                 if (ShowingStartDate.HasValue) EndShowing();
             }
-
         }
 
         // Title Management Helper Methods
@@ -60,6 +96,7 @@ namespace CinemaTicketingSystem.Domain.CinemaManagement
                 ? $"{Title} ({OriginalTitle})"
                 : Title;
         }
+
         public bool HasOriginalTitle() => !string.IsNullOrWhiteSpace(OriginalTitle);
 
         public void SetDescription(string? description)
@@ -110,16 +147,22 @@ namespace CinemaTicketingSystem.Domain.CinemaManagement
         // Showing Status Management
         public void StartShowing(DateTime? startDate = null)
         {
+            var proposedStartDate = startDate ?? DateTime.UtcNow;
 
-            ShowingStartDate = startDate ?? DateTime.UtcNow;
+            // En erken gösterim tarihini kontrol et
+            if (!CanStartShowingOn(proposedStartDate))
+            {
+                throw new InvalidOperationException(
+                    $"Movie cannot start showing on {proposedStartDate:yyyy-MM-dd}. Earliest allowed date is {EarliestShowingDate:yyyy-MM-dd}");
+            }
 
+            ShowingStartDate = proposedStartDate;
             AddDomainEvent(new MovieShowingStartedEvent(Id, Title, ShowingStartDate.Value));
         }
 
         public void EndShowing(DateTime? endDate = null)
         {
             ShowingEndDate = endDate ?? DateTime.UtcNow;
-
             AddDomainEvent(new MovieShowingEndedEvent(Id, Title, ShowingEndDate.Value));
         }
 
@@ -131,12 +174,29 @@ namespace CinemaTicketingSystem.Domain.CinemaManagement
             if (endDate.HasValue && endDate <= startDate)
                 throw new ArgumentException("End date must be after start date", nameof(endDate));
 
+            // En erken gösterim tarihini kontrol et
+            if (!CanStartShowingOn(startDate))
+            {
+                throw new InvalidOperationException(
+                    $"Showing cannot start on {startDate:yyyy-MM-dd}. Earliest allowed date is {EarliestShowingDate:yyyy-MM-dd}");
+            }
+
             ShowingStartDate = startDate.Date;
             ShowingEndDate = endDate?.Date;
-
         }
 
+        // Query Methods
+        public string GetShowingAvailabilityStatus()
+        {
+            if (!EarliestShowingDate.HasValue)
+                return "Available for immediate showing";
 
+            if (DateTime.Today >= EarliestShowingDate.Value)
+                return "Available for showing";
+
+            var daysRemaining = GetDaysUntilEarliestShowing();
+            return $"Available for showing in {daysRemaining} days ({EarliestShowingDate:MMM dd, yyyy})";
+        }
 
         public bool IsShowingOn(DateTime date)
         {
@@ -159,6 +219,4 @@ namespace CinemaTicketingSystem.Domain.CinemaManagement
             return movieStart <= endDate.Date && movieEnd >= startDate.Date;
         }
     }
-
-    // Domain Events
 }
