@@ -2,14 +2,22 @@
 
 public class CinemaHall : Entity<Guid>
 {
-    private readonly List<Seat> seats = [];
+
 
     public string? Name { get; private set; }
-    public int Capacity => Seats.Count;
-    public IReadOnlyList<Seat> Seats => seats.AsReadOnly();
-    public bool IsOperational { get; private set; } = true;
     public HallTechnology SupportedTechnologies { get; private set; } = HallTechnology.Standard;
 
+    private readonly List<Seat> seats = [];
+    public virtual IReadOnlyList<Seat> Seats => seats.AsReadOnly();
+    public bool IsOperational { get; private set; } = true;
+
+
+    public Guid MovieId { get; set; }
+
+    public int Capacity => Seats.Count;
+
+
+    public virtual Cinema Cinema { get; set; }
     private CinemaHall() { }
 
     // Constructor

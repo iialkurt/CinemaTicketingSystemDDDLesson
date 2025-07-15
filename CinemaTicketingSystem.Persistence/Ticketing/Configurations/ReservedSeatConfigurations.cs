@@ -8,6 +8,8 @@ internal class ReservedSeatConfigurations : IEntityTypeConfiguration<ReservedSea
 {
     public void Configure(EntityTypeBuilder<ReservedSeat> builder)
     {
+
+        builder.ToTable("ReservedSeats", "Ticketing");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

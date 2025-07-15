@@ -15,7 +15,7 @@ internal class MovieTicketConfigurations : IEntityTypeConfiguration<MovieTicket>
 
         // Configure properties
         builder.Property(x => x.CustomerId);
-        builder.Property(x => x.MovieSessionId);
+        builder.Property(x => x.MovieHallIdId);
         builder.Property(x => x.IsDiscountApplied);
 
 

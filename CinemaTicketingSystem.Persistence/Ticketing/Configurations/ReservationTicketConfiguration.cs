@@ -8,6 +8,8 @@ internal class ReservationTicketConfiguration : IEntityTypeConfiguration<SeatRes
 {
     public void Configure(EntityTypeBuilder<SeatReservation> builder)
     {
+
+        builder.ToTable("SeatReservations", "Ticketing");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

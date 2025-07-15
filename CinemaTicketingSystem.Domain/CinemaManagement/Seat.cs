@@ -2,10 +2,15 @@
 
 public class Seat : Entity<Guid>
 {
-    public string Row { get; private set; } = null!;
+    public string Row { get; private set; }
     public int Number { get; private set; }
     public SeatType Type { get; private set; }
     public bool IsAvailable { get; private set; } = true;
+
+    public virtual CinemaHall CinemaHall { get; set; }
+
+
+    private Seat() { }
 
     // Constructor
     public Seat(string row, int number, SeatType type)
@@ -19,6 +24,8 @@ public class Seat : Entity<Guid>
         Number = number;
         Type = type;
     }
+
+
 
     // Business behavior methods
     public void ChangeSeatType(SeatType newType)

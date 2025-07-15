@@ -14,16 +14,16 @@ public class MovieTicket : AggregateRoot<Guid>
     {
     }
 
-    public MovieTicket(Guid movieSessionId, Guid customerId)
+    public MovieTicket(Guid movieHallId, Guid customerId)
     {
         Id = Guid.CreateVersion7();
-        MovieSessionId = movieSessionId;
+        MovieHallIdId = movieHallId;
         CustomerId = customerId;
     }
 
 
     public Guid? CustomerId { get; }
-    public Guid MovieSessionId { get; private set; }
+    public Guid MovieHallIdId { get; private set; }
     public bool IsDiscountApplied { get; private set; }
 
     public virtual IReadOnlyCollection<TicketSale> TicketSales => ticketSales.AsReadOnly();

@@ -4,6 +4,7 @@ using CinemaTicketingSystem.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaTicketingSystem.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250715130815_x")]
+    partial class x
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,9 +79,6 @@ namespace CinemaTicketingSystem.Persistence.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.Property<Guid>("MovieId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -94,29 +94,6 @@ namespace CinemaTicketingSystem.Persistence.Migrations
                     b.HasIndex("CinemaId");
 
                     b.ToTable("CinemaHalls", "cinema_mgmt");
-                });
-
-            modelBuilder.Entity("CinemaTicketingSystem.Domain.CinemaManagement.Movie", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<string>("OriginalTitle")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Movies", "cinema_mgmt");
                 });
 
             modelBuilder.Entity("CinemaTicketingSystem.Domain.CinemaManagement.Seat", b =>
@@ -158,6 +135,9 @@ namespace CinemaTicketingSystem.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CinemaHallId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
@@ -179,9 +159,6 @@ namespace CinemaTicketingSystem.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -222,7 +199,7 @@ namespace CinemaTicketingSystem.Persistence.Migrations
 
                     b.HasIndex("SeatReservationId");
 
-                    b.ToTable("ReservedSeats", "Ticketing");
+                    b.ToTable("ReservedSeat");
                 });
 
             modelBuilder.Entity("CinemaTicketingSystem.Domain.Ticketing.Reservations.SeatReservation", b =>
@@ -247,7 +224,7 @@ namespace CinemaTicketingSystem.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SeatReservations", "Ticketing");
+                    b.ToTable("SeatReservations");
                 });
 
             modelBuilder.Entity("CinemaTicketingSystem.Domain.Ticketing.Tickets.MovieTicket", b =>
@@ -578,29 +555,6 @@ namespace CinemaTicketingSystem.Persistence.Migrations
                     b.Navigation("Cinema");
                 });
 
-            modelBuilder.Entity("CinemaTicketingSystem.Domain.CinemaManagement.Movie", b =>
-                {
-                    b.OwnsOne("CinemaTicketingSystem.Domain.CinemaManagement.Duration", "Duration", b1 =>
-                        {
-                            b1.Property<Guid>("MovieId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Minutes")
-                                .HasColumnType("int")
-                                .HasColumnName("DurationMinutes");
-
-                            b1.HasKey("MovieId");
-
-                            b1.ToTable("Movies", "cinema_mgmt");
-
-                            b1.WithOwner()
-                                .HasForeignKey("MovieId");
-                        });
-
-                    b.Navigation("Duration")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CinemaTicketingSystem.Domain.CinemaManagement.Seat", b =>
                 {
                     b.HasOne("CinemaTicketingSystem.Domain.CinemaManagement.CinemaHall", "CinemaHall")
@@ -650,7 +604,7 @@ namespace CinemaTicketingSystem.Persistence.Migrations
 
                             b1.HasKey("ReservedSeatId");
 
-                            b1.ToTable("ReservedSeats", "Ticketing");
+                            b1.ToTable("ReservedSeat");
 
                             b1.WithOwner()
                                 .HasForeignKey("ReservedSeatId");

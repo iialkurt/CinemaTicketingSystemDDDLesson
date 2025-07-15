@@ -3,13 +3,11 @@
 public class Cinema : AuditedAggregateRoot<Guid>
 {
 
-
-    public new Guid Id { get; private set; }
     public string? Name { get; private set; }
     public Address? Address { get; private set; }
 
     private readonly List<CinemaHall> cinemaHalls = [];
-    public IReadOnlyCollection<CinemaHall> Halls => cinemaHalls.AsReadOnly();
+    public virtual IReadOnlyCollection<CinemaHall> Halls => cinemaHalls.AsReadOnly();
 
 
     public Cinema() { }
