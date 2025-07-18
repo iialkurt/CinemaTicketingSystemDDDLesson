@@ -56,10 +56,9 @@ public class Cinema : AuditedAggregateRoot<Guid>
         cinemaHalls.Remove(hall);
     }
 
-    public CinemaHall GetHall(Guid hallId)
+    public CinemaHall? GetHall(Guid hallId)
     {
-        return cinemaHalls.FirstOrDefault(h => h.Id == hallId)
-               ?? throw new InvalidOperationException($"Hall with ID '{hallId}' not found");
+        return cinemaHalls.FirstOrDefault(h => h.Id == hallId);
     }
 
     public int GetTotalCapacity()

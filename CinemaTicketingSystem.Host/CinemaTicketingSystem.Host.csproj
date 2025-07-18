@@ -18,6 +18,7 @@
         <ProjectReference Include="..\CinemaTicketingSystem.API\CinemaTicketingSystem.API.csproj" />
         <ProjectReference Include="..\CinemaTicketingSystem.Application\CinemaTicketingSystem.Application.csproj" />
         <ProjectReference Include="..\CinemaTicketingSystem.Persistence\CinemaTicketingSystem.Persistence.csproj" />
+        <ProjectReference Include="..\CinemaTicketingSystem.ServiceBus\CinemaTicketingSystem.ServiceBus.csproj" />
     </ItemGroup>
 
 </Project>

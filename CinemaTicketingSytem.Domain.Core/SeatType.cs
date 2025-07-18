@@ -1,4 +1,4 @@
-﻿namespace CinemaTicketingSystem.Domain.CinemaManagement;
+﻿namespace CinemaTicketingSystem.Domain.Core;
 
 public enum SeatType
 {

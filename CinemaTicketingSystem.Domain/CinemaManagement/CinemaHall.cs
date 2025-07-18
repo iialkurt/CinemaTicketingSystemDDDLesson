@@ -1,23 +1,16 @@
-﻿namespace CinemaTicketingSystem.Domain.CinemaManagement;
+﻿using CinemaTicketingSystem.Domain.Core;
+
+namespace CinemaTicketingSystem.Domain.CinemaManagement;
+
+
+
 
 public class CinemaHall : Entity<Guid>
 {
-    private readonly List<Seat> seats = [];
 
-    private CinemaHall()
-    {
-    }
-
-    // Constructor
-    public CinemaHall(string name, HallTechnology supportedTechnologies = HallTechnology.Standard)
-    {
-        Name = name;
-        SupportedTechnologies = supportedTechnologies;
-    }
-
-
-    public string? Name { get; private set; }
+    public string Name { get; private set; }
     public HallTechnology SupportedTechnologies { get; private set; } = HallTechnology.Standard;
+    private readonly List<Seat> seats = [];
     public virtual IReadOnlyList<Seat> Seats => seats.AsReadOnly();
     public bool IsOperational { get; private set; } = true;
 
@@ -25,6 +18,19 @@ public class CinemaHall : Entity<Guid>
     public Guid MovieId { get; set; }
 
     public int Capacity => Seats.Count;
+
+
+    // Constructor
+    public CinemaHall(string name, HallTechnology supportedTechnologies = HallTechnology.Standard)
+    {
+        Name = name;
+        SupportedTechnologies = supportedTechnologies;
+    }
+    private CinemaHall()
+    {
+    }
+
+
 
 
     public virtual Cinema Cinema { get; set; } = null!;

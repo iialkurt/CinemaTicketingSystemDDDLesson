@@ -7,6 +7,7 @@ using CinemaTicketingSystem.Domain;
 using CinemaTicketingSystem.Host;
 using CinemaTicketingSystem.Persistence;
 using FluentValidation;
+using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,13 @@ builder.Services.AddMediatR(configuration =>
 });
 
 builder.Services.AddValidatorsFromAssembly(typeof(ApiAssembly).Assembly);
+
+builder.Services.AddMassTransit(configure =>
+{
+
+    configure.UsingInMemory();
+});
+
 
 builder.Services.AddVersioningExt();
 var app = builder.Build();

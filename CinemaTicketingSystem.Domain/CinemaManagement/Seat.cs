@@ -1,4 +1,6 @@
-﻿namespace CinemaTicketingSystem.Domain.CinemaManagement;
+﻿using CinemaTicketingSystem.Domain.Core;
+
+namespace CinemaTicketingSystem.Domain.CinemaManagement;
 
 public class Seat : Entity<Guid>
 {

@@ -6,7 +6,7 @@ using CinemaTicketingSystem.Domain.CinemaManagement;
 using CinemaTicketingSystem.Domain.Repositories;
 using System.Net;
 
-namespace CinemaTicketingSystem.Application;
+namespace CinemaTicketingSystem.Application.CinemaManagement.Movie;
 
 public class MovieAppService(IMovieRepository movieRepository, IUnitOfWork unitOfWork)
     : IMovieAppService, IScopedDependency
@@ -18,7 +18,7 @@ public class MovieAppService(IMovieRepository movieRepository, IUnitOfWork unitO
 
         if (existMovie) return AppResult<CreateMovieResponse>.Error("Movie already exists", HttpStatusCode.BadRequest);
 
-        var newMovie = new Movie(request.Title, new Duration(request.Duration.Minutes), request.PosterImageUrl);
+        var newMovie = new Domain.CinemaManagement.Movie(request.Title, new Duration(request.Duration.Minutes), request.PosterImageUrl);
 
 
         if (request.OriginalTitle is not null) newMovie.SetOriginalTitle(request.OriginalTitle);
