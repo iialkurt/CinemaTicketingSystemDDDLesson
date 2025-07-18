@@ -15,7 +15,7 @@ public class CinemaHall : Entity<Guid>
     public bool IsOperational { get; private set; } = true;
 
 
-    public Guid MovieId { get; set; }
+    public Guid? MovieId { get; set; }
 
     public int Capacity => Seats.Count;
 
@@ -23,6 +23,7 @@ public class CinemaHall : Entity<Guid>
     // Constructor
     public CinemaHall(string name, HallTechnology supportedTechnologies = HallTechnology.Standard)
     {
+        Id = Guid.CreateVersion7();
         Name = name;
         SupportedTechnologies = supportedTechnologies;
     }

@@ -1,17 +1,83 @@
-@HostAddress = http://localhost:5094
+﻿@HostAddress = http://localhost:5094
 
 ###
-POST {{HostAddress}}/api/v1/movies
+POST {{HostAddress}}/api/v1/cinema-management/movies
 Accept: application/json
 Content-Type: application/json
 {
-  
   "title": "Inception2",
   "originalTitle": "Inception",
   "description": "A mind-bending thriller that delves into the world of dreams.",
   "EarliestShowingDate": "2026-07-16T00:00:00Z",
   "duration": "02:30:00",
   "posterImageUrl":"http://wwww.abc.com"
-
 }
+
+###
+POST {{HostAddress}}/api/v1/cinema-management/cinemas
+Accept: application/json
+Content-Type: application/json
+{
+  "name": "Galaxy Cinema Mall",
+  "address": {
+    "country": "Turkey",
+    "city": "Istanbul",
+    "district": "Beyoğlu",
+    "street": "İstiklal Caddesi No: 123",
+    "postalCode": "34430",
+    "description": "Located in the heart of Beyoğlu, next to Galatasaray High School"
+  }
+}
+
+###
+POST {{HostAddress}}/api/v1/cinema-management/cinemas/hall/add
+Accept: application/json
+Content-Type: application/json
+{
+  "cinemaId": "c4c79d0a-96f7-4c7e-a50c-47a9aa2acac5",
+  "name": "Hall 1 - IMAX Premium",
+  "technologies": [2, 32],
+  "seatList": [
+    {
+      "row": "A",
+      "number": 1,
+      "seatType": 0
+    },
+    {
+      "row": "A", 
+      "number": 2,
+      "seatType": 0
+    },
+    {
+      "row": "A",
+      "number": 3,
+      "seatType": 1
+    },
+    {
+      "row": "A",
+      "number": 4,
+      "seatType": 1
+    },
+    {
+      "row": "B",
+      "number": 1,
+      "seatType": 0
+    },
+    {
+      "row": "B",
+      "number": 2,
+      "seatType": 0
+    },
+    {
+      "row": "B",
+      "number": 3,
+      "seatType": 2
+    }
+  ]
+}
+
+###
+GET {{HostAddress}}/api/v1/cinema-management/cinemas
+Accept: application/json
+
 ###

@@ -8,6 +8,6 @@ public interface ICinemaAppService
     Task<AppResult> AddHallAsync(AddCinemaHallRequest request);
     Task<AppResult> RemoveHallAsync(RemoveCinemaHallRequest request);
     Task<AppResult<List<CinemaHallDto>>> GetCinemaHallsAsync(Guid cinemaId);
-    Task<AppResult<CinemaDto>> GetAllAsync(Guid cinemaId);
+    Task<AppResult<CinemaDto>> GetAsync(Guid cinemaId);
     Task<AppResult<List<CinemaDto>>> GetAllAsync();
 }

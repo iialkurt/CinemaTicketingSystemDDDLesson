@@ -8,11 +8,20 @@ using System.Net;
 
 namespace CinemaTicketingSystem.Application.CinemaManagement.Cinema
 {
-    public class CinemaAppService(ICinemaRepository cinemaRepository, IUnitOfWork unitOfWork) : IScopedDependency, ICinemaAppService
+    public class CinemaAppService(ICinemaRepository cinemaRepository, IUnitOfWork unitOfWork) : ICinemaAppService, IScopedDependency
     {
 
         public async Task<AppResult> CreateAsync(CreateCinemaRequest request)
         {
+
+            // Check if a cinema with the same name already exists
+            var existCinema = await cinemaRepository.ExistsAsync(c => c.Name.Equals(request.Name, StringComparison.OrdinalIgnoreCase));
+            if (existCinema)
+                return AppResult.Error($"Cinema with name '{request.Name}' already exists", HttpStatusCode.BadRequest);
+
+
+
+
 
             var addressDto = request.Address;
 
@@ -53,6 +62,8 @@ namespace CinemaTicketingSystem.Application.CinemaManagement.Cinema
 
 
 
+
+
             var cinemaHall = new CinemaHall(request.Name,
                 request.Technologies.Cast<HallTechnology>().Aggregate((x, y) => x | y));
 
@@ -63,7 +74,10 @@ namespace CinemaTicketingSystem.Application.CinemaManagement.Cinema
             request.SeatList.ForEach(seatDto =>
                 cinemaHall.AddSeat(new Seat(seatDto.Row, seatDto.Number, seatDto.seatType)));
 
+
             cinema.AddHall(cinemaHall);
+
+
             await cinemaRepository.UpdateAsync(cinema);
             await unitOfWork.SaveChangesAsync();
             return AppResult.SuccessAsNoContent();
@@ -133,7 +147,7 @@ namespace CinemaTicketingSystem.Application.CinemaManagement.Cinema
 
 
 
-        public async Task<AppResult<CinemaDto>> GetAllAsync(Guid cinemaId)
+        public async Task<AppResult<CinemaDto>> GetAsync(Guid cinemaId)
         {
             var cinema = await cinemaRepository.GetByIdAsync(cinemaId);
             if (cinema is null)
@@ -164,3 +178,4 @@ namespace CinemaTicketingSystem.Application.CinemaManagement.Cinema
 
     }
 }
+

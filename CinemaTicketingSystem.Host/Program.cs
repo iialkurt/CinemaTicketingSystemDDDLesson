@@ -1,5 +1,5 @@
 using CinemaTicketingSystem.API;
-using CinemaTicketingSystem.API.CinemaManagement.Movie;
+using CinemaTicketingSystem.API.CinemaManagement;
 using CinemaTicketingSystem.API.Extensions;
 using CinemaTicketingSystem.Application;
 using CinemaTicketingSystem.Application.Abstraction;
@@ -19,11 +19,16 @@ builder.Services.RegisterPersistenceServices(builder.Configuration);
 builder.Services.AddWithConventions(typeof(ApplicationAssembly).Assembly,
     typeof(ApplicationAbstractionAssembly).Assembly);
 
+
+
 builder.Services.AddMediatR(configuration =>
 {
     configuration.RegisterServicesFromAssemblies(typeof(ApplicationAssembly).Assembly, typeof(DomainAssembly).Assembly,
         typeof(PersistenceAssembly).Assembly);
 });
+
+
+
 
 builder.Services.AddValidatorsFromAssembly(typeof(ApiAssembly).Assembly);
 

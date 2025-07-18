@@ -1,10 +1,12 @@
 ﻿using Asp.Versioning.Builder;
 using CinemaTicketingSystem.API.CinemaManagement.Cinema.Create;
+using CinemaTicketingSystem.API.CinemaManagement.Cinema.GetAll;
+using CinemaTicketingSystem.API.CinemaManagement.Cinema.Hall.Add;
 using CinemaTicketingSystem.API.CinemaManagement.Movie.Create;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace CinemaTicketingSystem.API.CinemaManagement.Movie;
+namespace CinemaTicketingSystem.API.CinemaManagement;
 
 public static class CinemaManagementEndpointExt
 {
@@ -13,6 +15,8 @@ public static class CinemaManagementEndpointExt
         app.MapGroup("api/v{version:apiVersion}/cinema-management").WithTags("cinema-management")
             .WithApiVersionSet(apiVersionSet)
             .CreateMovieGroupItemEndpoint()
-            .CreateCinemaGroupItemEndpoint();
+            .CreateCinemaGroupItemEndpoint()
+            .GetAllCinemaGroupItemEndpoint()
+            .AddCinemaHallGroupItemEndpoint();
     }
 }

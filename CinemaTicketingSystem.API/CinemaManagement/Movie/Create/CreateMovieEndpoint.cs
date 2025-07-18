@@ -13,7 +13,7 @@ public static class CreateMovieEndpoint
 {
     public static RouteGroupBuilder CreateMovieGroupItemEndpoint(this RouteGroupBuilder group)
     {
-        group.MapPost("/movie",
+        group.MapPost("/movies",
                 async (CreateMovieRequest request, [FromServices] IMovieAppService movieAppService) =>
                     (await movieAppService.CreateAsync(request)).ToGenericResult())
             .WithName("CreateMovie")

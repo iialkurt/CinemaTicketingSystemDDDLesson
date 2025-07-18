@@ -19,6 +19,7 @@ public class Seat : Entity<Guid>
         Row = row.ToUpper();
         Number = number;
         Type = type;
+        Id = Guid.CreateVersion7();
     }
 
     public string Row { get; } = null!;

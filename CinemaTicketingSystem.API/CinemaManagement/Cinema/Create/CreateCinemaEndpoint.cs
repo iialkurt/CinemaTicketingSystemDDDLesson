@@ -13,7 +13,7 @@ public static class CreateCinemaEndpoint
 {
     public static RouteGroupBuilder CreateCinemaGroupItemEndpoint(this RouteGroupBuilder group)
     {
-        group.MapPost("/cinema",
+        group.MapPost("/cinemas",
                 async (CreateCinemaRequest request, [FromServices] ICinemaAppService cinemaAppService) =>
                     (await cinemaAppService.CreateAsync(request)).ToGenericResult())
             .WithName("CreateCinema")
