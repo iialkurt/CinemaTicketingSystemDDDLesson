@@ -18,9 +18,6 @@ public class MovieScheduleConfiguration : IEntityTypeConfiguration<MovieSchedule
         builder.Property(ms => ms.Id)
             .ValueGeneratedNever();
 
-        builder.Property(ms => ms.MovieId)
-            .IsRequired();
-
         // Owned type for Duration (Value Object)
         builder.OwnsOne(m => m.Duration, duration =>
         {
@@ -38,7 +35,7 @@ public class MovieScheduleConfiguration : IEntityTypeConfiguration<MovieSchedule
         // Relationships
         builder.HasMany(ms => ms.ShowTimes).WithOne(st => st.MovieSchedule);
 
-        builder.HasMany(x => x.CinemaHallSchedules).WithMany(x => x.MovieSchedules);
+        builder.HasOne(x => x.CinemaHallSchedule).WithMany(x => x.MovieSchedules);
 
         //  builder.Metadata.FindNavigation(nameof(MovieSchedule.CinemaHallSchedules))!.SetField("cinemaHallSchedules");
 

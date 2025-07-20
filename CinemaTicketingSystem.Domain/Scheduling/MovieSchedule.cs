@@ -15,9 +15,8 @@ public class MovieSchedule : AggregateRoot<Guid>
     private readonly List<ShowTime> showTimes = [];
 
 
-    private List<CinemaHallSchedule> _cinemaHallSchedules = [];
+    public virtual CinemaHallSchedule CinemaHallSchedule { get; set; }
 
-    public virtual IReadOnlyList<CinemaHallSchedule> CinemaHallSchedules => _cinemaHallSchedules.AsReadOnly();
 
     protected MovieSchedule()
     {
@@ -45,9 +44,4 @@ public class MovieSchedule : AggregateRoot<Guid>
         showTimes.Add(showTime);
     }
 
-    public void AddShowTime(string timeRange)
-    {
-        var showTime = ShowTime.Create(timeRange);
-        AddShowTime(showTime);
-    }
 }

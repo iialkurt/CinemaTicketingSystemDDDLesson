@@ -1,4 +1,5 @@
-﻿using CinemaTicketingSystem.Domain.CinemaManagement;
+﻿using CinemaTicketingSystem.Domain.Catalog;
+using CinemaTicketingSystem.Domain.CinemaManagement;
 using CinemaTicketingSystem.Domain.Scheduling;
 using CinemaTicketingSystem.Domain.Ticketing.Reservations;
 using CinemaTicketingSystem.Domain.Ticketing.Tickets;

@@ -1,5 +1,5 @@
 ﻿using CinemaTicketingSystem.Application.Contracts;
-using CinemaTicketingSystem.Domain.CinemaManagement.DomainEvents;
+using CinemaTicketingSystem.Domain.Catalog.DomainEvents;
 using CinemaTicketingSystem.Domain.Repositories;
 using CinemaTicketingSystem.Domain.Scheduling;
 

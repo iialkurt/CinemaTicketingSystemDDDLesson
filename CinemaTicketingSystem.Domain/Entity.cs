@@ -36,3 +36,14 @@ public abstract class Entity<TKey>
         return !(left == right);
     }
 }
+
+public abstract class Entity
+{
+
+}
+
+
+
+
+
+

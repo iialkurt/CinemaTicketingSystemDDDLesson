@@ -26,29 +26,9 @@ public class ShowTime : Entity<Guid>
     public TimeSpan Duration => EndTime - StartTime;
     public virtual MovieSchedule MovieSchedule { get; set; } = null!;
 
-    // Factory methods
-    public static ShowTime Create(int startHour, int startMinute, int endHour, int endMinute)
-    {
-        var startTime = new TimeSpan(startHour, startMinute, 0);
-        var endTime = new TimeSpan(endHour, endMinute, 0);
-        return new ShowTime(startTime, endTime);
-    }
 
-    public static ShowTime Create(string timeRange)
-    {
-        // "17:00-19:00" formatını parse eder
-        var parts = timeRange.Split('-');
-        if (parts.Length != 2)
-            throw new ArgumentException("Invalid time range format. Expected format: HH:mm-HH:mm");
 
-        if (!TimeSpan.TryParse(parts[0].Trim(), out var startTime))
-            throw new ArgumentException("Invalid start time format");
 
-        if (!TimeSpan.TryParse(parts[1].Trim(), out var endTime))
-            throw new ArgumentException("Invalid end time format");
-
-        return new ShowTime(startTime, endTime);
-    }
 
     // Business methods
     public bool OverlapsWith(ShowTime other)
@@ -79,7 +59,6 @@ public class ShowTime : Entity<Guid>
         return StartTime > now;
     }
 
-    // Güncelleme metodları
     public void UpdateTimes(TimeSpan newStartTime, TimeSpan newEndTime)
     {
         if (newStartTime >= newEndTime)

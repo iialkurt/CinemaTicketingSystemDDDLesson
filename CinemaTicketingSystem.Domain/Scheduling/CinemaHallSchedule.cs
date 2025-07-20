@@ -15,9 +15,9 @@ namespace CinemaTicketingSystem.Domain.Scheduling
         public short SeatCount { get; set; }
 
 
-        private List<MovieSchedule> _movieSchedules = [];
+        private List<MovieSchedule> movieSchedules = [];
 
-        public virtual IReadOnlyCollection<MovieSchedule> MovieSchedules => _movieSchedules.AsReadOnly();
+        public virtual IReadOnlyCollection<MovieSchedule> MovieSchedules => movieSchedules.AsReadOnly();
 
 
 
@@ -39,7 +39,18 @@ namespace CinemaTicketingSystem.Domain.Scheduling
                 throw new InvalidOperationException(
                     $"Cinema hall does not support the technology required by movie {movieSchedule.MovieId}");
 
-            _movieSchedules.Add(movieSchedule);
+
+            if (movieSchedule.SupportedTechnology.HasFlag(ScreeningTechnology.IMAX))
+            {
+
+                if (SeatCount < 40)
+                    throw new InvalidOperationException(
+                        "Cinema hall must have at least 40 seats to support IMAX technology");
+
+            }
+
+
+            movieSchedules.Add(movieSchedule);
         }
     }
 }

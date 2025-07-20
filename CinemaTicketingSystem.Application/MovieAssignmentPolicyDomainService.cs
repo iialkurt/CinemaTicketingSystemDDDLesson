@@ -1,5 +1,5 @@
 ﻿using CinemaTicketingSystem.Application.Abstraction;
-using CinemaTicketingSystem.Domain.CinemaManagement;
+using CinemaTicketingSystem.Domain.Catalog;
 
 namespace CinemaTicketingSystem.Application
 {

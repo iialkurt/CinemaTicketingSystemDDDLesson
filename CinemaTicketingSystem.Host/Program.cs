@@ -1,12 +1,12 @@
 using CinemaTicketingSystem.API;
-using CinemaTicketingSystem.API.CinemaManagement;
+using CinemaTicketingSystem.API.Catalog;
 using CinemaTicketingSystem.API.Extensions;
 using CinemaTicketingSystem.Application;
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Contracts;
 using CinemaTicketingSystem.Application.Schedules.IntegrationEventHandlers;
 using CinemaTicketingSystem.Domain;
-using CinemaTicketingSystem.Domain.CinemaManagement.DomainEvents;
+using CinemaTicketingSystem.Domain.Catalog.DomainEvents;
 using CinemaTicketingSystem.Host;
 using CinemaTicketingSystem.Persistence;
 using CinemaTicketingSystem.ServiceBus;

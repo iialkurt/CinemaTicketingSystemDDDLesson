@@ -19,12 +19,11 @@ public class CinemaHallScheduleConfiguration : IEntityTypeConfiguration<CinemaHa
             .ValueGeneratedNever();
 
 
-        builder.Property(ms => ms.CinemaHallId).IsRequired();
         builder.Property(ms => ms.SupportedTechnologies);
 
         // Relationships
-        builder.HasMany(x => x.MovieSchedules).WithMany(x => x.CinemaHallSchedules);
+        builder.HasMany(x => x.MovieSchedules).WithOne(x => x.CinemaHallSchedule);
 
-        // builder.Metadata.FindNavigation(nameof(CinemaHallSchedule.MovieSchedules))!.SetField("movieSchedules");
+        builder.Metadata.FindNavigation(nameof(CinemaHallSchedule.MovieSchedules))!.SetField("movieSchedules");
     }
 }

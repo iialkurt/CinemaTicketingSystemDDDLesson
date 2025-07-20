@@ -1,4 +1,4 @@
-﻿using CinemaTicketingSystem.Domain.CinemaManagement;
+﻿using CinemaTicketingSystem.Domain.Catalog;
 
 namespace CinemaTicketingSystem.Domain.Repositories;
 

@@ -1,9 +1,0 @@
-﻿using CinemaTicketingSystem.Domain.Core;
-
-namespace CinemaTicketingSystem.Domain.CinemaManagement.DomainEvents
-{
-    public record MovieCreatedEvent(Guid MovieId, Duration Duration, ScreeningTechnology Technology) : IDomainEvent
-    {
-
-    }
-}
