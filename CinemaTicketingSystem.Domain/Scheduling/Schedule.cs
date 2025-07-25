@@ -21,7 +21,7 @@ public class Schedule : AggregateRoot<Guid>
 
     public Guid MovieId { get; private set; }
     public Guid HallId { get; private set; }
-    public virtual ShowTime ShowTime { get; private set; }
+    public virtual ShowTime ShowTime { get; private set; } = null!;
 
     /// <summary>
     /// Updates the showtime for this schedule
