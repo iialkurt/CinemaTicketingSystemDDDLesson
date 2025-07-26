@@ -6,18 +6,17 @@ using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Domain;
 using CinemaTicketingSystem.Domain.Catalog.Repositories;
 using CinemaTicketingSystem.Domain.Core;
-using CinemaTicketingSystem.Domain.Repositories;
 
 namespace CinemaTicketingSystem.Application.Catalog.Movie;
 
-public class MovieAppService(IMovieRepository movieRepository, IUnitOfWork unitOfWork)
+public class MovieAppService(IMovieRepository movieRepository, AppDependencyService appDependencyService)
     : IMovieAppService, IScopedDependency
 {
     public async Task<AppResult<CreateMovieResponse>> CreateAsync(CreateMovieRequest request)
     {
         var existMovie = await movieRepository.CheckIfMovieExists(request.Title);
 
-        if (existMovie) return AppResult<CreateMovieResponse>.Error(ErrorCodes.MovieAlreadyExists, [request.Title]);
+        if (existMovie) return appDependencyService.Error<CreateMovieResponse>(ErrorCodes.MovieAlreadyExists, [request.Title]);
 
         var newMovie = new Domain.Catalog.Movie(request.Title, new Duration(request.Duration.TotalMinutes),
             request.PosterImageUrl);
@@ -29,7 +28,7 @@ public class MovieAppService(IMovieRepository movieRepository, IUnitOfWork unitO
             newMovie.SetEarliestShowingDate(request.EarliestShowingDate.Value);
 
         await movieRepository.AddAsync(newMovie);
-        await unitOfWork.SaveChangesAsync();
+        await appDependencyService.UnitOfWork.SaveChangesAsync();
         return AppResult<CreateMovieResponse>.SuccessAsCreated(new CreateMovieResponse(newMovie.Id), "");
     }
 

@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using CinemaTicketingSystem.Application.Abstraction;
+using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Domain.Repositories;
 using CinemaTicketingSystem.Persistence;

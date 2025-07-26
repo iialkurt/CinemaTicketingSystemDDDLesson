@@ -36,7 +36,7 @@ public class AppResult
     }
 
 
-    public static AppResult Error(AppProblemDetails problemDetails, HttpStatusCode status)
+    public static AppResult Error(AppProblemDetails problemDetails, HttpStatusCode status = HttpStatusCode.BadRequest)
     {
         return new AppResult
         {
@@ -45,7 +45,7 @@ public class AppResult
         };
     }
 
-    public static AppResult Error(string title, string description, HttpStatusCode status)
+    public static AppResult Error(string title, string description, HttpStatusCode status = HttpStatusCode.BadRequest)
     {
         return new AppResult
         {
@@ -59,7 +59,7 @@ public class AppResult
         };
     }
 
-    public static AppResult Error(string title, HttpStatusCode status)
+    public static AppResult Error(string title, HttpStatusCode status = HttpStatusCode.BadRequest)
     {
         return new AppResult
         {
@@ -72,20 +72,7 @@ public class AppResult
         };
     }
 
-    public static AppResult Error(string errorCodeAsTitle, object[]? data = null,
-        HttpStatusCode statusCode = HttpStatusCode.BadRequest)
-    {
-        return new AppResult
-        {
-            Status = statusCode,
-            ProblemDetails = new AppProblemDetails
-            {
-                Title = data is not null ? string.Format(errorCodeAsTitle, data) : errorCodeAsTitle,
-                Status = statusCode.GetHashCode()
-            }
-        };
 
-    }
 
     public static AppResult ErrorFromValidation(IDictionary<string, object?> errors)
     {
@@ -129,7 +116,7 @@ public class AppResult<T> : AppResult
         };
     }
 
-    public new static AppResult<T> Error(AppProblemDetails problemDetails, HttpStatusCode status)
+    public new static AppResult<T> Error(AppProblemDetails problemDetails, HttpStatusCode status = HttpStatusCode.BadRequest)
     {
         return new AppResult<T>
         {
@@ -138,7 +125,7 @@ public class AppResult<T> : AppResult
         };
     }
 
-    public new static AppResult<T> Error(string title, string description, HttpStatusCode status)
+    public new static AppResult<T> Error(string title, string description, HttpStatusCode status = HttpStatusCode.BadRequest)
     {
         return new AppResult<T>
         {
@@ -152,7 +139,7 @@ public class AppResult<T> : AppResult
         };
     }
 
-    public new static AppResult<T> Error(string title, HttpStatusCode status)
+    public new static AppResult<T> Error(string title, HttpStatusCode status = HttpStatusCode.BadRequest)
     {
         return new AppResult<T>
         {
@@ -165,18 +152,7 @@ public class AppResult<T> : AppResult
         };
     }
 
-    public static new AppResult<T> Error(string errorCodeAsTitle, object[]? data = null, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
-    {
-        return new AppResult<T>
-        {
-            Status = statusCode,
-            ProblemDetails = new AppProblemDetails
-            {
-                Title = data is not null ? string.Format(errorCodeAsTitle, data) : errorCodeAsTitle,
-                Status = statusCode.GetHashCode()
-            }
-        };
-    }
+
 
     public new static AppResult<T> ErrorFromValidation(IDictionary<string, object?> errors)
     {

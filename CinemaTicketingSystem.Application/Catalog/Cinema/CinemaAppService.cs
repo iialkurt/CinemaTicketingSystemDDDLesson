@@ -3,26 +3,22 @@ using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema;
 using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema.Hall;
 using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Cinema;
 using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Cinema.Hall;
-using CinemaTicketingSystem.Application.Abstraction.Contracts;
+using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Domain.Catalog;
 using CinemaTicketingSystem.Domain.Catalog.Repositories;
 using CinemaTicketingSystem.Domain.Core;
-using CinemaTicketingSystem.Domain.Repositories;
 using System.Net;
 
 namespace CinemaTicketingSystem.Application.Catalog.Cinema;
 
 public class CinemaAppService(
-    ICinemaRepository cinemaRepository,
-    IUnitOfWork unitOfWork, ILocalizer localizer) : AppService(localizer), ICinemaAppService
+    ICinemaRepository cinemaRepository, AppDependencyService appDependencyService) : IScopedDependency, ICinemaAppService
 {
     public async Task<AppResult> CreateAsync(CreateCinemaRequest request)
     {
-        // Check if a cinema with the same name already exists
         var existCinema = await cinemaRepository.ExistsAsync(c => c.Name.Equals(request.Name));
         if (existCinema)
-            return AppResult.Error(ErrorCodes.CinemaAlreadyExists, [request.Name]);
-
+            return appDependencyService.Error(ErrorCodes.CinemaAlreadyExists, [request.Name]);
 
         var addressDto = request.Address;
 
@@ -38,7 +34,7 @@ public class CinemaAppService(
 
 
         await cinemaRepository.AddAsync(newCinema);
-        await unitOfWork.SaveChangesAsync();
+        await appDependencyService.UnitOfWork.SaveChangesAsync();
         return AppResult.SuccessAsNoContent();
     }
 
@@ -48,15 +44,14 @@ public class CinemaAppService(
         var cinema = await cinemaRepository.GetByIdAsync(cinemaId);
 
         if (cinema is null)
-            return AppResult.Error(ErrorCodes.CinemaNotFound);
-
+            return appDependencyService.Error(ErrorCodes.CinemaNotFound, [HttpStatusCode.NotFound]);
 
         var existCinemaHall = cinema.Halls
             .FirstOrDefault(x => x.Name.Equals(request.Name, StringComparison.OrdinalIgnoreCase));
 
 
         if (existCinemaHall is not null)
-            return AppResult.Error(L(ErrorCodes.CinemaHallAlreadyExists, request.Name), HttpStatusCode.BadRequest);
+            return appDependencyService.Error(ErrorCodes.CinemaHallAlreadyExists, [request.Name]);
 
 
 
@@ -73,7 +68,7 @@ public class CinemaAppService(
 
 
         await cinemaRepository.UpdateAsync(cinema);
-        await unitOfWork.SaveChangesAsync();
+        await appDependencyService.UnitOfWork.SaveChangesAsync();
         return AppResult.SuccessAsNoContent();
     }
 
@@ -83,17 +78,17 @@ public class CinemaAppService(
         if (cinema is null)
 
 
-            return AppResult.Error(ErrorCodes.CinemaNotFound);
+            return appDependencyService.Error(ErrorCodes.CinemaNotFound, HttpStatusCode.NotFound);
 
 
         var hall = cinema.GetHall(request.HallId);
         if (hall is null)
-            return AppResult.Error(ErrorCodes.CinemaHallNotFound);
+            return appDependencyService.Error(ErrorCodes.CinemaHallNotFound, HttpStatusCode.NotFound);
 
 
         cinema.RemoveHall(request.HallId);
         await cinemaRepository.UpdateAsync(cinema);
-        await unitOfWork.SaveChangesAsync();
+        await appDependencyService.UnitOfWork.SaveChangesAsync();
         return AppResult.SuccessAsNoContent();
     }
 
@@ -101,8 +96,7 @@ public class CinemaAppService(
     {
         var cinema = await cinemaRepository.GetByIdAsync(cinemaId);
         if (cinema is null)
-            return AppResult<List<CinemaHallDto>>.Error(ErrorCodes.CinemaNotFound);
-
+            return appDependencyService.Error<List<CinemaHallDto>>(ErrorCodes.CinemaNotFound);
 
         if (!cinema.Halls.Any()) return AppResult<List<CinemaHallDto>>.SuccessAsOk([]);
 
@@ -124,8 +118,7 @@ public class CinemaAppService(
     {
         var cinema = await cinemaRepository.GetByIdAsync(cinemaId);
         if (cinema is null)
-            return AppResult<CinemaDto>.Error(ErrorCodes.CinemaNotFound);
-
+            return appDependencyService.Error<CinemaDto>(ErrorCodes.CinemaNotFound);
 
         var cinemaDto = new CinemaDto(cinema.Id, cinema.Name,
             new AddressDto(cinema.Address.Country, cinema.Address.City, cinema.Address.District,

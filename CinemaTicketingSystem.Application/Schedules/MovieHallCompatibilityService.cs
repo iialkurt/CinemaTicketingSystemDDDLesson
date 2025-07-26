@@ -1,4 +1,4 @@
-﻿using CinemaTicketingSystem.Application.Abstraction;
+﻿using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.Domain.Scheduling;
 
