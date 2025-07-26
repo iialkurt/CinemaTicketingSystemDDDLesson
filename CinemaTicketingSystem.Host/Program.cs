@@ -7,6 +7,7 @@ using CinemaTicketingSystem.Application;
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Application.Schedules.IntegrationEventHandlers;
+using CinemaTicketingSystem.Caching;
 using CinemaTicketingSystem.Domain;
 using CinemaTicketingSystem.Domain.Catalog.DomainEvents;
 using CinemaTicketingSystem.Host;
@@ -33,6 +34,11 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.AddSupportedCultures(supportedCultures);
     options.AddSupportedUICultures(supportedCultures);
 });
+
+builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<ICacheService, CacheService>();
+
+builder.Services.AddScoped<ILocalizer, Localizer>();
 
 builder.Services.RegisterPersistenceServices(builder.Configuration);
 builder.Services.AddWithConventions(typeof(ApplicationAssembly).Assembly,

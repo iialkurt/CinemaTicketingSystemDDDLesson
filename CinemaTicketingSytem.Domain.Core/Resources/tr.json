@@ -1,4 +1,13 @@
 {
-  "Hello": "Merhaba",
-  "Welcome": "Sitemize hoş geldiniz"
+  "Catalog:CinemaHallAlreadyExists": "{0} adında salon zaten mevcut",
+  "Catalog:CinemaHallNotFound": "Sinema salonu bulunamadı",
+  "Catalog:SeatAlreadyExists": "{0}{1} koltuğu zaten mevcut",
+  "Catalog:CinemaAlreadyExists": "'{0}' adında sinema zaten mevcut",
+  "Catalog:CinemaNotFound": "Sinema bulunamadı.",
+  "Catalog:MovieNotFound": "Film bulunamadı.",
+  "Catalog:MovieAlreadyExists": "'{0}' başlıklı film zaten mevcut",
+  "Schedule:HallTechnologyNotSupported": "Salon, filmin gerektirdiği teknolojiyi desteklememektedir.",
+  "Schedule:IMAXRequiresMinimumSeats": "IMAX filmleri en az {0} koltuk gerektirir.",
+  "Schedule:MovieDurationMismatch": "Belirtilen gösterim süresi filmin süresiyle eşleşmemektedir.",
+  "Schedule:ShowTimeConflict": "Gösterim saati mevcut programla çakışmaktadır. Çakışan gösterim saatleri: {0}"
 }
