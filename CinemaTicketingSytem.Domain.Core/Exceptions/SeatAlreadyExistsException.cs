@@ -1,6 +1,6 @@
 namespace CinemaTicketingSystem.Domain.Core.Exceptions;
 
-public class SeatAlreadyExistsException : DomainException
+public class SeatAlreadyExistsException : BusinessException
 {
     public SeatAlreadyExistsException(string row, int number)
         : base(ErrorCodes.SeatAlreadyExists)

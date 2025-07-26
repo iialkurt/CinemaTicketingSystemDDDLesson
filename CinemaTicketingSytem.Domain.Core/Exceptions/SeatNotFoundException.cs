@@ -1,6 +1,6 @@
 namespace CinemaTicketingSystem.Domain.Core.Exceptions;
 
-public class SeatNotFoundException : DomainException
+public class SeatNotFoundException : BusinessException
 {
     public SeatNotFoundException(string row, int number)
         : base(ErrorCodes.SeatNotFound)

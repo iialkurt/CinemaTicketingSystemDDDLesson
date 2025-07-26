@@ -10,8 +10,11 @@ public class Localizer(IStringLocalizer<SharedResource> stringLocalizer) : ILoca
         return stringLocalizer[key];
     }
 
-    public string L(string key, params object[] data)
+    public string L(string key, params object?[] data)
     {
         return string.Format(stringLocalizer[key], data);
     }
+
+
+
 }

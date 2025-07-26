@@ -1,5 +1,4 @@
-﻿using System.Net;
-using CinemaTicketingSystem.Application.Abstraction;
+﻿using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema;
 using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema.Hall;
 using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Cinema;
@@ -8,6 +7,7 @@ using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Domain.Catalog;
 using CinemaTicketingSystem.Domain.Catalog.Repositories;
 using CinemaTicketingSystem.Domain.Core;
+using System.Net;
 
 namespace CinemaTicketingSystem.Application.Catalog.Cinema;
 
@@ -42,6 +42,8 @@ public class CinemaAppService(
 
     public async Task<AppResult> AddHallAsync(Guid cinemaId, AddCinemaHallRequest request)
     {
+
+
         var cinema = await cinemaRepository.GetByIdAsync(cinemaId);
 
         if (cinema is null)

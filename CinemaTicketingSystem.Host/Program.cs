@@ -32,10 +32,11 @@ builder.Services.AddMediatR(configuration =>
 builder.Services.AddValidatorsFromAssembly(typeof(ApiAssembly).Assembly);
 builder.Services.AddScoped<AppDependencyService>();
 builder.Services.AddVersioningExt();
-
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<BusinessExceptionHandler>().AddExceptionHandler<UserFriendlyExceptionHandler>().AddExceptionHandler<GlobalExceptionHandler>();
 
 var app = builder.Build();
-
+app.UseExceptionHandler();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

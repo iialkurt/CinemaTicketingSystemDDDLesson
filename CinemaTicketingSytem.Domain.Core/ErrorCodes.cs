@@ -14,4 +14,7 @@ public static class ErrorCodes
     public const string IMAXRequiresMinimumSeats = "Schedule:IMAXRequiresMinimumSeats";
     public const string MovieDurationMismatch = "Schedule:MovieDurationMismatch";
     public const string ShowTimeConflict = "Schedule:ShowTimeConflict";
+
+    public const string ServerErrorTitle = "Common:ServerErrorTitle";
+    public const string ServerErrorDetail = "Common:ServerErrorDetail";
 }

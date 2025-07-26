@@ -9,5 +9,7 @@
   "Schedule:HallTechnologyNotSupported": "Hall does not support the movie's required technology.",
   "Schedule:IMAXRequiresMinimumSeats": "IMAX movies require at least {0} seats.",
   "Schedule:MovieDurationMismatch": "The specified showtime duration does not match the movie's duration.",
-  "Schedule:ShowTimeConflict": "Show time conflicts with existing schedule. Conflicting showtimes: {0}"
+  "Schedule:ShowTimeConflict": "Show time conflicts with existing schedule. Conflicting showtimes: {0}",
+  "Common:ServerErrorTitle": "An unexpected error occurred",
+  "Common:ServerErrorDetail": "Please try again later or contact support if the issue persists."
 }

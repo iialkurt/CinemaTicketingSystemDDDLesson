@@ -5,7 +5,7 @@ using CinemaTicketingSystem.Domain.Ticketing.ValueObjects;
 namespace CinemaTicketingSystem.Domain.Ticketing.Reservations.Exceptions;
 
 public class DuplicateReservedSeatException
-    : DomainException
+    : BusinessException
 {
     public DuplicateReservedSeatException(SeatNumber seatNumber) : base(TicketingErrorCodes.DuplicateReservedSeat)
     {
