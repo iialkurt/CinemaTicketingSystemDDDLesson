@@ -1,10 +1,12 @@
-﻿using CinemaTicketingSystem.Domain.Ticketing.ValueObjects;
+﻿using CinemaTicketingSystem.Domain.Core;
+using CinemaTicketingSystem.Domain.Core.Exceptions;
+using CinemaTicketingSystem.Domain.Ticketing.ValueObjects;
 
 namespace CinemaTicketingSystem.Domain.Ticketing.Tickets;
 
-public class TicketSale : Entity<Guid>
+public class Ticket : Entity<Guid>
 {
-    internal TicketSale(SeatNumber seatNumber, Price price)
+    internal Ticket(SeatNumber seatNumber, Price price)
     {
         Id = Guid.CreateVersion7();
         SeatNumber = seatNumber;
@@ -13,16 +15,11 @@ public class TicketSale : Entity<Guid>
         IsUsed = false;
     }
 
-    private TicketSale()
+    protected Ticket()
     {
     }
 
-
-    // TicketSale tek başına eklenmesin diye
-    //public Guid MovieTicketId { get; set; }
-
-
-    public virtual MovieTicket MovieTicket { get; set; } = null!;
+    public virtual TicketPurchase TicketPurchase { get; private set; } = null!;
 
     public SeatNumber SeatNumber { get; } = null!;
     public Price Price { get; } = null!;
@@ -53,9 +50,10 @@ public class TicketSale : Entity<Guid>
     public void MarkAsUsed()
     {
         if (IsUsed)
-            // throw new TicketAlreadyUsedException(TicketCode);
+            throw new BusinessException(ErrorCodes.TicketAlreadyUsed)
+                .AddData(TicketCode);
 
-            IsUsed = true;
+        IsUsed = true;
         UsedAt = DateTime.UtcNow;
     }
 }

@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MassTransit" Version="8.5.1" />
-    <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MassTransit" Version="8.5.1"/>
+        <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CinemaTicketingSystem.Application\CinemaTicketingSystem.Application.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\CinemaTicketingSystem.Application\CinemaTicketingSystem.Application.csproj"/>
+    </ItemGroup>
 
 </Project>

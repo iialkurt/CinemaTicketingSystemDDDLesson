@@ -25,7 +25,7 @@ public class MovieHallCompatibilityService : IDomainService
 
         if (movie.SupportedTechnology.HasFlag(ScreeningTechnology.IMAX))
             if (hall.SeatCount < MinimumIMAXSeatCount)
-                return DomainResult.Failure(ErrorCodes.IMAXRequiresMinimumSeats, MinimumIMAXSeatCount);
+                return DomainResult.Failure(ErrorCodes.ImaxRequiresMinimumSeats, MinimumIMAXSeatCount);
 
         return !technologySupported
             ? DomainResult.Failure(ErrorCodes.HallTechnologyNotSupported)

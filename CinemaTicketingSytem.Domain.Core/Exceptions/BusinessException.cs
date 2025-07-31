@@ -2,10 +2,10 @@
 
 public class BusinessException(string errorCode) : Exception
 {
-    private readonly List<string> PlaceHolderData = [];
+    private readonly List<object> _placeHolderData = [];
     public string ErrorCode { get; private set; } = errorCode;
 
-    public IReadOnlyList<string> PlaceholderData => PlaceHolderData;
+    public IReadOnlyList<object> PlaceholderData => _placeHolderData;
 
 
     public static BusinessException Create(string errorCode)
@@ -13,9 +13,9 @@ public class BusinessException(string errorCode) : Exception
         return new BusinessException(errorCode);
     }
 
-    public BusinessException AddData(string data)
+    public BusinessException AddData(object data)
     {
-        PlaceHolderData.Add(data);
+        _placeHolderData.Add(data);
         return this;
     }
 }

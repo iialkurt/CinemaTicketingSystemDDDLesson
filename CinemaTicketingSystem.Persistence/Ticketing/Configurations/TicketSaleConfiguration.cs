@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CinemaTicketingSystem.Persistence.Ticketing.Configurations;
 
-internal class TicketSaleConfiguration : IEntityTypeConfiguration<TicketSale>
+internal class TicketSaleConfiguration : IEntityTypeConfiguration<Ticket>
 {
-    public void Configure(EntityTypeBuilder<TicketSale> builder)
+    public void Configure(EntityTypeBuilder<Ticket> builder)
     {
         // Basic entity configuration
         builder.ToTable("TicketSales", "Ticketing");

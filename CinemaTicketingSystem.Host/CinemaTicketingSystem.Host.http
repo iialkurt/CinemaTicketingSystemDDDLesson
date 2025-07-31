@@ -13,6 +13,7 @@ Content-Type: application/json
   "posterImageUrl":"http://wwww.abc.com",
   "supportedTechnology":1
 }
+
 ###
 GET {{HostAddress}}/api/v1/catalogs/movies
 Accept: application/json
@@ -32,10 +33,12 @@ Content-Type: application/json
     "description": "Located in the heart of Beyoğlu, next to Galatasaray High School"
   }
 }
+
 ###
 GET {{HostAddress}}/api/v1/catalogs/cinemas
 Accept: application/json
 Accept-Language: tr
+
 ###
 POST {{HostAddress}}/api/v1/catalogs/cinemas/{8524f77d-ac60-4609-9719-9cf9cca722ce}/hall
 Accept: application/json
@@ -52,7 +55,7 @@ Accept-Language: en
       "seatType": 0
     },
     {
-      "row": "A", 
+      "row": "A",
       "number": 2,
       "seatType": 0
     },
@@ -83,12 +86,15 @@ Accept-Language: en
     }
   ]
 }
+
 ###
 GET {{HostAddress}}/api/v1/catalogs/cinemas/8524f77d-ac60-4609-9719-9cf9cca722ce/hall
 Accept: application/json
+
 ###
 GET {{HostAddress}}/api/v1/schedules/halls/01983410-e9bd-7e1c-b6ab-509f63942506/movies
 Accept: application/json
+
 ###
 
 POST {{HostAddress}}/api/v1/schedules/halls/01983410-e9bd-7e1c-b6ab-509f63942506/movies
@@ -98,5 +104,5 @@ Content-Type: application/json
   "movieId": "0198342a-d189-7272-b221-8ca8767a16ad",
   "startTime": "17:05:00"
 }
-###
 
+###
