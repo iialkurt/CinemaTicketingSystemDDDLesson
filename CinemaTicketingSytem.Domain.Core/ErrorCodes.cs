@@ -15,6 +15,8 @@ public static class ErrorCodes
     public const string ImaxRequiresMinimumSeats = "Schedule:IMAXRequiresMinimumSeats";
     public const string MovieDurationMismatch = "Schedule:MovieDurationMismatch";
     public const string ShowTimeConflict = "Schedule:ShowTimeConflict";
+    public const string ScheduleNotFound = "Schedule:ScheduleNotFound";
+
 
     public const string MaxTicketsExceeded = "Ticketing:MaxTicketsExceeded";
     public const string TicketNotFound = "Ticketing:TicketNotFound";

@@ -10,6 +10,7 @@
   "Schedule:IMAXRequiresMinimumSeats": "IMAX movies require at least {0} seats.",
   "Schedule:MovieDurationMismatch": "The specified showtime duration does not match the movie's duration.",
   "Schedule:ShowTimeConflict": "Show time conflicts with existing schedule. Conflicting showtimes: {0}",
+  "Schedule:ScheduleNotFound": "Schedule not found.",
   "Ticketing:MaxTicketsExceeded": "Maximum number of tickets per purchase exceeded. Limit is {0} tickets.",
   "Ticketing:DuplicateSeat": "Seat {0}{1} is already selected for this ticket.",
   "Ticketing:TicketNotFound": "Ticket for seat {0}{1} not found.",
