@@ -4,7 +4,7 @@ namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
 
 public class ReservationSeat : Entity<Guid>
 {
-    internal ReservationSeat(SeatPosition seatPosition)
+    public ReservationSeat(SeatPosition seatPosition)
     {
         Id = Guid.CreateVersion7();
         SeatPosition = seatPosition;

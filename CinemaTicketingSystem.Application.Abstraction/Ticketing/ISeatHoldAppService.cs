@@ -1,9 +1,6 @@
-using CinemaTicketingSystem.Application.Abstraction;
-using CinemaTicketingSystem.Application.Abstraction.Ticketing;
-
-namespace CinemaTicketingSystem.Application.Ticketing;
+namespace CinemaTicketingSystem.Application.Abstraction.Ticketing;
 
 public interface ISeatHoldAppService
 {
-    Task<AppResult> HoldSeats(HoldSeatsRequest request);
+    Task<AppResult> CreateSeatHoldAsync(CreateSeatHoldRequest request);
 }

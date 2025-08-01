@@ -1,9 +1,8 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
-using CinemaTicketingSystem.Domain.Core;
+﻿using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.Domain.Core.Exceptions;
 using CinemaTicketingSystem.Domain.ValueObjects;
 
-namespace CinemaTicketingSystem.Domain.Ticketing;
+namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
 
 public class Ticket : Entity<Guid>
 {

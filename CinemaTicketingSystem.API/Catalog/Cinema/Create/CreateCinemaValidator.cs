@@ -1,4 +1,4 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Cinema;
+﻿using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema;
 using CinemaTicketingSystem.Domain.Core;
 using FluentValidation;
 

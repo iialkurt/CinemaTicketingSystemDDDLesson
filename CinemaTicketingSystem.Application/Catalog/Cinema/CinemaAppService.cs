@@ -1,5 +1,4 @@
-﻿using System.Net;
-using CinemaTicketingSystem.Application.Abstraction;
+﻿using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema;
 using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema.Hall;
 using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Cinema;
@@ -9,6 +8,7 @@ using CinemaTicketingSystem.Domain.Catalog;
 using CinemaTicketingSystem.Domain.Catalog.Repositories;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.Domain.ValueObjects;
+using System.Net;
 
 namespace CinemaTicketingSystem.Application.Catalog.Cinema;
 
@@ -106,7 +106,7 @@ public class CinemaAppService(
                     .Where(tech => x.SupportedTechnologies.HasFlag(tech))
                     .Select(tech => (int)tech)
                     .ToArray(),
-                x.Seats.Select(y => new SeatPositionDto(y.SeatPosition.Row, y.SeatPosition.Number, y.Type)).ToList()))
+                x.Seats.Select(y => new SeatDto(y.SeatPosition.Row, y.SeatPosition.Number, y.Type)).ToList()))
             .ToList();
 
 

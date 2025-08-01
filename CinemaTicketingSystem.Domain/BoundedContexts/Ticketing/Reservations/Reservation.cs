@@ -27,7 +27,7 @@ public class Reservation : AggregateRoot<Guid>
     public virtual IReadOnlyCollection<ReservationSeat> ReservationSeatList => _reservationSeatList.AsReadOnly();
 
 
-    public void Create(Guid scheduleId, Guid customerId)
+    public Reservation(Guid scheduleId, Guid customerId)
     {
         Id = Guid.CreateVersion7();
         ScheduledMovieShowId = scheduleId;

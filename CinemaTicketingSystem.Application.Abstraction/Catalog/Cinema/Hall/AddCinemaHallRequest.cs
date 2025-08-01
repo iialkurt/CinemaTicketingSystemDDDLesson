@@ -1,5 +1,9 @@
-﻿namespace CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema.Hall;
+﻿using CinemaTicketingSystem.Domain.Core;
 
-public record AddCinemaHallRequest(string Name, int[] Technologies, List<SeatPositionDto> SeatList)
+namespace CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema.Hall;
+
+public record AddCinemaHallRequest(string Name, int[] Technologies, List<SeatDto> SeatList)
 {
 }
+
+public record SeatDto(string Row, int Number, SeatType SeatType);

@@ -1,4 +1,3 @@
-using System.Net;
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Abstraction.Ticketing;
@@ -10,6 +9,7 @@ using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.Domain.Ticketing;
 using CinemaTicketingSystem.Domain.ValueObjects;
 using CinemaTicketingSystem.SharedKernel;
+using System.Net;
 
 namespace CinemaTicketingSystem.Application.Ticketing;
 
@@ -22,7 +22,7 @@ public class PurchaseAppService(
 {
     public async Task<AppResult> Purchase(PurchaseTicketRequest request)
     {
-        var scheduleInfo = await iScheduleQueryService.GetScheduleInfo(request.ScheduleId);
+        var scheduleInfo = await iScheduleQueryService.GetScheduleInfo(request.ScheduledMovieShowId);
 
         if (scheduleInfo.IsFail) return scheduleInfo;
 
@@ -31,7 +31,7 @@ public class PurchaseAppService(
             await catalogQueryService.GetCinemaInfo(scheduleInfo.Data!.CinemaHallId, scheduleInfo.Data.MovieId);
 
 
-        var ticketPurchaseList = purchaseRepository.GetTicketsPurchaseByScheduleId(request.ScheduleId);
+        var ticketPurchaseList = purchaseRepository.GetTicketsPurchaseByScheduleId(request.ScheduledMovieShowId);
 
 
         var purchasedTicketCount = ticketPurchaseList.SelectMany(x => x.TicketList).Count();
@@ -57,16 +57,16 @@ public class PurchaseAppService(
         }
 
 
-        var ticket = new Purchase(request.ScheduleId, userContext.UserId);
+        var purchase = new Purchase(request.ScheduledMovieShowId, userContext.UserId);
 
         foreach (var seat in request.SeatPositionList)
         {
             var newTicket = new Ticket(new SeatPosition(seat.Row, seat.Number), scheduleInfo.Data.TicketPrice);
-            ticket.AddTicket(newTicket);
+            purchase.AddTicket(newTicket);
         }
 
 
-        await purchaseRepository.AddAsync(ticket);
+        await purchaseRepository.AddAsync(purchase);
 
         await appDependencyService.UnitOfWork.SaveChangesAsync();
 

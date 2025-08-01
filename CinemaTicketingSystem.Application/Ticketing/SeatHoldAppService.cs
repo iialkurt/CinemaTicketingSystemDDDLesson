@@ -1,17 +1,17 @@
-using System.Net;
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Abstraction.Ticketing;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Holds;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.Domain.ValueObjects;
+using System.Net;
 
 namespace CinemaTicketingSystem.Application.Ticketing;
 
 public class SeatHoldAppService(AppDependencyService appDependencyService, ISeatHoldRepository seatHoldRepository)
     : IScopedDependency, ISeatHoldAppService
 {
-    public async Task<AppResult> HoldSeats(HoldSeatsRequest request)
+    public async Task<AppResult> CreateSeatHoldAsync(CreateSeatHoldRequest request)
     {
         var customerId = appDependencyService.UserContext.UserId;
 
