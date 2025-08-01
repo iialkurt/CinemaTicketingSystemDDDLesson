@@ -1,92 +1,85 @@
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations.DomainEvents;
+using CinemaTicketingSystem.Domain.Core;
+using CinemaTicketingSystem.Domain.Core.Exceptions;
 using CinemaTicketingSystem.Domain.Ticketing.Reservations.DomainEvents;
 using CinemaTicketingSystem.Domain.ValueObjects;
 
-namespace CinemaTicketingSystem.Domain.Ticketing.Reservations;
+namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
 
-public class SeatReservation : AggregateRoot<Guid>
+public class Reservation : AggregateRoot<Guid>
 {
-    private const int MaxSeatsPerReservation = 10;
+    private const int MaxSeatCountPerReservation = 10;
+
     private const int ReservationExpiryMinutes = 30;
+    private readonly List<ReservationSeat> _reservationSeatList = [];
 
-    private readonly List<ReservedSeat> reservedSeats = [];
 
-
-    private SeatReservation()
+    protected Reservation()
     {
     }
 
     public Guid CustomerId { get; private set; }
-    public Guid MovieSessionId { get; private set; }
+    public Guid ScheduledMovieShowId { get; private set; }
     public DateTime ReservationTime { get; private set; }
     public DateTime ExpirationTime { get; private set; }
     public ReservationStatus Status { get; private set; }
 
-    public virtual IReadOnlyCollection<ReservedSeat> ReservedSeats => reservedSeats.AsReadOnly();
+    public virtual IReadOnlyCollection<ReservationSeat> ReservationSeatList => _reservationSeatList.AsReadOnly();
 
 
-    public void Create(Guid movieSessionId, Guid customerId)
+    public void Create(Guid scheduleId, Guid customerId)
     {
         Id = Guid.CreateVersion7();
-        MovieSessionId = movieSessionId;
+        ScheduledMovieShowId = scheduleId;
         CustomerId = customerId;
         ReservationTime = DateTime.UtcNow;
         ExpirationTime = ReservationTime.AddMinutes(ReservationExpiryMinutes);
-        Status = ReservationStatus.Pending;
-
-        AddDomainEvent(new ReservationCreatedEvent(Id, CustomerId, MovieSessionId, ReservationTime));
+        AddDomainEvent(new ReservationCreatedEvent(Id, CustomerId, scheduleId, ReservationTime));
     }
 
-    public void AddSeat(ReservedSeat seat)
+    public void AddSeat(ReservationSeat reservationSeat)
     {
-        if (reservedSeats.Count >= MaxSeatsPerReservation)
-            //throw new MaxSeatLimitExceededException(MaxSeatsPerReservation);
+        if (_reservationSeatList.Count >= MaxSeatCountPerReservation)
+            throw new BusinessException(ErrorCodes.MaxSeatsPerReservation).AddData(MaxSeatCountPerReservation);
 
-            if (reservedSeats.Any(s => s.SeatNumber == seat.SeatNumber))
-                //throw new DuplicateReservedSeatException(seat.SeatNumber);
+        if (_reservationSeatList.Any(s => s.SeatPosition == reservationSeat.SeatPosition))
+            throw new BusinessException(ErrorCodes.SeatAlreadyReserved)
+                .AddData(reservationSeat.SeatPosition.Row)
+                .AddData(reservationSeat.SeatPosition.Number);
 
-                if (Status != ReservationStatus.Pending)
-                    //throw new InvalidReservationStateException(Status, "add seats");
-
-                    reservedSeats.Add(seat);
-        AddDomainEvent(new SeatReservedEvent(Id, seat.SeatNumber, CustomerId));
+        _reservationSeatList.Add(reservationSeat);
+        AddDomainEvent(new SeatReservedEvent(Id, ScheduledMovieShowId,CustomerId,reservationSeat.SeatPosition));
     }
 
-    public void RemoveSeat(SeatNumber seatNumber)
+    public void RemoveSeat(SeatPosition seatPosition)
     {
-        var seat = reservedSeats.FirstOrDefault(s => s.SeatNumber == seatNumber);
+        var seat = _reservationSeatList.FirstOrDefault(s => s.SeatPosition == seatPosition);
         if (seat == null)
-            //throw new ReservedSeatNotFoundException(seatNumber);
+            throw new BusinessException(ErrorCodes.ReservedSeatNotFound)
+                .AddData(seatPosition.Row)
+                .AddData(seatPosition.Number);
 
-            if (Status != ReservationStatus.Pending)
-                //throw new InvalidReservationStateException(Status, "remove seats");
-
-                reservedSeats.Remove(seat);
-        AddDomainEvent(new SeatReservationReleasedEvent(Id, seatNumber));
+        _reservationSeatList.Remove(seat);
+        AddDomainEvent(new SeatReservationReleasedEvent(Id, seatPosition));
     }
 
-    public void AddSeats(IEnumerable<ReservedSeat> seats)
+    public void AddSeats(IEnumerable<ReservationSeat> seats)
     {
         foreach (var seat in seats) AddSeat(seat);
     }
 
-    public bool HasSeat(SeatNumber seatNumber)
+    public bool HasSeat(SeatPosition seatPosition)
     {
-        return reservedSeats.Any(s => s.SeatNumber == seatNumber);
+        return _reservationSeatList.Any(s => s.SeatPosition == seatPosition);
     }
 
     public void Confirm()
     {
-        if (Status != ReservationStatus.Pending)
-            //throw new InvalidReservationStateException(Status, "confirm");
+        if (_reservationSeatList.Count == 0)
+            throw new BusinessException(ErrorCodes.NoSeatsReserved);
 
-            if (!reservedSeats.Any())
-                //throw new EmptyReservationException();
-
-                if (DateTime.UtcNow > ExpirationTime)
-                    //throw new ReservationExpiredException(ExpirationTime);
-
-                    Status = ReservationStatus.Confirmed;
-        AddDomainEvent(new ReservationConfirmedEvent(Id, CustomerId, MovieSessionId));
+        Status = ReservationStatus.Confirmed;
+        AddDomainEvent(new ReservationConfirmedEvent(Id, CustomerId, ScheduledMovieShowId));
     }
 
     public void Cancel()
@@ -95,23 +88,20 @@ public class SeatReservation : AggregateRoot<Guid>
             return;
 
         if (Status == ReservationStatus.Expired)
-            //throw new InvalidReservationStateException(Status, "cancel");
+            throw new BusinessException(ErrorCodes.CannotCancelExpiredReservation);
 
-            Status = ReservationStatus.Canceled;
-        AddDomainEvent(new ReservationCanceledEvent(Id, CustomerId, MovieSessionId));
+        Status = ReservationStatus.Canceled;
+        AddDomainEvent(new ReservationCanceledEvent(Id, CustomerId, ScheduledMovieShowId));
     }
 
     public void Expire()
     {
-        if (Status != ReservationStatus.Pending)
-            return;
-
         Status = ReservationStatus.Expired;
-        AddDomainEvent(new ReservationExpiredEvent(Id, CustomerId, MovieSessionId));
+        AddDomainEvent(new ReservationExpiredEvent(Id, CustomerId, ScheduledMovieShowId));
     }
 
     public bool IsExpired()
     {
-        return DateTime.UtcNow > ExpirationTime && Status == ReservationStatus.Pending;
+        return DateTime.UtcNow > ExpirationTime;
     }
 }

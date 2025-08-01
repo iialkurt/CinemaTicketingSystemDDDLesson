@@ -2,12 +2,14 @@
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Domain.Repositories;
+using CinemaTicketingSystem.SharedKernel;
 
 namespace CinemaTicketingSystem.Application;
 
-public class AppDependencyService(IUnitOfWork unitOfWork, ILocalizer localizer)
+public class AppDependencyService(IUnitOfWork unitOfWork, ILocalizer localizer, IUserContext userContext)
 {
     public IUnitOfWork UnitOfWork => unitOfWork;
+    public IUserContext UserContext => userContext;
 
     private string LocalizeError(string ErrorCodeAsTitle, params object[]? data)
     {

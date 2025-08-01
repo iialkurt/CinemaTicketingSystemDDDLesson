@@ -22,7 +22,7 @@ internal class TicketConfiguration : IEntityTypeConfiguration<Ticket>
         builder.Property(x => x.UsedAt);
 
         // Configure SeatNumber as owned type
-        builder.OwnsOne(x => x.SeatNumber, seatBuilder =>
+        builder.OwnsOne(x => x.SeatPosition, seatBuilder =>
         {
             seatBuilder.Property(s => s.Number)
                 .HasColumnName("Number")

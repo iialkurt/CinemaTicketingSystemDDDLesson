@@ -25,7 +25,16 @@ public static class ErrorCodes
     public const string TicketNotAvailable = "Ticketing:TicketNotAvailable";
     public const string SeatNotAvailable = "Ticketing:SeatNotAvailable";
     public const string NotEnoughSeatsAvailable = "Ticketing:NotEnoughSeatsAvailable";
-
+    public const string MaxSeatsPerReservation = "Ticketing:MaxSeatsPerReservation";
+    public const string SeatAlreadyReserved = "Ticketing:SeatAlreadyReserved";
+    public const string ReservedSeatNotFound = "Ticketing:ReservedSeatNotFound";
+    public const string NoSeatsReserved = "Ticketing:NoSeatsReserved";
+    public const string CannotCancelExpiredReservation = "Ticketing:CannotCancelExpiredReservation";
+    public const string SeatHoldExpired = "Ticketing:SeatHoldExpired";
+public const string SeatAlreadyHeld= "Ticketing:SeatAlreadyHeld";
+    public const string SeatHoldNotFound = "Ticketing:SeatHoldNotFound";
+    
+    
     public const string ServerErrorTitle = "Common:ServerErrorTitle";
     public const string ServerErrorDetail = "Common:ServerErrorDetail";
 }

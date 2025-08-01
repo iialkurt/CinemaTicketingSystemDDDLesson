@@ -1,26 +1,25 @@
-using CinemaTicketingSystem.Domain.Ticketing.Reservations;
 using CinemaTicketingSystem.Domain.ValueObjects;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
 
-public class ReservedSeat : Entity<Guid>
+public class ReservationSeat : Entity<Guid>
 {
-    internal ReservedSeat(SeatNumber seatNumber)
+    internal ReservationSeat(SeatPosition seatPosition)
     {
         Id = Guid.CreateVersion7();
-        SeatNumber = seatNumber;
+        SeatPosition = seatPosition;
     }
 
-    private ReservedSeat()
+    protected ReservationSeat()
     {
     }
 
-    public SeatNumber SeatNumber { get; } = null!;
+    public SeatPosition SeatPosition { get; } = null!;
 
     public virtual Reservation Reservation { get; set; } = null!;
 
     public string GetSeatInfo()
     {
-        return $"Seat: {SeatNumber}";
+        return $"Seat: {SeatPosition}";
     }
 }

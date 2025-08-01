@@ -1,12 +1,12 @@
-﻿using CinemaTicketingSystem.Domain.Ticketing;
+﻿using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CinemaTicketingSystem.Persistence.Ticketing.Configurations;
 
-internal class TicketPurchaseConfigurations : IEntityTypeConfiguration<TicketPurchase>
+internal class TicketPurchaseConfigurations : IEntityTypeConfiguration<Purchase>
 {
-    public void Configure(EntityTypeBuilder<TicketPurchase> builder)
+    public void Configure(EntityTypeBuilder<Purchase> builder)
     {
         // Configure primary key and table
         builder.ToTable("TicketPurchases", "Ticketing");
@@ -15,16 +15,16 @@ internal class TicketPurchaseConfigurations : IEntityTypeConfiguration<TicketPur
 
         // Configure properties
         builder.Property(x => x.CustomerId);
-        builder.Property(x => x.ScheduleId);
+        builder.Property(x => x.ScheduledMovieShowId);
         builder.Property(x => x.IsDiscountApplied);
 
 
         //builder.Metadata.FindNavigation(nameof(MovieTicket.TicketSales))!.SetPropertyAccessMode(
         //    PropertyAccessMode.Field);
 
-        builder.Metadata.FindNavigation(nameof(TicketPurchase.TicketList))!.SetField("_ticketList");
+        builder.Metadata.FindNavigation(nameof(Purchase.TicketList))!.SetField("_ticketList");
 
 
-        builder.HasMany(x => x.TicketList).WithOne(y => y.TicketPurchase);
+        builder.HasMany(x => x.TicketList).WithOne(y => y.Purchase);
     }
 }

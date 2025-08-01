@@ -17,6 +17,10 @@
   "Ticketing:TicketNotAvailable": "Ticket is not available.",
   "Ticketing:TicketAlreadyUsed": "Ticket with code {0} has already been used.",
   "Ticketing:NotEnoughSeatsAvailable": "Not enough seats available. Only {0} seats are left.",
+  "Ticketing:MaxSeatsPerReservation": "Maximum number of seats per reservation exceeded. Limit is {0} seats.",
+  "Ticketing:SeatAlreadyReserved": "Seat {0}{1} is already reserved.",
+  "Ticketing:ReservedSeatNotFound": "Reserved seat {0}{1} not found.",
+  "Ticketing:SeatHoldExpired": "Seat hold for {0}{1} has expired. Please select seats again.",
   "Common:ServerErrorTitle": "An unexpected error occurred",
   "Common:ServerErrorDetail": "Please try again later or contact support if the issue persists."
 }

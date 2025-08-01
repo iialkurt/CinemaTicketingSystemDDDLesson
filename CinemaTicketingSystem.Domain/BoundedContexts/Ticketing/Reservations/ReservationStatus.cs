@@ -1,8 +1,7 @@
-namespace CinemaTicketingSystem.Domain.Ticketing.Reservations;
+namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
 
 public enum ReservationStatus
 {
-    Pending,
     Confirmed,
     Canceled,
     Expired

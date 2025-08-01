@@ -1,8 +1,8 @@
 ﻿namespace CinemaTicketingSystem.Domain.ValueObjects;
 
-public class SeatNumber : ValueObject
+public class SeatPosition : ValueObject
 {
-    public SeatNumber(string row, int number)
+    public SeatPosition(string row, int number)
     {
         if (string.IsNullOrWhiteSpace(row))
             throw new ArgumentException("Row cannot be empty.", nameof(row));

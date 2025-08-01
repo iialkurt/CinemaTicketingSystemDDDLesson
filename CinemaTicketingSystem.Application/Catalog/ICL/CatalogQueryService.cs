@@ -1,10 +1,10 @@
+using System.Net;
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Catalog.ICL.Dto;
 using CinemaTicketingSystem.Domain.Catalog.Repositories;
 using CinemaTicketingSystem.Domain.Core;
 using Microsoft.Extensions.Logging;
-using System.Net;
 
 namespace CinemaTicketingSystem.Application.Catalog.ICL;
 

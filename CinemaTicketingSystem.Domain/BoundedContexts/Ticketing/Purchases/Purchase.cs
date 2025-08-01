@@ -1,30 +1,31 @@
 ﻿using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.Domain.Core.Exceptions;
+using CinemaTicketingSystem.Domain.Ticketing;
 using CinemaTicketingSystem.Domain.Ticketing.DomainEvents;
 using CinemaTicketingSystem.Domain.ValueObjects;
 
-namespace CinemaTicketingSystem.Domain.Ticketing;
+namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
 
-public class TicketPurchase : AggregateRoot<Guid>
+public class Purchase : AggregateRoot<Guid>
 {
     private const int MaxTicketsPerPurchase = 10;
 
     private readonly List<Ticket> _ticketList = [];
 
-    protected TicketPurchase()
+    protected Purchase()
     {
     }
 
-    public TicketPurchase(Guid scheduleId, Guid customerId)
+    public Purchase(Guid scheduleId, Guid customerId)
     {
         Id = Guid.CreateVersion7();
-        ScheduleId = scheduleId;
+        ScheduledMovieShowId = scheduleId;
         CustomerId = customerId;
     }
 
 
     public Guid? CustomerId { get; }
-    public Guid ScheduleId { get; private set; }
+    public Guid ScheduledMovieShowId { get; private set; }
     public bool IsDiscountApplied { get; private set; }
 
     public virtual IReadOnlyCollection<Ticket> TicketList => _ticketList.AsReadOnly();
@@ -34,19 +35,19 @@ public class TicketPurchase : AggregateRoot<Guid>
         if (_ticketList.Count >= MaxTicketsPerPurchase)
             throw new BusinessException(ErrorCodes.MaxTicketsExceeded).AddData(MaxTicketsPerPurchase);
 
-        if (_ticketList.Any(t => t.SeatNumber == ticket.SeatNumber))
-            throw new BusinessException(ErrorCodes.DuplicateSeat).AddData(ticket.SeatNumber.Row)
-                .AddData(ticket.SeatNumber.Number);
+        if (_ticketList.Any(t => t.SeatPosition == ticket.SeatPosition))
+            throw new BusinessException(ErrorCodes.DuplicateSeat).AddData(ticket.SeatPosition.Row)
+                .AddData(ticket.SeatPosition.Number);
         _ticketList.Add(ticket);
         ApplyBulkDiscountIfEligible();
-        AddDomainEvent(new TicketPurchasedEvent(ticket.Id, CustomerId!.Value, ticket.Price));
+        AddDomainEvent(new TicketPurchasedEvent(ticket.Id, ScheduledMovieShowId,CustomerId!.Value,ticket.SeatPosition, ticket.Price));
     }
 
-    public void RemoveTicket(SeatNumber seatNumber)
+    public void RemoveTicket(SeatPosition seatPosition)
     {
-        var ticket = _ticketList.FirstOrDefault(t => t.SeatNumber == seatNumber);
+        var ticket = _ticketList.FirstOrDefault(t => t.SeatPosition == seatPosition);
         if (ticket is null)
-            throw new BusinessException(ErrorCodes.TicketNotFound).AddData(seatNumber.Row).AddData(seatNumber.Number);
+            throw new BusinessException(ErrorCodes.TicketNotFound).AddData(seatPosition.Row).AddData(seatPosition.Number);
 
         _ticketList.Remove(ticket);
         AddDomainEvent(new TicketReleasedEvent(ticket.Id));
@@ -86,8 +87,8 @@ public class TicketPurchase : AggregateRoot<Guid>
         }
     }
 
-    public bool HasTicketForSeat(SeatNumber seatNumber)
+    public bool HasTicketForSeat(SeatPosition seatPosition)
     {
-        return _ticketList.Any(t => t.SeatNumber == seatNumber);
+        return _ticketList.Any(t => t.SeatPosition == seatPosition);
     }
 }

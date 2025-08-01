@@ -15,7 +15,7 @@ public class AddCinemaHallValidator : AbstractValidator<AddCinemaHallRequest>
             {
                 rules.RuleFor(x => x.Row).NotEmpty().MaximumLength(10);
                 rules.RuleFor(x => x.Number).GreaterThan(0);
-                rules.RuleFor(x => x.seatType).IsInEnum();
+                rules.RuleFor(x => x.SeatType).IsInEnum();
             });
     }
 }

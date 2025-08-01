@@ -1,4 +1,5 @@
 ﻿using CinemaTicketingSystem.Domain.Core;
+using CinemaTicketingSystem.Domain.ValueObjects;
 
 namespace CinemaTicketingSystem.Domain.Catalog;
 
@@ -9,21 +10,17 @@ public class Seat : Entity<Guid>
     }
 
     // Constructor
-    public Seat(string row, int number, SeatType type)
+    public Seat(SeatPosition seatPosition, SeatType type)
     {
-        if (string.IsNullOrWhiteSpace(row))
-            throw new ArgumentException("Row cannot be empty");
-        if (number <= 0)
-            throw new ArgumentException("Seat number must be positive");
 
-        Row = row.ToUpper();
-        Number = (short)number;
+
+
+        SeatPosition = seatPosition;
         Type = type;
         Id = Guid.CreateVersion7();
     }
 
-    public string Row { get; } = null!;
-    public short Number { get; }
+    public SeatPosition SeatPosition { get; private set; }
     public SeatType Type { get; private set; }
     public bool IsAvailable { get; private set; } = true;
 
@@ -40,11 +37,7 @@ public class Seat : Entity<Guid>
     {
         IsAvailable = isAvailable;
     }
-
-    public string GetSeatIdentifier()
-    {
-        return $"{Row}{Number:D2}";
-    }
+    
 
     public bool IsAccessible()
     {

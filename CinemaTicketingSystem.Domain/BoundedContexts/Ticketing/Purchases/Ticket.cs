@@ -1,4 +1,5 @@
-﻿using CinemaTicketingSystem.Domain.Core;
+﻿using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
+using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.Domain.Core.Exceptions;
 using CinemaTicketingSystem.Domain.ValueObjects;
 
@@ -6,10 +7,10 @@ namespace CinemaTicketingSystem.Domain.Ticketing;
 
 public class Ticket : Entity<Guid>
 {
-    public Ticket(SeatNumber seatNumber, Price price)
+    public Ticket(SeatPosition seatPosition, Price price)
     {
         Id = Guid.CreateVersion7();
-        SeatNumber = seatNumber;
+        SeatPosition = seatPosition;
         Price = price;
         TicketCode = GenerateTicketCode();
         IsUsed = false;
@@ -19,9 +20,9 @@ public class Ticket : Entity<Guid>
     {
     }
 
-    public virtual TicketPurchase TicketPurchase { get; private set; } = null!;
+    public virtual Purchase Purchase { get; private set; } = null!;
 
-    public SeatNumber SeatNumber { get; } = null!;
+    public SeatPosition SeatPosition { get; } = null!;
     public Price Price { get; } = null!;
     public string TicketCode { get; } = null!;
     public bool IsUsed { get; private set; }
@@ -34,7 +35,7 @@ public class Ticket : Entity<Guid>
 
     public string GetTicketInfo()
     {
-        return $"Ticket: {TicketCode}, Seat: {SeatNumber}, Price: {Price}";
+        return $"Ticket: {TicketCode}, Seat: {SeatPosition}, Price: {Price}";
     }
 
     private static string GenerateTicketCode()

@@ -1,9 +1,9 @@
+using System.Net;
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.Domain.Scheduling.Repositories;
 using Microsoft.Extensions.Logging;
-using System.Net;
 
 namespace CinemaTicketingSystem.Application.Schedules.ICL;
 

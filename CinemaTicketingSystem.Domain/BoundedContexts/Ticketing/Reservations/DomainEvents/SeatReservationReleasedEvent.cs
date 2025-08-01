@@ -2,7 +2,4 @@ using CinemaTicketingSystem.Domain.ValueObjects;
 
 namespace CinemaTicketingSystem.Domain.Ticketing.Reservations.DomainEvents;
 
-public record SeatReservationReleasedEvent(Guid ReservationId, SeatNumber SeatNumber) : IDomainEvent
-{
-    public DateTime OccurredOn { get; } = DateTime.UtcNow;
-}
+public record SeatReservationReleasedEvent(Guid ReservationId, SeatPosition SeatPosition) : IDomainEvent;

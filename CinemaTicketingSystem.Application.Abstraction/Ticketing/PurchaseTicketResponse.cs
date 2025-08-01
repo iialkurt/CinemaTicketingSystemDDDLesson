@@ -5,4 +5,4 @@ public record PurchaseTicketResponse(
     string HallName,
     string MovieTitle,
     DateTime ShowTime,
-    List<SeatDto> Seats);
+    List<SeatPositionDto> SeatPositionList);

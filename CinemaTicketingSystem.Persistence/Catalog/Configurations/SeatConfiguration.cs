@@ -19,12 +19,24 @@ public class SeatConfiguration : IEntityTypeConfiguration<Seat>
         builder.Property(s => s.Id)
             .ValueGeneratedNever();
 
-        builder.Property(s => s.Row)
-            .HasMaxLength(1).IsFixedLength()
-            .IsRequired().IsUnicode(false);
+    
+        builder.OwnsOne(x => x.SeatPosition, seatBuilder =>
+        {
+            seatBuilder.Property(s => s.Number)
+                .HasColumnName("Number")
+                .IsRequired();
 
-        builder.Property(s => s.Number)
-            .IsRequired();
+            seatBuilder.Property(s => s.Row)
+                .HasColumnName("Row")
+                .HasMaxLength(1).IsFixedLength()
+                .IsRequired().IsUnicode(false);
+        });
+        
+        
+        
+        
+        
+        
 
         // Enum configuration for SeatType
         builder.Property(s => s.Type).HasMaxLength(20);

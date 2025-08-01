@@ -1,8 +1,9 @@
 ﻿using System.Reflection;
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
 using CinemaTicketingSystem.Domain.Catalog;
 using CinemaTicketingSystem.Domain.Scheduling;
 using CinemaTicketingSystem.Domain.Ticketing;
-using CinemaTicketingSystem.Domain.Ticketing.Reservations;
 using CinemaTicketingSystem.Persistence.Accounts;
 using CinemaTicketingSystem.Persistence.Interceptors;
 using MediatR;
@@ -15,9 +16,9 @@ namespace CinemaTicketingSystem.Persistence;
 public class AppDbContext(DbContextOptions<AppDbContext> options, IPublisher publisher)
     : IdentityDbContext<AppUser, AppRole, Guid>(options)
 {
-    public DbSet<TicketPurchase> MovieTickets { get; set; }
+    public DbSet<Purchase> MovieTickets { get; set; }
 
-    public DbSet<SeatReservation> SeatReservations { get; set; }
+    public DbSet<Reservation> SeatReservations { get; set; }
 
 
     public DbSet<CinemaHallSnapshot> CinemaHallSchedules { get; set; }
@@ -31,7 +32,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IPublisher pub
     public DbSet<Movie> Movies { get; set; }
 
 
-    public DbSet<TicketPurchase> TicketPurchases { get; set; }
+    public DbSet<Purchase> TicketPurchases { get; set; }
     public DbSet<Ticket> Tickets { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -45,12 +46,12 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IPublisher pub
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-        foreach (var mutableProperty in entityType.GetProperties())
-        {
-            if (!ReferenceEquals(mutableProperty.ClrType, typeof(decimal))) continue;
-            mutableProperty.SetPrecision(9);
-            mutableProperty.SetScale(2);
-        }
+            foreach (var mutableProperty in entityType.GetProperties())
+            {
+                if (!ReferenceEquals(mutableProperty.ClrType, typeof(decimal))) continue;
+                mutableProperty.SetPrecision(9);
+                mutableProperty.SetScale(2);
+            }
 
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

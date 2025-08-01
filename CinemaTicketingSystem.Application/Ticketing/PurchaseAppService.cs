@@ -4,17 +4,18 @@ using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Abstraction.Ticketing;
 using CinemaTicketingSystem.Application.Catalog.ICL;
 using CinemaTicketingSystem.Application.Schedules.ICL;
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Repositories;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.Domain.Ticketing;
-using CinemaTicketingSystem.Domain.Ticketing.Repositories;
 using CinemaTicketingSystem.Domain.ValueObjects;
 using CinemaTicketingSystem.SharedKernel;
 
 namespace CinemaTicketingSystem.Application.Ticketing;
 
-public class TicketPurchaseAppService(
+public class PurchaseAppService(
     AppDependencyService appDependencyService,
-    ITicketPurchaseRepository ticketPurchaseRepository,
+    IPurchaseRepository purchaseRepository,
     IUserContext userContext,
     ICatalogQueryService catalogQueryService,
     IScheduleQueryService iScheduleQueryService) : IScopedDependency, ITicketPurchaseAppService
@@ -30,32 +31,25 @@ public class TicketPurchaseAppService(
             await catalogQueryService.GetCinemaInfo(scheduleInfo.Data!.CinemaHallId, scheduleInfo.Data.MovieId);
 
 
-        var ticketPurchaseList = ticketPurchaseRepository.GetTicketsPurchaseByScheduleId(request.ScheduleId);
+        var ticketPurchaseList = purchaseRepository.GetTicketsPurchaseByScheduleId(request.ScheduleId);
 
 
         var purchasedTicketCount = ticketPurchaseList.SelectMany(x => x.TicketList).Count();
-
-
-        // hallId sahip hall toplam kaç kişi alıyor
-        // seçilen koltuk ilgili hall'de bulunuyor mu?
-        // seçilen koltuk daha önce satın alınmış mı?
-        //cinema name,hall name,show time bilgileri lazım (scheduleId üzerinden alınabilir)
-
-
+        
         var availableSeatCount = catalogInfo.Data!.SeatCount - purchasedTicketCount;
         if (availableSeatCount <= 0)
             return appDependencyService.Error(ErrorCodes.SeatNotAvailable,
                 HttpStatusCode.BadRequest);
 
 
-        if (availableSeatCount < request.seats.Count)
+        if (availableSeatCount < request.SeatPositionList.Count)
             return appDependencyService.Error(ErrorCodes.NotEnoughSeatsAvailable, [availableSeatCount],
                 HttpStatusCode.BadRequest);
 
 
-        foreach (var seat in request.seats)
+        foreach (var seat in request.SeatPositionList)
         {
-            var seatNumber = new SeatNumber(seat.Row, seat.Number);
+            var seatNumber = new SeatPosition(seat.Row, seat.Number);
             var hasTicket = ticketPurchaseList.Any(x => x.HasTicketForSeat(seatNumber));
             if (hasTicket)
                 return appDependencyService.Error(ErrorCodes.DuplicateSeat, [seat.Row, seat.Number],
@@ -63,16 +57,16 @@ public class TicketPurchaseAppService(
         }
 
 
-        var ticket = new TicketPurchase(request.ScheduleId, userContext.UserId);
+        var ticket = new Purchase(request.ScheduleId, userContext.UserId);
 
-        foreach (var seat in request.seats)
+        foreach (var seat in request.SeatPositionList)
         {
-            var newTicket = new Ticket(new SeatNumber(seat.Row, seat.Number), scheduleInfo.Data.TicketPrice);
+            var newTicket = new Ticket(new SeatPosition(seat.Row, seat.Number), scheduleInfo.Data.TicketPrice);
             ticket.AddTicket(newTicket);
         }
 
 
-        await ticketPurchaseRepository.AddAsync(ticket);
+        await purchaseRepository.AddAsync(ticket);
 
         await appDependencyService.UnitOfWork.SaveChangesAsync();
 

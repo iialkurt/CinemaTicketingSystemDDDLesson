@@ -1,6 +1,6 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.Contracts;
+﻿using System.Security.Claims;
+using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.SharedKernel;
-using System.Security.Claims;
 
 namespace CinemaTicketingSystem.Host.Identities;
 

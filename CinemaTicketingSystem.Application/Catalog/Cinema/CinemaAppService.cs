@@ -8,6 +8,7 @@ using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Domain.Catalog;
 using CinemaTicketingSystem.Domain.Catalog.Repositories;
 using CinemaTicketingSystem.Domain.Core;
+using CinemaTicketingSystem.Domain.ValueObjects;
 
 namespace CinemaTicketingSystem.Application.Catalog.Cinema;
 
@@ -60,7 +61,7 @@ public class CinemaAppService(
 
 
         request.SeatList.ForEach(seatDto =>
-            cinemaHall.AddSeat(new Seat(seatDto.Row, seatDto.Number, seatDto.seatType)));
+            cinemaHall.AddSeat(new Seat(new SeatPosition(seatDto.Row,seatDto.Number), seatDto.SeatType)));
 
 
         cinema.AddHall(cinemaHall);
@@ -105,7 +106,7 @@ public class CinemaAppService(
                     .Where(tech => x.SupportedTechnologies.HasFlag(tech))
                     .Select(tech => (int)tech)
                     .ToArray(),
-                x.Seats.Select(y => new SeatDto(y.Row, y.Number, y.Type)).ToList()))
+                x.Seats.Select(y => new SeatPositionDto(y.SeatPosition.Row, y.SeatPosition.Number, y.Type)).ToList()))
             .ToList();
 
 
