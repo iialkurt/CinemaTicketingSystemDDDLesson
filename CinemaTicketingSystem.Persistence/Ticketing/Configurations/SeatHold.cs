@@ -1,12 +1,13 @@
-﻿using CinemaTicketingSystem.Domain.Ticketing.Reservations;
+﻿using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
+using CinemaTicketingSystem.Domain.Ticketing.Reservations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CinemaTicketingSystem.Persistence.Ticketing.Configurations;
 
-internal class ReservedSeatConfigurations : IEntityTypeConfiguration<ReservedSeat>
+internal class ReservedSeatConfigurations : IEntityTypeConfiguration<SeatHold>
 {
-    public void Configure(EntityTypeBuilder<ReservedSeat> builder)
+    public void Configure(EntityTypeBuilder<SeatHold> builder)
     {
         builder.ToTable("ReservedSeats", "Ticketing");
         builder.HasKey(x => x.Id);

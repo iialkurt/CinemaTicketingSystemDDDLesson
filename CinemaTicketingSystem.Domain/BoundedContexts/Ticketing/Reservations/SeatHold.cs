@@ -1,6 +1,7 @@
+using CinemaTicketingSystem.Domain.Ticketing.Reservations;
 using CinemaTicketingSystem.Domain.ValueObjects;
 
-namespace CinemaTicketingSystem.Domain.Ticketing.Reservations;
+namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
 
 public class ReservedSeat : Entity<Guid>
 {
@@ -16,7 +17,7 @@ public class ReservedSeat : Entity<Guid>
 
     public SeatNumber SeatNumber { get; } = null!;
 
-    public virtual SeatReservation SeatReservation { get; set; } = null!;
+    public virtual Reservation Reservation { get; set; } = null!;
 
     public string GetSeatInfo()
     {

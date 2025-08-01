@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CinemaTicketingSystem.Persistence.Ticketing.Configurations;
 
-internal class ReservationTicketConfiguration : IEntityTypeConfiguration<SeatReservation>
+internal class ReservationTicketConfiguration : IEntityTypeConfiguration<Reservation>
 {
-    public void Configure(EntityTypeBuilder<SeatReservation> builder)
+    public void Configure(EntityTypeBuilder<Reservation> builder)
     {
         builder.ToTable("SeatReservations", "Ticketing");
         builder.HasKey(x => x.Id);
@@ -19,8 +19,8 @@ internal class ReservationTicketConfiguration : IEntityTypeConfiguration<SeatRes
         builder.Property(x => x.Status).IsRequired();
 
 
-        builder.HasMany(x => x.ReservedSeats).WithOne(y => y.SeatReservation);
+        builder.HasMany(x => x.ReservedSeats).WithOne(y => y.Reservation);
 
-        builder.Metadata.FindNavigation(nameof(SeatReservation.ReservedSeats))!.SetField("reservedSeats");
+        builder.Metadata.FindNavigation(nameof(Reservation.ReservedSeats))!.SetField("reservedSeats");
     }
 }
