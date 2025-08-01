@@ -61,7 +61,7 @@ public class CinemaAppService(
 
 
         request.SeatList.ForEach(seatDto =>
-            cinemaHall.AddSeat(new Seat(new SeatPosition(seatDto.Row,seatDto.Number), seatDto.SeatType)));
+            cinemaHall.AddSeat(new Seat(new SeatPosition(seatDto.Row, seatDto.Number), seatDto.SeatType)));
 
 
         cinema.AddHall(cinemaHall);

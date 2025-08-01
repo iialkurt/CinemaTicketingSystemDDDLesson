@@ -1,4 +1,3 @@
-using CinemaTicketingSystem.Domain.Catalog;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.Domain.Core.Exceptions;
 using CinemaTicketingSystem.Domain.ValueObjects;

@@ -19,7 +19,7 @@ public interface IGenericRepository<in TId, TEntity> where TEntity : Entity<TId>
     Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate,
         CancellationToken cancellationToken = default);
 
-    
+
     Task<bool> ExistsAsync(TId id, CancellationToken cancellationToken = default);
     Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
     Task<int> CountAsync(CancellationToken cancellationToken = default);

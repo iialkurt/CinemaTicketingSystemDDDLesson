@@ -31,10 +31,10 @@ public static class ErrorCodes
     public const string NoSeatsReserved = "Ticketing:NoSeatsReserved";
     public const string CannotCancelExpiredReservation = "Ticketing:CannotCancelExpiredReservation";
     public const string SeatHoldExpired = "Ticketing:SeatHoldExpired";
-public const string SeatAlreadyHeld= "Ticketing:SeatAlreadyHeld";
+    public const string SeatAlreadyHeld = "Ticketing:SeatAlreadyHeld";
     public const string SeatHoldNotFound = "Ticketing:SeatHoldNotFound";
-    
-    
+
+
     public const string ServerErrorTitle = "Common:ServerErrorTitle";
     public const string ServerErrorDetail = "Common:ServerErrorDetail";
 }

@@ -19,7 +19,7 @@ public class SeatConfiguration : IEntityTypeConfiguration<Seat>
         builder.Property(s => s.Id)
             .ValueGeneratedNever();
 
-    
+
         builder.OwnsOne(x => x.SeatPosition, seatBuilder =>
         {
             seatBuilder.Property(s => s.Number)
@@ -31,12 +31,7 @@ public class SeatConfiguration : IEntityTypeConfiguration<Seat>
                 .HasMaxLength(1).IsFixedLength()
                 .IsRequired().IsUnicode(false);
         });
-        
-        
-        
-        
-        
-        
+
 
         // Enum configuration for SeatType
         builder.Property(s => s.Type).HasMaxLength(20);

@@ -48,7 +48,7 @@ public class Reservation : AggregateRoot<Guid>
                 .AddData(reservationSeat.SeatPosition.Number);
 
         _reservationSeatList.Add(reservationSeat);
-        AddDomainEvent(new SeatReservedEvent(Id, ScheduledMovieShowId,CustomerId,reservationSeat.SeatPosition));
+        AddDomainEvent(new SeatReservedEvent(Id, ScheduledMovieShowId, CustomerId, reservationSeat.SeatPosition));
     }
 
     public void RemoveSeat(SeatPosition seatPosition)

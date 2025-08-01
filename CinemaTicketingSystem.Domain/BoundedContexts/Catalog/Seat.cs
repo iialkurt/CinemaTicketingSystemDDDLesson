@@ -12,9 +12,6 @@ public class Seat : Entity<Guid>
     // Constructor
     public Seat(SeatPosition seatPosition, SeatType type)
     {
-
-
-
         SeatPosition = seatPosition;
         Type = type;
         Id = Guid.CreateVersion7();
@@ -37,7 +34,7 @@ public class Seat : Entity<Guid>
     {
         IsAvailable = isAvailable;
     }
-    
+
 
     public bool IsAccessible()
     {

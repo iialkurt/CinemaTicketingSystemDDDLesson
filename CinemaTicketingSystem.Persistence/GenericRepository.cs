@@ -45,7 +45,7 @@ public class GenericRepository<TId, TEntity> : IGenericRepository<TId, TEntity> 
 
     public Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
     {
-        return  _dbSet.SingleAsync(predicate, cancellationToken);
+        return _dbSet.SingleAsync(predicate, cancellationToken);
     }
 
 

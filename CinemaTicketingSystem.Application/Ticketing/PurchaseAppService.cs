@@ -35,7 +35,7 @@ public class PurchaseAppService(
 
 
         var purchasedTicketCount = ticketPurchaseList.SelectMany(x => x.TicketList).Count();
-        
+
         var availableSeatCount = catalogInfo.Data!.SeatCount - purchasedTicketCount;
         if (availableSeatCount <= 0)
             return appDependencyService.Error(ErrorCodes.SeatNotAvailable,

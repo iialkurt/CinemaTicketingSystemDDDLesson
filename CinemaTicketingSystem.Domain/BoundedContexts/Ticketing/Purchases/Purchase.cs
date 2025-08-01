@@ -25,7 +25,7 @@ public class Purchase : AggregateRoot<Guid>
 
 
     public Guid? CustomerId { get; }
-    public Guid ScheduledMovieShowId { get; private set; }
+    public Guid ScheduledMovieShowId { get; }
     public bool IsDiscountApplied { get; private set; }
 
     public virtual IReadOnlyCollection<Ticket> TicketList => _ticketList.AsReadOnly();
@@ -40,7 +40,7 @@ public class Purchase : AggregateRoot<Guid>
                 .AddData(ticket.SeatPosition.Number);
         _ticketList.Add(ticket);
         ApplyBulkDiscountIfEligible();
-        AddDomainEvent(new TicketPurchasedEvent(ticket.Id, ScheduledMovieShowId,CustomerId!.Value,ticket.SeatPosition, ticket.Price));
+        AddDomainEvent(new TicketPurchasedEvent(ticket.Id, ScheduledMovieShowId, CustomerId!.Value, ticket.SeatPosition, ticket.Price));
     }
 
     public void RemoveTicket(SeatPosition seatPosition)
