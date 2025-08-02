@@ -39,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Caching", "CinemaTicketingSystem.Caching\CinemaTicketingSystem.Caching.csproj", "{2B471098-BA97-412E-A80B-F11CB8BA219A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Authentication", "CinemaTicketingSystem.Authentication\CinemaTicketingSystem.Authentication.csproj", "{16E4C4B2-94D8-46A9-BDBA-309BB9E283B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Identity", "CinemaTicketingSystem.Authentication\CinemaTicketingSystem.Identity.csproj", "{16E4C4B2-94D8-46A9-BDBA-309BB9E283B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

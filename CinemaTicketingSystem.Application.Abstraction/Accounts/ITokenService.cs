@@ -1,6 +1,6 @@
 ﻿namespace CinemaTicketingSystem.Application.Abstraction.Accounts
 {
-    public interface IAuthenticationTokenService
+    public interface ITokenService
     {
     }
 }

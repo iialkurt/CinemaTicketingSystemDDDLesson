@@ -3,7 +3,7 @@ using CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
 
-public class User : Entity<UserId>
+public class User : AggregateRoot<UserId>
 {
     public User(Email email, Password password, string firstName, string lastName)
     {

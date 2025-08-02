@@ -7,6 +7,7 @@ using CinemaTicketingSystem.Caching;
 using CinemaTicketingSystem.Domain.Catalog.DomainEvents;
 using CinemaTicketingSystem.Domain.Repositories;
 using CinemaTicketingSystem.Host.Identities;
+using CinemaTicketingSystem.Identity;
 using CinemaTicketingSystem.Persistence;
 using CinemaTicketingSystem.Persistence.Accounts;
 using CinemaTicketingSystem.ServiceBus;

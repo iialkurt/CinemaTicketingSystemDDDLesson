@@ -4,7 +4,7 @@ using CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
 
 namespace CinemaTicketingSystem.Application.Account;
 
-public class AccountService(AppDependencyService appDependencyService, IAccountRepository accountRepository) : IScopedDependency
+public class AccountService(AppDependencyService appDependencyService, IAccountRepository accountRepository, I) : IScopedDependency
 {
 
     public async Task<AppResult> SignUpAsync(SignUpRequest request)
@@ -23,6 +23,18 @@ public class AccountService(AppDependencyService appDependencyService, IAccountR
     public async Task<AppResult<User>> SignInRequest(SignInRequest userId)
     {
         var user = await accountRepository.GetAsync(userId.Email, userId.Password);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

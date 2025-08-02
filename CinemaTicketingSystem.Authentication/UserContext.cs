@@ -1,10 +1,12 @@
-﻿using System.Security.Claims;
-using CinemaTicketingSystem.Application.Abstraction.Contracts;
+﻿using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.SharedKernel;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
-namespace CinemaTicketingSystem.Host.Identities;
+namespace CinemaTicketingSystem.Identity;
 
-internal class UserContext(IHttpContextAccessor httpContextAccessor, ILogger<UserContext> logger, ILocalizer localizer)
+public class UserContext(IHttpContextAccessor httpContextAccessor, ILogger<UserContext> logger, ILocalizer localizer)
     : IUserContext
 {
     public Guid UserId
