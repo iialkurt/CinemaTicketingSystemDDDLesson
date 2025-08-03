@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Ardalis.GuardClauses;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
 
@@ -14,10 +15,27 @@ public class Password : ValueObject
 
     public Password(string value)
     {
-        if (!IsValid(value))
-            throw new ArgumentException(
-                "Password must be 8-12 characters and include at least one uppercase letter, one lowercase letter, one digit, and one non-alphanumeric character.",
-                nameof(value));
+        Guard.Against.NullOrWhiteSpace(value, nameof(value), "Password cannot be empty.");
+
+        Guard.Against.InvalidInput(value, nameof(value), 
+            password => password.Length < MinLength || password.Length > MaxLength,
+            $"Password must be between {MinLength} and {MaxLength} characters.");
+
+        Guard.Against.InvalidInput(value, nameof(value), 
+            password => !UpperCaseRegex.IsMatch(password),
+            "Password must contain at least one uppercase letter.");
+
+        Guard.Against.InvalidInput(value, nameof(value), 
+            password => !LowerCaseRegex.IsMatch(password),
+            "Password must contain at least one lowercase letter.");
+
+        Guard.Against.InvalidInput(value, nameof(value), 
+            password => !DigitRegex.IsMatch(password),
+            "Password must contain at least one digit.");
+
+        Guard.Against.InvalidInput(value, nameof(value), 
+            password => !NonAlphaNumericRegex.IsMatch(password),
+            "Password must contain at least one special character.");
 
         Value = value;
     }
@@ -37,17 +55,6 @@ public class Password : ValueObject
     public static implicit operator Password(string value)
     {
         return new Password(value);
-    }
-
-    private static bool IsValid(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value)) return false;
-        if (value.Length < MinLength || value.Length > MaxLength) return false;
-        if (!UpperCaseRegex.IsMatch(value)) return false;
-        if (!LowerCaseRegex.IsMatch(value)) return false;
-        if (!DigitRegex.IsMatch(value)) return false;
-        if (!NonAlphaNumericRegex.IsMatch(value)) return false;
-        return true;
     }
 
     protected override IEnumerable<object?> GetEqualityComponents()

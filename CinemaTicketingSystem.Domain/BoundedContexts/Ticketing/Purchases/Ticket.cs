@@ -2,6 +2,7 @@
 using CinemaTicketingSystem.Domain.ValueObjects;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.Entities;
+using CinemaTicketingSystem.SharedKernel.Exceptions;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
 

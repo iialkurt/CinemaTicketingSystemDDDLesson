@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using Ardalis.GuardClauses;
+using System.Text.RegularExpressions;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
 
@@ -10,10 +11,15 @@ public class UserName : ValueObject
 
     public UserName(string value)
     {
-        if (!IsValid(value))
-            throw new ArgumentException(
-                "Username must be 3-20 characters and contain only letters, numbers, underscores, dots or hyphens.",
-                nameof(value));
+        Guard.Against.NullOrWhiteSpace(value, nameof(value), "Username cannot be empty.");
+
+        Guard.Against.InvalidInput(value, nameof(value),
+            username => username.Length < MinLength || username.Length > MaxLength,
+            $"Username must be between {MinLength} and {MaxLength} characters.");
+
+        Guard.Against.InvalidInput(value, nameof(value),
+            username => !UserNameRegex.IsMatch(username),
+            "Username must contain only letters, numbers, underscores, dots or hyphens.");
 
         Value = value;
     }
@@ -27,6 +33,8 @@ public class UserName : ValueObject
 
     public static UserName GenerateFromEmail(string email)
     {
+        Guard.Against.NullOrWhiteSpace(email, nameof(email), "Email cannot be empty for username generation.");
+
         var localPart = email.Split('@')[0];
         var cleaned = Regex.Replace(localPart, @"[^a-zA-Z0-9_.]", "");
         if (cleaned.Length < MinLength)
@@ -47,14 +55,6 @@ public class UserName : ValueObject
     public static implicit operator UserName(string value)
     {
         return new UserName(value);
-    }
-
-    private static bool IsValid(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value)) return false;
-        if (value.Length < MinLength || value.Length > MaxLength) return false;
-        if (!UserNameRegex.IsMatch(value)) return false;
-        return true;
     }
 
     protected override IEnumerable<object?> GetEqualityComponents()

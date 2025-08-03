@@ -1,3 +1,4 @@
+using Ardalis.GuardClauses;
 using System.Text.RegularExpressions;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
@@ -10,16 +11,15 @@ public class Email : ValueObject
 
     public Email(string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
-            throw new InvalidOperationException("Email cannot be empty.");
+        Guard.Against.NullOrWhiteSpace(value, nameof(value), "Email cannot be empty.");
 
         var normalizedEmail = value.Trim().ToLowerInvariant();
 
-        if (!IsValidEmail(normalizedEmail))
-            throw new InvalidOperationException($"Invalid email format: {value}");
+        Guard.Against.InvalidInput(normalizedEmail, nameof(value), email => !IsValidEmail(email),
+            $"Invalid email format: {value}");
 
-        if (normalizedEmail.Length > 254) // RFC 5321 limit
-            throw new InvalidOperationException("Email address is too long.");
+        Guard.Against.InvalidInput(normalizedEmail, nameof(value), email => email.Length > 254,
+            "Email address is too long."); // RFC 5321 limit
 
         Value = normalizedEmail;
     }

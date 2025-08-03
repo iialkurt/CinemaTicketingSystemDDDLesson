@@ -1,13 +1,12 @@
+using Ardalis.GuardClauses;
+
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
 
 public class UserId : ValueObject
 {
     public UserId(Guid value)
     {
-        if (value == Guid.Empty)
-            throw new ArgumentException("UserId cannot be empty.");
-
-        Value = value;
+        Value = Guard.Against.Default(value, nameof(value), "UserId cannot be empty.");
     }
 
     public Guid Value { get; }

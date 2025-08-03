@@ -1,4 +1,5 @@
 using CinemaTicketingSystem.SharedKernel;
+using CinemaTicketingSystem.SharedKernel.Exceptions;
 
 namespace CinemaTicketingSystem.Domain.Core.Exceptions;
 

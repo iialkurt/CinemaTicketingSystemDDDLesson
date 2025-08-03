@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace CinemaTicketingSystem.Domain.Core.Exceptions;
+namespace CinemaTicketingSystem.SharedKernel.Exceptions;
 
 public class UserFriendlyException(string errorCode, HttpStatusCode statusCode = HttpStatusCode.BadRequest) : Exception
 {

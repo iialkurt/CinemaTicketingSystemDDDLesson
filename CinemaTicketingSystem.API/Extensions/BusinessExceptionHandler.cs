@@ -1,5 +1,5 @@
 ﻿using CinemaTicketingSystem.Application.Abstraction.Contracts;
-using CinemaTicketingSystem.Domain.Core.Exceptions;
+using CinemaTicketingSystem.SharedKernel.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,10 +23,9 @@ public class BusinessExceptionHandler : IExceptionHandler
         var title = placeHolderList.Any() ? localizer.L(errorCode, placeHolderList.ToArray()) : localizer.L(errorCode);
 
         problemDetails.Title = title;
-        problemDetails.Status = StatusCodes.Status400BadRequest;
-        ;
+        problemDetails.Status = (int)domainException.StatusCode;
+        httpContext.Response.StatusCode = (int)domainException.StatusCode;
 
-        httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
         await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
 
 
