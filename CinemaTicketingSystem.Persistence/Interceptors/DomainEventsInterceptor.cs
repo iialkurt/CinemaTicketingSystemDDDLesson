@@ -29,6 +29,23 @@ internal class DomainEventsInterceptor(IPublisher publisher) : SaveChangesInterc
         foreach (var ev in events) await publisher.Publish(ev, cancellationToken);
 
 
-        return await base.SavedChangesAsync(eventData, result, cancellationToken);
+        var savedChangesResult = await base.SavedChangesAsync(eventData, result, cancellationToken);
+
+
+
+        var integrationEvents = new List<IIntegrationEvent>();
+        foreach (var aggr in aggregates)
+        {
+            events.AddRange(aggr.DomainEvents);
+            aggr.ClearDomainEvents();
+        }
+
+        foreach (var ev in events) await publisher.Publish(ev, cancellationToken);
+
+
+
+
+        return savedChangesResult;
+
     }
 }

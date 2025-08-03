@@ -13,7 +13,7 @@ public class MassTransitConsumerAdapter<TMessage>(IIntegrationEventHandler<TMess
     }
 }
 
-public class MassTransitDomainEventConsumerAdapter<TMessage>(IIntegrationEventHandler<TMessage> handler) : IConsumer<TMessage>
+public class MassTransitDomainEventConsumerAdapter<TMessage>(IDomainEventHandler<TMessage> handler) : IConsumer<TMessage>
     where TMessage : class, IDomainEvent
 {
     public async Task Consume(ConsumeContext<TMessage> context)

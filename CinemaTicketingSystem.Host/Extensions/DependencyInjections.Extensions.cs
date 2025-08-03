@@ -3,7 +3,7 @@ using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Schedules.IntegrationEventHandlers;
 using CinemaTicketingSystem.Caching;
-using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.DomainEvents;
+using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.IntegrationEvents;
 using CinemaTicketingSystem.Domain.Repositories;
 using CinemaTicketingSystem.Identity;
 using CinemaTicketingSystem.Persistence;
@@ -16,7 +16,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Reflection;
-using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.IntegrationEvents;
 
 namespace CinemaTicketingSystem.Host.Extensions;
 
@@ -52,7 +51,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IIntegrationEventBus, IntegrationEventBus>();
 
-
+        services.AddScoped<IDomainEventBus, DomainEventBus>();
         services.AddMassTransit(configure =>
         {
             configure.AddConsumer<MassTransitConsumerAdapter<CinemaHallCreatedIntegrationEvent>>();

@@ -6,4 +6,11 @@ public interface IAggregateRoot
 
     void ClearDomainEvents();
     void AddDomainEvent(IDomainEvent eventData);
+
+
+
+    IReadOnlyCollection<IIntegrationEvent> IntegrationEvents { get; }
+
+    void ClearIntegrationEvents();
+    void AddIntegrationEvent(IIntegrationEvent eventData);
 }
