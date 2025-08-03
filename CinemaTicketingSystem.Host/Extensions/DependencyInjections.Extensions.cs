@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using CinemaTicketingSystem.API.Localization;
+﻿using CinemaTicketingSystem.API.Localization;
 using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Schedules.IntegrationEventHandlers;
@@ -16,6 +15,8 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using System.Reflection;
+using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.IntegrationEvents;
 
 namespace CinemaTicketingSystem.Host.Extensions;
 
@@ -46,16 +47,16 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection RegisterServiceBus(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddScoped<IEventHandler<CinemaHallCreatedEvent>, CinemaHallCreatedEventHandler>();
-        services.AddScoped<IEventHandler<MovieCreatedEvent>, MovieCreatedEventHandler>();
+        services.AddScoped<IIntegrationEventHandler<CinemaHallCreatedIntegrationEvent>, CinemaHallCreatedIntegrationEventHandler>();
+        services.AddScoped<IIntegrationEventHandler<MovieCreatedIntegrationEvent>, MovieCreatedIntegrationEventHandler>();
 
         services.AddScoped<IIntegrationEventBus, IntegrationEventBus>();
 
 
         services.AddMassTransit(configure =>
         {
-            configure.AddConsumer<MassTransitConsumerAdapter<CinemaHallCreatedEvent>>();
-            configure.AddConsumer<MassTransitConsumerAdapter<MovieCreatedEvent>>();
+            configure.AddConsumer<MassTransitConsumerAdapter<CinemaHallCreatedIntegrationEvent>>();
+            configure.AddConsumer<MassTransitConsumerAdapter<MovieCreatedIntegrationEvent>>();
             configure.UsingInMemory((context, cfg) => { cfg.ConfigureEndpoints(context); });
         });
 
@@ -101,6 +102,7 @@ public static class ServiceCollectionExtensions
 
         services.AddIdentity<AppUser, AppRole>(options =>
         {
+            options.User.RequireUniqueEmail = true;
             options.Password.RequireDigit = false;
             options.Password.RequireLowercase = false;
             options.Password.RequireUppercase = false;

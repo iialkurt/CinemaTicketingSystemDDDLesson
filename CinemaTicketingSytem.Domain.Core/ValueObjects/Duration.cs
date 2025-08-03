@@ -1,13 +1,15 @@
-﻿namespace CinemaTicketingSystem.Domain;
+﻿using Ardalis.GuardClauses;
+
+namespace CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 public class Duration : ValueObject
 {
     public Duration(double minutes)
     {
-        if (minutes <= 0)
-            throw new ArgumentException("Duration must be positive", nameof(minutes));
-        if (minutes > 600) // 10 saat maksimum
-            throw new ArgumentException("Duration cannot exceed 600 minutes", nameof(minutes));
+        Guard.Against.NegativeOrZero(minutes, nameof(minutes), "Duration must be positive.");
+        Guard.Against.InvalidInput(minutes, nameof(minutes),
+            m => m < 600,
+            "Duration cannot exceed 600 minutes.");
 
         Minutes = minutes;
     }
@@ -58,7 +60,7 @@ public class Duration : ValueObject
 
     public static Duration FromHoursAndMinutes(int hours, int minutes)
     {
-        return new Duration(hours * 60 + minutes);
+        return new Duration((hours * 60) + minutes);
     }
 
     public override string ToString()

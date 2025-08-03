@@ -1,6 +1,6 @@
 ﻿using CinemaTicketingSystem.Domain.Core;
-using CinemaTicketingSystem.Domain.ValueObjects;
 using CinemaTicketingSystem.SharedKernel.Entities;
+using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
 

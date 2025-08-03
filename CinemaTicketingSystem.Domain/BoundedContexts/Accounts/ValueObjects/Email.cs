@@ -1,12 +1,12 @@
 using Ardalis.GuardClauses;
+using CinemaTicketingSystem.SharedKernel.ValueObjects;
 using System.Text.RegularExpressions;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
 
 public class Email : ValueObject
 {
-    private static readonly Regex EmailRegex = new(
-        @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+    private static readonly Regex EmailRegex = new(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",
         RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     public Email(string value)
@@ -15,10 +15,13 @@ public class Email : ValueObject
 
         var normalizedEmail = value.Trim().ToLowerInvariant();
 
-        Guard.Against.InvalidInput(normalizedEmail, nameof(value), email => !IsValidEmail(email),
+        Guard.Against.InvalidInput(normalizedEmail, nameof(value), IsValidEmail,
             $"Invalid email format: {value}");
 
-        Guard.Against.InvalidInput(normalizedEmail, nameof(value), email => email.Length > 254,
+
+
+
+        Guard.Against.InvalidInput(normalizedEmail, nameof(value), email => email.Length < 254,
             "Email address is too long."); // RFC 5321 limit
 
         Value = normalizedEmail;
@@ -39,14 +42,10 @@ public class Email : ValueObject
         if (string.IsNullOrWhiteSpace(email))
             return false;
 
-        try
-        {
-            return EmailRegex.IsMatch(email);
-        }
-        catch
-        {
-            return false;
-        }
+
+        return EmailRegex.IsMatch(email);
+
+
     }
 
     protected override IEnumerable<object> GetEqualityComponents()

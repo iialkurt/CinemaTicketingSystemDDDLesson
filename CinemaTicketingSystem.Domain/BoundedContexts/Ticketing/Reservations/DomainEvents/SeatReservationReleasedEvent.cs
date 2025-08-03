@@ -1,5 +1,5 @@
-using CinemaTicketingSystem.Domain.ValueObjects;
 using CinemaTicketingSystem.SharedKernel;
+using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 namespace CinemaTicketingSystem.Domain.Ticketing.Reservations.DomainEvents;
 

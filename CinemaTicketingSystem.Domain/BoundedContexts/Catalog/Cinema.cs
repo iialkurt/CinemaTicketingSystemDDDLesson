@@ -1,8 +1,9 @@
 ﻿using Ardalis.GuardClauses;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.DomainEvents;
+using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.IntegrationEvents;
 using CinemaTicketingSystem.Domain.Catalog;
-using CinemaTicketingSystem.Domain.Core.Exceptions;
 using CinemaTicketingSystem.SharedKernel.AggregateRoot;
+using CinemaTicketingSystem.SharedKernel.Exceptions;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
 
@@ -49,6 +50,7 @@ public class Cinema : AggregateRoot<Guid>
         cinemaHalls.Add(hall);
 
         AddDomainEvent(new CinemaHallCreatedEvent(hall.Id, hall.SupportedTechnologies, hall.Capacity));
+        AddIntegrationEvent(new CinemaHallCreatedIntegrationEvent(hall.Id, hall.SupportedTechnologies, hall.Capacity));
     }
 
     public void RemoveHall(Guid hallId)

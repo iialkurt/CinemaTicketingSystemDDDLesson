@@ -1,4 +1,5 @@
 ﻿using Ardalis.GuardClauses;
+using CinemaTicketingSystem.SharedKernel.ValueObjects;
 using System.Text.RegularExpressions;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
@@ -14,11 +15,11 @@ public class UserName : ValueObject
         Guard.Against.NullOrWhiteSpace(value, nameof(value), "Username cannot be empty.");
 
         Guard.Against.InvalidInput(value, nameof(value),
-            username => username.Length < MinLength || username.Length > MaxLength,
+            username => username.Length > MinLength || username.Length < MaxLength,
             $"Username must be between {MinLength} and {MaxLength} characters.");
 
         Guard.Against.InvalidInput(value, nameof(value),
-            username => !UserNameRegex.IsMatch(username),
+            username => UserNameRegex.IsMatch(username),
             "Username must contain only letters, numbers, underscores, dots or hyphens.");
 
         Value = value;

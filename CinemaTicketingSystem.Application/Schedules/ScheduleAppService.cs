@@ -5,8 +5,8 @@ using CinemaTicketingSystem.Domain.BoundedContexts.Scheduling;
 using CinemaTicketingSystem.Domain.BoundedContexts.Scheduling.Repositories;
 using CinemaTicketingSystem.Domain.Repositories;
 using CinemaTicketingSystem.Domain.Scheduling;
-using CinemaTicketingSystem.Domain.ValueObjects;
 using CinemaTicketingSystem.SharedKernel;
+using CinemaTicketingSystem.SharedKernel.ValueObjects;
 using System.Net;
 
 namespace CinemaTicketingSystem.Application.Schedules;

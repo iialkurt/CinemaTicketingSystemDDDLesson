@@ -1,4 +1,5 @@
 ﻿using Ardalis.GuardClauses;
+using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 namespace CinemaTicketingSystem.Domain.Scheduling;
 

@@ -8,17 +8,18 @@ public abstract class AggregateRoot<T> : Entity<T>, IAggregateRoot
 
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
+    private readonly List<IIntegrationEvent> _integrationEvents = [];
 
-    public void ClearDomainEvents()
-    {
-        _domainEvents.Clear();
-    }
+    public IReadOnlyCollection<IIntegrationEvent> IntegrationEvents => _integrationEvents.AsReadOnly();
 
 
-    public void AddDomainEvent(IDomainEvent eventData)
-    {
-        _domainEvents.Add(eventData);
-    }
+    public void ClearDomainEvents() => _domainEvents.Clear();
+
+    public void ClearIntegrationEvents() => _integrationEvents.Clear();
+
+
+    public void AddDomainEvent(IDomainEvent eventData) => _domainEvents.Add(eventData);
+    public void AddIntegrationEvent(IIntegrationEvent eventData) => _integrationEvents.Add(eventData);
 }
 
 public abstract class AggregateRoot : Entity, IAggregateRoot

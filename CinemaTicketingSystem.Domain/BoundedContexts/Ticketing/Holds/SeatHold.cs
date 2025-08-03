@@ -1,7 +1,7 @@
-using CinemaTicketingSystem.Domain.ValueObjects;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.AggregateRoot;
 using CinemaTicketingSystem.SharedKernel.Exceptions;
+using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Holds;
 

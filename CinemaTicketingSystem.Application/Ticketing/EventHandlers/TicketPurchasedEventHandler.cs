@@ -6,7 +6,7 @@ using CinemaTicketingSystem.SharedKernel.Exceptions;
 
 namespace CinemaTicketingSystem.Application.Ticketing.EventHandlers;
 
-public class TicketPurchasedEventHandler(ISeatHoldRepository seatHoldRepository) : IEventHandler<TicketPurchasedEvent>
+public class TicketPurchasedEventHandler(ISeatHoldRepository seatHoldRepository) : IDomainEventHandler<TicketPurchasedEvent>
 {
     public async Task HandleAsync(TicketPurchasedEvent message, CancellationToken cancellationToken = default)
     {

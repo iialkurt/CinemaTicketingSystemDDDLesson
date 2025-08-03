@@ -6,6 +6,14 @@ namespace CinemaTicketingSystem.Persistence.Accounts;
 
 internal class AccountRepository(UserManager<AppUser> userManager) : IAccountRepository
 {
+
+
+    public async Task<bool> ExistEmailAsync(Email email)
+    {
+
+        var userFromDb = await userManager.FindByEmailAsync(email);
+        return userFromDb is not null;
+    }
     public async Task CreateAsync(User user)
     {
         var newUser = new AppUser
@@ -18,11 +26,8 @@ internal class AccountRepository(UserManager<AppUser> userManager) : IAccountRep
             CreatedAt = user.CreatedAt
         };
 
-        var result = await userManager.CreateAsync(newUser, user.Password);
+        await userManager.CreateAsync(newUser, user.Password);
 
-
-        if (!result.Succeeded)
-            throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
     }
 
     public async Task<User?> GetAsync(UserId id)
@@ -47,4 +52,8 @@ internal class AccountRepository(UserManager<AppUser> userManager) : IAccountRep
             userFromDb.FirstName!, userFromDb.LastName!, userFromDb.CreatedAt);
     }
 
+    Task IAccountRepository.CreateAsync(User user)
+    {
+        throw new NotImplementedException();
+    }
 }

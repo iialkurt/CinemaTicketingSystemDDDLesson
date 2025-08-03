@@ -1,17 +1,14 @@
-﻿namespace CinemaTicketingSystem.Domain.ValueObjects;
+﻿using Ardalis.GuardClauses;
+
+namespace CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 public class Price : ValueObject
 {
     public Price(decimal amount, string currency)
     {
-        if (amount < 0)
-            throw new ArgumentException("Amount cannot be negative.");
-
-        if (string.IsNullOrWhiteSpace(currency))
-            throw new ArgumentException("Currency is required.");
-
-        Amount = amount;
-        Currency = currency.ToUpperInvariant(); // Örn: "TRY", "USD"
+        Amount = Guard.Against.Negative(amount, nameof(amount), "Amount cannot be negative.");
+        Currency = Guard.Against.NullOrWhiteSpace(currency, nameof(currency), "Currency is required.")
+            .ToUpperInvariant(); // Örn: "TRY", "USD"
     }
 
     public decimal Amount { get; }

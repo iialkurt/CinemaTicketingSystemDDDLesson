@@ -1,8 +1,10 @@
 ﻿using Ardalis.GuardClauses;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.DomainEvents;
+using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.IntegrationEvents;
 using CinemaTicketingSystem.Domain.Catalog.DomainEvents;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.SharedKernel.AggregateRoot;
+using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
 
@@ -24,6 +26,8 @@ public class Movie : AggregateRoot<Guid>
         SupportedTechnology = supportedTechnology;
 
         AddDomainEvent(new MovieCreatedEvent(Id, duration, supportedTechnology));
+
+        AddIntegrationEvent(new MovieCreatedIntegrationEvent(Id, duration, supportedTechnology));
     }
 
     public Movie()
@@ -46,11 +50,23 @@ public class Movie : AggregateRoot<Guid>
     public void SetEarliestShowingDate(DateTime earliestDate)
     {
         Guard.Against.InvalidInput(earliestDate,
-            nameof(ShowingStartDate), x => ShowingStartDate.HasValue && ShowingStartDate < EarliestShowingDate,
+            nameof(ShowingStartDate), x => CheckEarliestShowingDate(earliestDate),
             $"Current showing start date ({ShowingStartDate:yyyy-MM-dd}) cannot be earlier than earliest showing date ({EarliestShowingDate:yyyy-MM-dd})");
 
         EarliestShowingDate = earliestDate.Date;
     }
+
+    private bool CheckEarliestShowingDate(DateTime earliestDate)
+    {
+
+        if (!ShowingStartDate.HasValue) return true;
+
+        return earliestDate.Date >= ShowingStartDate.Value;
+
+
+    }
+
+
 
     public void ClearEarliestShowingDate()
     {
@@ -97,7 +113,7 @@ public class Movie : AggregateRoot<Guid>
     public void SetTitle(string title)
     {
         title = Guard.Against.NullOrWhiteSpace(title, nameof(title));
-        Guard.Against.InvalidInput(title, nameof(title), x => title.Length > MovieConst.TitleMaxLength,
+        Guard.Against.InvalidInput(title, nameof(title), x => title.Length < MovieConst.TitleMaxLength,
             $"Title cannot exceed {MovieConst.TitleMaxLength} characters");
         Title = title.Trim();
     }
@@ -106,13 +122,14 @@ public class Movie : AggregateRoot<Guid>
     {
         posterImageUrl = Guard.Against.NullOrWhiteSpace(posterImageUrl, nameof(posterImageUrl));
 
+
         Guard.Against.InvalidInput(posterImageUrl, nameof(posterImageUrl),
-            x => posterImageUrl.Length > MovieConst.PosterImageUrlMaxLength,
+            x => posterImageUrl.Length < MovieConst.PosterImageUrlMaxLength,
             $"Poster Image URL cannot exceed {MovieConst.PosterImageUrlMaxLength} characters");
 
 
         Guard.Against.InvalidInput(posterImageUrl, nameof(posterImageUrl),
-            x => !Uri.TryCreate(posterImageUrl, UriKind.Absolute, out _),
+            x => Uri.TryCreate(posterImageUrl, UriKind.Absolute, out _),
             "Invalid poster image URL");
 
         PosterImageUrl = posterImageUrl.Trim();
@@ -122,7 +139,7 @@ public class Movie : AggregateRoot<Guid>
     {
         originalTitle = Guard.Against.NullOrWhiteSpace(originalTitle, nameof(originalTitle));
         Guard.Against.InvalidInput(originalTitle, nameof(originalTitle),
-            x => originalTitle.Length > MovieConst.OriginalTitleMaxLength,
+            x => originalTitle.Length < MovieConst.OriginalTitleMaxLength,
             $"Original Title cannot exceed {MovieConst.OriginalTitleMaxLength} characters");
 
         OriginalTitle = originalTitle.Trim();
@@ -137,7 +154,7 @@ public class Movie : AggregateRoot<Guid>
     {
         description = Guard.Against.NullOrWhiteSpace(description, nameof(description));
         Guard.Against.InvalidInput(description, nameof(description),
-            x => description.Length > MovieConst.DescriptionMaxLength,
+            x => description.Length < MovieConst.DescriptionMaxLength,
             $"Description cannot exceed {MovieConst.DescriptionMaxLength} characters");
 
         Description = description.Trim();
@@ -193,7 +210,7 @@ public class Movie : AggregateRoot<Guid>
         var proposedStartDate = startDate ?? DateTime.UtcNow;
 
 
-        Guard.Against.InvalidInput(proposedStartDate, nameof(startDate), x => !CanStartShowingOn(proposedStartDate),
+        Guard.Against.InvalidInput(proposedStartDate, nameof(startDate), x => CanStartShowingOn(proposedStartDate),
             $"Movie cannot start showing on {proposedStartDate:yyyy-MM-dd}. Earliest allowed date is {EarliestShowingDate:yyyy-MM-dd}");
 
         ShowingStartDate = proposedStartDate;

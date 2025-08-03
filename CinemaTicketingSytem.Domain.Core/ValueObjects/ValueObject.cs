@@ -1,4 +1,4 @@
-﻿namespace CinemaTicketingSystem.Domain;
+﻿namespace CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 public abstract class ValueObject
 {

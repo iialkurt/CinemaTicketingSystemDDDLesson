@@ -1,10 +1,9 @@
 ﻿using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases.DomainEvents;
-using CinemaTicketingSystem.Domain.Core.Exceptions;
 using CinemaTicketingSystem.Domain.Ticketing.DomainEvents;
-using CinemaTicketingSystem.Domain.ValueObjects;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.AggregateRoot;
 using CinemaTicketingSystem.SharedKernel.Exceptions;
+using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
 

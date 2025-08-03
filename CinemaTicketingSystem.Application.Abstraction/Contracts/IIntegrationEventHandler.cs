@@ -1,0 +1,9 @@
+﻿using CinemaTicketingSystem.SharedKernel;
+
+namespace CinemaTicketingSystem.Application.Abstraction.Contracts;
+
+public interface IIntegrationEventHandler<in TEvent>
+    where TEvent : IIntegrationEvent
+{
+    Task HandleAsync(TEvent message, CancellationToken cancellationToken = default);
+}

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net;
 
 namespace CinemaTicketingSystem.API.Extensions;
 
@@ -23,8 +24,8 @@ public class BusinessExceptionHandler : IExceptionHandler
         var title = placeHolderList.Any() ? localizer.L(errorCode, placeHolderList.ToArray()) : localizer.L(errorCode);
 
         problemDetails.Title = title;
-        problemDetails.Status = (int)domainException.StatusCode;
-        httpContext.Response.StatusCode = (int)domainException.StatusCode;
+        problemDetails.Status = HttpStatusCode.BadRequest.GetHashCode();
+        httpContext.Response.StatusCode = HttpStatusCode.BadRequest.GetHashCode();
 
         await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
 

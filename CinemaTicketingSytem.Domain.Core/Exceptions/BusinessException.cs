@@ -1,18 +1,16 @@
-﻿using System.Net;
+﻿namespace CinemaTicketingSystem.SharedKernel.Exceptions;
 
-namespace CinemaTicketingSystem.SharedKernel.Exceptions;
-
-public class BusinessException(string errorCode, HttpStatusCode statusCode = HttpStatusCode.BadRequest) : Exception
+public class BusinessException(string errorCode) : Exception
 {
     private readonly List<object> _placeHolderData = [];
     public string ErrorCode { get; private set; } = errorCode;
-    public HttpStatusCode StatusCode { get; private set; } = statusCode;
+
 
     public IReadOnlyList<object> PlaceholderData => _placeHolderData;
 
-    public static BusinessException Create(string errorCode, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
+    public static BusinessException Create(string errorCode)
     {
-        return new BusinessException(errorCode, statusCode);
+        return new BusinessException(errorCode);
     }
 
     public BusinessException AddData(object data)

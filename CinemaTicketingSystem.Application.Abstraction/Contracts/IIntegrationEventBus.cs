@@ -1,6 +1,9 @@
-﻿namespace CinemaTicketingSystem.Application.Abstraction.Contracts;
+﻿using CinemaTicketingSystem.SharedKernel;
 
-public interface IIntegrationEventBus
+namespace CinemaTicketingSystem.Application.Abstraction.Contracts
 {
-    Task PublishAsync<T>(T integrationEvent, CancellationToken cancellationToken = default) where T : class;
+    public interface IIntegrationEventBus
+    {
+        Task PublishAsync<T>(T integrationEvent, CancellationToken cancellationToken = default) where T : IIntegrationEvent;
+    }
 }

@@ -7,4 +7,5 @@ public interface IAccountRepository
     Task CreateAsync(User user);
     Task<User?> GetAsync(UserId id);
     Task<User?> GetAsync(Email email, Password password);
+    Task<bool> ExistEmailAsync(Email email);
 }

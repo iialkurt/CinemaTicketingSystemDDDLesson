@@ -1,5 +1,5 @@
 using CinemaTicketingSystem.Domain.Scheduling;
-using CinemaTicketingSystem.Domain.ValueObjects;
+using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 namespace CinemaTicketingSystem.Application.Schedules.ICL;
 

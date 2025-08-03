@@ -1,16 +1,14 @@
-﻿namespace CinemaTicketingSystem.Domain.ValueObjects;
+﻿using Ardalis.GuardClauses;
+
+namespace CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 public class SeatPosition : ValueObject
 {
     public SeatPosition(string row, int number)
     {
-        if (string.IsNullOrWhiteSpace(row))
-            throw new ArgumentException("Row cannot be empty.", nameof(row));
-        if (number <= 0)
-            throw new ArgumentException("Seat number must be positive.", nameof(number));
-
-        Row = row.ToUpper();
-        Number = number;
+        Row = Guard.Against.NullOrWhiteSpace(row, nameof(row), "Row cannot be empty.")
+            .ToUpper();
+        Number = Guard.Against.NegativeOrZero(number, nameof(number), "Seat number must be positive.");
     }
 
     public string Row { get; }

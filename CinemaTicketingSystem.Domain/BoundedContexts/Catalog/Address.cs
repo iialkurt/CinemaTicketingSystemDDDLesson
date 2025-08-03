@@ -1,4 +1,6 @@
-﻿namespace CinemaTicketingSystem.Domain.Catalog;
+﻿using CinemaTicketingSystem.SharedKernel.ValueObjects;
+
+namespace CinemaTicketingSystem.Domain.Catalog;
 
 public class Address : ValueObject
 {

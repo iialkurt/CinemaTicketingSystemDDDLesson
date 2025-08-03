@@ -13,8 +13,27 @@ public class AccountAppService(
     ITokenService tokenService,
     IRefreshTokenRepository refreshTokenRepository) : IScopedDependency, IAccountAppService
 {
+
+
+    //public async Task<AppResult> CheckEmailAsync(Email email)
+    //{
+    //    var user = await accountRepository.GetByEmailAsync(email);
+    //    if (user is not null)
+    //        return appDependencyService.LocalizeError.Error(ErrorCodes.EmailAlreadyExists, ErrorCodes.EmailAlreadyExists);
+    //    return AppResult.SuccessAsNoContent();
+    //}
+
+
+
     public async Task<AppResult> SignUpAsync(SignUpRequest request)
     {
+
+
+        var emailExists = await accountRepository.ExistEmailAsync(request.Email);
+
+        if (emailExists)
+            return appDependencyService.LocalizeError.Error(ErrorCodes.UserAlreadyExists);
+
         var newUser = new User(request.Email, request.Password, request.FirstName, request.LastName);
 
         await accountRepository.CreateAsync(newUser);
