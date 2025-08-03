@@ -5,7 +5,7 @@ using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Movie.Creat
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Domain;
 using CinemaTicketingSystem.Domain.Catalog.Repositories;
-using CinemaTicketingSystem.Domain.Core;
+using CinemaTicketingSystem.SharedKernel;
 
 namespace CinemaTicketingSystem.Application.Catalog.Movie;
 

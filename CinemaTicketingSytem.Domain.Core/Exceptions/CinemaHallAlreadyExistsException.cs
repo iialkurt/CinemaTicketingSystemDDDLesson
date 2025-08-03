@@ -1,4 +1,6 @@
-﻿namespace CinemaTicketingSystem.Domain.Core.Exceptions;
+﻿using CinemaTicketingSystem.SharedKernel;
+
+namespace CinemaTicketingSystem.Domain.Core.Exceptions;
 
 public class CinemaHallAlreadyExistsException : BusinessException
 {

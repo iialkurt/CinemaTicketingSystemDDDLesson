@@ -1,5 +1,5 @@
 ﻿using CinemaTicketingSystem.Application.Abstraction.Contracts;
-using CinemaTicketingSystem.Domain.Core;
+using CinemaTicketingSystem.SharedKernel;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

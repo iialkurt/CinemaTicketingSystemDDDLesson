@@ -3,7 +3,7 @@ using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Catalog.ICL.Dto;
 using CinemaTicketingSystem.Domain.Catalog.Repositories;
-using CinemaTicketingSystem.Domain.Core;
+using CinemaTicketingSystem.SharedKernel;
 using Microsoft.Extensions.Logging;
 
 namespace CinemaTicketingSystem.Application.Catalog.ICL;

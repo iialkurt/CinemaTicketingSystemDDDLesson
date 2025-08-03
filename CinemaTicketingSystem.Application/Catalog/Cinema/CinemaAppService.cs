@@ -9,6 +9,7 @@ using CinemaTicketingSystem.Domain.Catalog;
 using CinemaTicketingSystem.Domain.Catalog.Repositories;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.Domain.ValueObjects;
+using CinemaTicketingSystem.SharedKernel;
 using System.Net;
 
 namespace CinemaTicketingSystem.Application.Catalog.Cinema;

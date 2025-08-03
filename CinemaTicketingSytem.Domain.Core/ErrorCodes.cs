@@ -1,4 +1,4 @@
-﻿namespace CinemaTicketingSystem.Domain.Core;
+﻿namespace CinemaTicketingSystem.SharedKernel;
 
 public static class ErrorCodes
 {
@@ -33,6 +33,14 @@ public static class ErrorCodes
     public const string SeatHoldExpired = "Ticketing:SeatHoldExpired";
     public const string SeatAlreadyHeld = "Ticketing:SeatAlreadyHeld";
     public const string SeatHoldNotFound = "Ticketing:SeatHoldNotFound";
+
+
+
+    public const string InvalidCredentials = "Account.InvalidCredentials";
+    public const string EmailOrPasswordWrong = "Account.EmailOrPasswordWrong";
+    public const string UserAlreadyExists = "Account:UserAlreadyExists";
+    public const string UserNotFound = "Account:UserNotFound";
+
 
 
     public const string ServerErrorTitle = "Common:ServerErrorTitle";

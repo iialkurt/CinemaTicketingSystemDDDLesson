@@ -1,3 +1,5 @@
+using CinemaTicketingSystem.SharedKernel;
+
 namespace CinemaTicketingSystem.Domain.Core.Exceptions;
 
 public class SeatAlreadyExistsException : BusinessException

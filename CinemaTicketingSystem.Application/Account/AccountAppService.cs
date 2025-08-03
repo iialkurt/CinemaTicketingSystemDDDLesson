@@ -2,10 +2,12 @@ using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.Accounts;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
+using CinemaTicketingSystem.SharedKernel;
+using CinemaTicketingSystem.SharedKernel.Identities;
 
 namespace CinemaTicketingSystem.Application.Account;
 
-public class AccountAppService(AppDependencyService appDependencyService, IAccountRepository accountRepository, ITokenService tokenService) : IScopedDependency, IAccountAppService
+public class AccountAppService(AppDependencyService appDependencyService, IAccountRepository accountRepository, ITokenService tokenService, IRefreshTokenRepository refreshTokenRepository) : IScopedDependency, IAccountAppService
 {
 
     public async Task<AppResult> SignUpAsync(SignUpRequest request)
@@ -21,11 +23,45 @@ public class AccountAppService(AppDependencyService appDependencyService, IAccou
 
     }
 
-    public async Task<AppResult?> SignInAsync(SignInRequest userId)
+    public async Task<AppResult<SignInResponse>> SignInAsync(SignInRequest userId)
     {
         var user = await accountRepository.GetAsync(userId.Email, userId.Password);
 
 
+        if (user is null)
+        {
+            return appDependencyService.Error<SignInResponse>(ErrorCodes.InvalidCredentials, ErrorCodes.EmailOrPasswordWrong);
+        }
+
+        var tokenResponse = tokenService.CreateToken(new CreateTokenRequest(user.Id, user.UserName, user.Email));
+
+
+
+        var hasRefreshToken = await refreshTokenRepository.GetByIdAsync(user.Id);
+
+        if (hasRefreshToken is not null)
+        {
+
+            hasRefreshToken.Token = tokenResponse.RefreshToken;
+            hasRefreshToken.Expiration = tokenResponse.RefreshTokenExpiration;
+
+        }
+        else
+        {
+
+            hasRefreshToken =
+                new RefreshToken(tokenResponse.RefreshToken, tokenResponse.RefreshTokenExpiration, user.Id);
+        }
+
+        await refreshTokenRepository.AddAsync(hasRefreshToken);
+
+
+
+        await appDependencyService.UnitOfWork.SaveChangesAsync();
+
+
+        return AppResult<SignInResponse>.SuccessAsOk(new SignInResponse(tokenResponse.AccessToken,
+            tokenResponse.RefreshToken, tokenResponse.AccessTokenExpiration, tokenResponse.RefreshTokenExpiration));
 
 
 
@@ -33,11 +69,12 @@ public class AccountAppService(AppDependencyService appDependencyService, IAccou
 
 
 
-        return null;
 
 
 
 
 
     }
+
+
 }

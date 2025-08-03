@@ -1,8 +1,8 @@
-﻿using System.Net;
-using CinemaTicketingSystem.Application.Abstraction;
+﻿using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Domain.Repositories;
 using CinemaTicketingSystem.SharedKernel;
+using System.Net;
 
 namespace CinemaTicketingSystem.Application;
 
@@ -76,6 +76,8 @@ public class AppDependencyService(IUnitOfWork unitOfWork, ILocalizer localizer, 
         return AppResult<T>.Error(titleError, httpStatusCode);
     }
 
+
+
     public AppResult Error(string ErrorCodeAsTitle, object[]? errorCodeAsTitlePlaceHolder,
         string errorCodeAsDescription, object[]? errorCodeAsDescriptionPlaceHolder,
         HttpStatusCode statusCode = HttpStatusCode.BadRequest)
@@ -93,6 +95,29 @@ public class AppDependencyService(IUnitOfWork unitOfWork, ILocalizer localizer, 
     {
         var titleError = LocalizeError(ErrorCodeAsTitle, errorCodeAsTitlePlaceHolder);
         var descriptionError = LocalizeError(errorCodeAsDescription, errorCodeAsDescriptionPlaceHolder);
+
+
+        return AppResult<T>.Error(titleError, descriptionError, statusCode);
+    }
+
+
+
+    public AppResult Error(string ErrorCodeAsTitle,
+        string errorCodeAsDescription,
+        HttpStatusCode statusCode = HttpStatusCode.BadRequest)
+    {
+        var titleError = LocalizeError(ErrorCodeAsTitle);
+        var descriptionError = LocalizeError(errorCodeAsDescription);
+
+
+        return AppResult.Error(titleError, descriptionError, statusCode);
+    }
+
+    public AppResult<T> Error<T>(string ErrorCodeAsTitle, string errorCodeAsDescription,
+        HttpStatusCode statusCode = HttpStatusCode.BadRequest)
+    {
+        var titleError = LocalizeError(ErrorCodeAsTitle);
+        var descriptionError = LocalizeError(errorCodeAsDescription);
 
 
         return AppResult<T>.Error(titleError, descriptionError, statusCode);

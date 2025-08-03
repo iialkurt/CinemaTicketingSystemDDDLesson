@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CinemaTicketingSystem.Domain.Repositories;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts
 {
-    public interface IRefreshTokenRepository
+    public interface IRefreshTokenRepository : IGenericRepository<RefreshToken>
     {
-        
+
     }
 }
