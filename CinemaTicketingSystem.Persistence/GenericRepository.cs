@@ -1,7 +1,7 @@
-﻿using CinemaTicketingSystem.Domain.Repositories;
+﻿using System.Linq.Expressions;
+using CinemaTicketingSystem.Domain.Repositories;
 using CinemaTicketingSystem.SharedKernel.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace CinemaTicketingSystem.Persistence;
 
@@ -147,7 +147,6 @@ public class GenericRepository<TId, TEntity> : IGenericRepository<TId, TEntity> 
     }
 }
 
-
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : Entity
 {
     protected readonly AppDbContext _context;
@@ -155,7 +154,6 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
     public GenericRepository(AppDbContext context)
     {
-
         _context = context;
         _dbSet = _context.Set<TEntity>();
     }
@@ -173,13 +171,11 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
     public async Task<TEntity?> GetByIdAsync(object[] keys, CancellationToken cancellationToken = default)
     {
-
         return await _dbSet.FindAsync(keys, cancellationToken);
     }
 
     public async Task<TEntity?> GetByIdAsync(object key, CancellationToken cancellationToken = default)
     {
-
         return await _dbSet.FindAsync([key], cancellationToken);
     }
 
@@ -199,8 +195,6 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     {
         return _dbSet.SingleAsync(predicate, cancellationToken);
     }
-
-
 
 
     public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate,
@@ -231,7 +225,6 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         _dbSet.UpdateRange(entities);
         return Task.CompletedTask;
     }
-
 
 
     public Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default)
@@ -281,6 +274,4 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
         return (items, totalCount);
     }
-
-
 }

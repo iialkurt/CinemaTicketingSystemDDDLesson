@@ -15,11 +15,10 @@ public class User : AggregateRoot<UserId>
         CreatedAt = DateTime.UtcNow;
         IsActive = true;
         UserName = UserName.GenerateFromEmail(email);
-
     }
+
     public User(UserId userId, UserName userName, Email email, string firstName, string lastName, DateTime createdAt)
     {
-
         Id = userId;
         Email = email;
         FirstName = firstName;
@@ -27,7 +26,6 @@ public class User : AggregateRoot<UserId>
         CreatedAt = createdAt;
         IsActive = true;
         UserName = userName;
-
     }
 
     public UserName UserName { get; set; }
@@ -41,23 +39,18 @@ public class User : AggregateRoot<UserId>
     public DateTime? UpdatedAt { get; private set; }
 
 
-
-
     public string FullName => $"{FirstName} {LastName}";
 
 
     public void SetFirstName(string firstName)
     {
-
         FirstName = firstName;
-
     }
 
     public void SetLastName(string lastName)
     {
         LastName = lastName;
     }
-
 
 
     public void UpdateProfile(string firstName, string lastName)

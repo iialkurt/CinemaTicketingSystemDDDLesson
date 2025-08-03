@@ -12,21 +12,32 @@ public class Password : ValueObject
     private static readonly Regex DigitRegex = new(@"\d", RegexOptions.Compiled);
     private static readonly Regex NonAlphaNumericRegex = new(@"[^a-zA-Z0-9]", RegexOptions.Compiled);
 
-    public string Value { get; }
-
     public Password(string value)
     {
         if (!IsValid(value))
-            throw new ArgumentException("Password must be 8-12 characters and include at least one uppercase letter, one lowercase letter, one digit, and one non-alphanumeric character.", nameof(value));
+            throw new ArgumentException(
+                "Password must be 8-12 characters and include at least one uppercase letter, one lowercase letter, one digit, and one non-alphanumeric character.",
+                nameof(value));
 
         Value = value;
     }
 
-    public static Password From(string value) => new(value);
+    public string Value { get; }
 
-    public static implicit operator string(Password password) => password.Value;
+    public static Password From(string value)
+    {
+        return new Password(value);
+    }
 
-    public static implicit operator Password(string value) => new(value);
+    public static implicit operator string(Password password)
+    {
+        return password.Value;
+    }
+
+    public static implicit operator Password(string value)
+    {
+        return new Password(value);
+    }
 
     private static bool IsValid(string value)
     {
@@ -44,5 +55,8 @@ public class Password : ValueObject
         yield return Value;
     }
 
-    public override string ToString() => Value;
+    public override string ToString()
+    {
+        return Value;
+    }
 }

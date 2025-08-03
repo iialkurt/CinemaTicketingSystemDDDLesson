@@ -1,5 +1,5 @@
-﻿using CinemaTicketingSystem.SharedKernel.Entities;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using CinemaTicketingSystem.SharedKernel.Entities;
 
 namespace CinemaTicketingSystem.Domain.Repositories;
 

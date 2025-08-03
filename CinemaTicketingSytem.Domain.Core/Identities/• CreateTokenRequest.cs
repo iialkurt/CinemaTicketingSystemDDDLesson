@@ -1,4 +1,3 @@
-﻿namespace CinemaTicketingSystem.SharedKernel.Identities
-{
-    public record CreateTokenRequest(Guid UserId, string UserName, string Email);
-}
+﻿namespace CinemaTicketingSystem.SharedKernel.Identities;
+
+public record CreateTokenRequest(Guid UserId, string UserName, string Email);

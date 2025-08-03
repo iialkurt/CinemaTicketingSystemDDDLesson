@@ -1,4 +1,5 @@
-﻿using CinemaTicketingSystem.Application.Abstraction;
+﻿using System.Net;
+using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema;
 using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema.Hall;
 using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Cinema;
@@ -10,7 +11,6 @@ using CinemaTicketingSystem.Domain.Catalog.Repositories;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.Domain.ValueObjects;
 using CinemaTicketingSystem.SharedKernel;
-using System.Net;
 
 namespace CinemaTicketingSystem.Application.Catalog.Cinema;
 
@@ -34,8 +34,7 @@ public class CinemaAppService(
             addressDto.Description);
 
 
-
-        var newCinema = new CinemaTicketingSystem.Domain.BoundedContexts.Catalog.Cinema(request.Name, address);
+        var newCinema = new Domain.BoundedContexts.Catalog.Cinema(request.Name, address);
 
 
         await cinemaRepository.AddAsync(newCinema);

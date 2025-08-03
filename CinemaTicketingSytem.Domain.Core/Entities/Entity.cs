@@ -53,7 +53,7 @@ public abstract class Entity
         if (thisKeys.Length != otherKeys.Length)
             return false;
 
-        for (int i = 0; i < thisKeys.Length; i++)
+        for (var i = 0; i < thisKeys.Length; i++)
         {
             if (thisKeys[i] is null ^ otherKeys[i] is null)
                 return false;
@@ -68,11 +68,8 @@ public abstract class Entity
     public override int GetHashCode()
     {
         var keys = GetKeys();
-        int hash = 17;
-        foreach (var key in keys)
-        {
-            hash = (hash * 31) + (key?.GetHashCode() ?? 0);
-        }
+        var hash = 17;
+        foreach (var key in keys) hash = hash * 31 + (key?.GetHashCode() ?? 0);
         return hash;
     }
 

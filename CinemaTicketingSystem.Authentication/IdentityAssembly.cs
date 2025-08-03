@@ -1,6 +1,5 @@
-﻿namespace CinemaTicketingSystem.Identity
+﻿namespace CinemaTicketingSystem.Identity;
+
+public class IdentityAssembly
 {
-    public class IdentityAssembly
-    {
-    }
 }

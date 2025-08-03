@@ -38,6 +38,4 @@ public abstract class AggregateRoot : Entity, IAggregateRoot
     {
         _domainEvents.Add(eventData);
     }
-
-
 }

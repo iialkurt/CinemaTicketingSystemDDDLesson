@@ -1,10 +1,8 @@
 ﻿using CinemaTicketingSystem.SharedKernel.Identities;
 
-namespace CinemaTicketingSystem.Application.Abstraction.Accounts
-{
-    public interface ITokenService
-    {
+namespace CinemaTicketingSystem.Application.Abstraction.Accounts;
 
-        CreateTokenResponse CreateToken(CreateTokenRequest createToken);
-    }
+public interface ITokenService
+{
+    CreateTokenResponse CreateToken(CreateTokenRequest createToken);
 }

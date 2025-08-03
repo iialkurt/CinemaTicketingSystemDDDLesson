@@ -8,17 +8,22 @@ public class UserName : ValueObject
     private const int MaxLength = 20;
     private static readonly Regex UserNameRegex = new(@"^[a-zA-Z0-9_.-]+$", RegexOptions.Compiled);
 
-    public string Value { get; }
-
     public UserName(string value)
     {
         if (!IsValid(value))
-            throw new ArgumentException("Username must be 3-20 characters and contain only letters, numbers, underscores, dots or hyphens.", nameof(value));
+            throw new ArgumentException(
+                "Username must be 3-20 characters and contain only letters, numbers, underscores, dots or hyphens.",
+                nameof(value));
 
         Value = value;
     }
 
-    public static UserName From(string value) => new(value);
+    public string Value { get; }
+
+    public static UserName From(string value)
+    {
+        return new UserName(value);
+    }
 
     public static UserName GenerateFromEmail(string email)
     {
@@ -34,9 +39,15 @@ public class UserName : ValueObject
         return new UserName(username);
     }
 
-    public static implicit operator string(UserName userName) => userName.Value;
+    public static implicit operator string(UserName userName)
+    {
+        return userName.Value;
+    }
 
-    public static implicit operator UserName(string value) => new(value);
+    public static implicit operator UserName(string value)
+    {
+        return new UserName(value);
+    }
 
     private static bool IsValid(string value)
     {
@@ -51,5 +62,8 @@ public class UserName : ValueObject
         yield return Value;
     }
 
-    public override string ToString() => Value;
+    public override string ToString()
+    {
+        return Value;
+    }
 }
