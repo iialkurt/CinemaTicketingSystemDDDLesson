@@ -1,7 +1,7 @@
-﻿using System.Net;
-using CinemaTicketingSystem.Application.Abstraction;
+﻿using CinemaTicketingSystem.Application.Abstraction;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace CinemaTicketingSystem.API.Extensions;
 
@@ -19,7 +19,8 @@ public static class EndpointResultExt
                 Title = result.ProblemDetails!.Title,
                 Detail = result.ProblemDetails.Detail,
                 Status = result.ProblemDetails.Status,
-                Extensions = result.ProblemDetails.Extensions!
+
+                Extensions = result.ProblemDetails.Extensions ?? new Dictionary<string, object?>()
             })
         };
     }
@@ -35,7 +36,7 @@ public static class EndpointResultExt
                 Title = result.ProblemDetails!.Title,
                 Detail = result.ProblemDetails.Detail,
                 Status = result.ProblemDetails.Status,
-                Extensions = result.ProblemDetails.Extensions!
+                Extensions = result.ProblemDetails.Extensions ?? new Dictionary<string, object?>()
             })
         };
     }

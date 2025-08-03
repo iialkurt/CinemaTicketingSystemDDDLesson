@@ -111,7 +111,7 @@ Accept: application/json
 Content-Type: application/json
 {
   "email": "f-cakiroglu@outlook.com",
-  "password": "Password12*",
+  "password": "Pass",
   "firstName": "Fatih",
   "lastName": "Çakıroğlu"
 }
@@ -121,5 +121,5 @@ Accept: application/json
 Content-Type: application/json
 {
   "email": "f-cakiroglu@outlook.com",
-  "password": "Password12**"
+  "password": "Password12*"
 }

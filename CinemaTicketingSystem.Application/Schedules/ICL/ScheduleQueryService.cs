@@ -1,9 +1,9 @@
-using System.Net;
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Domain.BoundedContexts.Scheduling.Repositories;
 using CinemaTicketingSystem.SharedKernel;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace CinemaTicketingSystem.Application.Schedules.ICL;
 
@@ -18,7 +18,7 @@ public class ScheduleQueryService(
         if (schedule is null)
         {
             logger.LogWarning("Schedule with Id {scheduleId} was not found", scheduleId);
-            return appDependencyService.Error<GetScheduleInfoResponse>(ErrorCodes.ScheduleNotFound,
+            return appDependencyService.LocalizeError.Error<GetScheduleInfoResponse>(ErrorCodes.ScheduleNotFound,
                 HttpStatusCode.NotFound);
         }
 

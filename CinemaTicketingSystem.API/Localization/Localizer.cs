@@ -7,7 +7,7 @@ public class Localizer(IStringLocalizer<SharedResource> stringLocalizer) : ILoca
 {
 
 
-    public string L(string key, object[]? data)
+    public string L(string key, object[]? data = null)
     {
         return data?.Length > 0 ? string.Format(stringLocalizer[key], data) : stringLocalizer[key];
     }

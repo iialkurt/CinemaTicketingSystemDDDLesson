@@ -1,10 +1,10 @@
-using System.Net;
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Catalog.ICL.Dto;
 using CinemaTicketingSystem.Domain.Catalog.Repositories;
 using CinemaTicketingSystem.SharedKernel;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace CinemaTicketingSystem.Application.Catalog.ICL;
 
@@ -21,7 +21,7 @@ public class CatalogQueryService(
         if (movie is null)
         {
             logger.LogWarning($"Movie with Id: {movieId} not found.");
-            return appDependencyService.Error<GetCatalogInfoResponse>(ErrorCodes.MovieNotFound,
+            return appDependencyService.LocalizeError.Error<GetCatalogInfoResponse>(ErrorCodes.MovieNotFound,
                 HttpStatusCode.NotFound);
         }
 
@@ -30,7 +30,7 @@ public class CatalogQueryService(
         if (cinema is null)
         {
             logger.LogWarning($"Cinema with Hall Id: {hallId} not found.");
-            return appDependencyService.Error<GetCatalogInfoResponse>(ErrorCodes.CinemaNotFound,
+            return appDependencyService.LocalizeError.Error<GetCatalogInfoResponse>(ErrorCodes.CinemaNotFound,
                 HttpStatusCode.NotFound);
         }
 
@@ -39,7 +39,7 @@ public class CatalogQueryService(
         if (hall is null)
         {
             logger.LogWarning($"Cinema hall with Id: {hallId} not found in cinema with Name: {cinema.Name}.");
-            return appDependencyService.Error<GetCatalogInfoResponse>(ErrorCodes.CinemaHallNotFound,
+            return appDependencyService.LocalizeError.Error<GetCatalogInfoResponse>(ErrorCodes.CinemaHallNotFound,
                 HttpStatusCode.NotFound);
         }
 

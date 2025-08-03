@@ -17,7 +17,7 @@ public class MovieAppService(IMovieRepository movieRepository, AppDependencyServ
         var existMovie = await movieRepository.CheckIfMovieExists(request.Title);
 
         if (existMovie)
-            return appDependencyService.Error<CreateMovieResponse>(ErrorCodes.MovieAlreadyExists, [request.Title]);
+            return appDependencyService.LocalizeError.Error<CreateMovieResponse>(ErrorCodes.MovieAlreadyExists, [request.Title]);
 
 
         var newMovie = new Domain.BoundedContexts.Catalog.Movie(request.Title,

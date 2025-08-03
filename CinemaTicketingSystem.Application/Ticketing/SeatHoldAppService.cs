@@ -1,10 +1,10 @@
-using System.Net;
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Abstraction.Ticketing;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Holds;
 using CinemaTicketingSystem.Domain.ValueObjects;
 using CinemaTicketingSystem.SharedKernel;
+using System.Net;
 
 namespace CinemaTicketingSystem.Application.Ticketing;
 
@@ -22,7 +22,7 @@ public class SeatHoldAppService(AppDependencyService appDependencyService, ISeat
 
         foreach (var seat in request.SeatPosition.Where(seat =>
                      seatHold.Any(x => x.SeatPosition == new SeatPosition(seat.Row, seat.Number))))
-            return appDependencyService.Error(ErrorCodes.SeatAlreadyHeld, [seat.Row, seat.Number],
+            return appDependencyService.LocalizeError.Error(ErrorCodes.SeatAlreadyHeld, [seat.Row, seat.Number],
                 HttpStatusCode.BadRequest);
 
 

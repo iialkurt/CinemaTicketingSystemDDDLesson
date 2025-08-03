@@ -28,7 +28,7 @@ public class AccountAppService(
 
 
         if (user is null)
-            return appDependencyService.Error<SignInResponse>(ErrorCodes.InvalidCredentials,
+            return appDependencyService.LocalizeError.Error<SignInResponse>(ErrorCodes.InvalidCredentials,
                 ErrorCodes.EmailOrPasswordWrong);
 
         var tokenResponse = tokenService.CreateToken(new CreateTokenRequest(user.Id, user.UserName, user.Email));

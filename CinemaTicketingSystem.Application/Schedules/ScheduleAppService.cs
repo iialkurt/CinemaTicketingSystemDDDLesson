@@ -1,5 +1,4 @@
-﻿using System.Net;
-using CinemaTicketingSystem.Application.Abstraction;
+﻿using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Abstraction.Schedule;
 using CinemaTicketingSystem.Domain.BoundedContexts.Scheduling;
@@ -8,6 +7,7 @@ using CinemaTicketingSystem.Domain.Repositories;
 using CinemaTicketingSystem.Domain.Scheduling;
 using CinemaTicketingSystem.Domain.ValueObjects;
 using CinemaTicketingSystem.SharedKernel;
+using System.Net;
 
 namespace CinemaTicketingSystem.Application.Schedules;
 
@@ -22,16 +22,16 @@ public class ScheduleAppService(
     {
         var movie = await movieShotRepository.GetByIdAsync(request.MovieId);
 
-        if (movie is null) return appDependencyService.Error(ErrorCodes.MovieNotFound);
+        if (movie is null) return appDependencyService.LocalizeError.Error(ErrorCodes.MovieNotFound);
 
         var hallSchedule = await CinemaHallSnapshotRepository.GetByIdAsync(hallId);
 
-        if (hallSchedule is null) return appDependencyService.Error(ErrorCodes.CinemaHallNotFound);
+        if (hallSchedule is null) return appDependencyService.LocalizeError.Error(ErrorCodes.CinemaHallNotFound);
 
         var compatibilityResult = movieHallCompatibilityService.IsCompatible(movie, hallSchedule);
 
         if (!compatibilityResult.IsSuccess)
-            return appDependencyService.Error(compatibilityResult.Error!, compatibilityResult.ErrorData);
+            return appDependencyService.LocalizeError.Error(compatibilityResult.Error!, compatibilityResult.ErrorData);
 
         ShowTime showTime;
 
@@ -39,7 +39,7 @@ public class ScheduleAppService(
         {
             var result = movie.IsValidDuration(request.StartTime, request.EndTime.Value);
             {
-                if (!result) return appDependencyService.Error(ErrorCodes.MovieDurationMismatch);
+                if (!result) return appDependencyService.LocalizeError.Error(ErrorCodes.MovieDurationMismatch);
             }
 
             showTime = ShowTime.Create(request.StartTime, request.EndTime.Value);
@@ -58,7 +58,7 @@ public class ScheduleAppService(
                     .Select(x => x.ShowTime.GetDisplayInfo()));
 
 
-            return appDependencyService.Error(ErrorCodes.ShowTimeConflict, [conflictingShowTimes],
+            return appDependencyService.LocalizeError.Error(ErrorCodes.ShowTimeConflict, [conflictingShowTimes],
                 HttpStatusCode.Conflict);
         }
 

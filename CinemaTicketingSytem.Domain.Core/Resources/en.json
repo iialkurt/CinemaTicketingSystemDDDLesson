@@ -22,5 +22,11 @@
   "Ticketing:ReservedSeatNotFound": "Reserved seat {0}{1} not found.",
   "Ticketing:SeatHoldExpired": "Seat hold for {0}{1} has expired. Please select seats again.",
   "Common:ServerErrorTitle": "An unexpected error occurred",
-  "Common:ServerErrorDetail": "Please try again later or contact support if the issue persists."
+  "Common:ServerErrorDetail": "Please try again later or contact support if the issue persists.",
+  "Account.InvalidCredentials": "The credentials you provided are invalid.",
+  "Account.EmailOrPasswordWrong": "The email address or password you provided is incorrect."
+
+
+
+
 }

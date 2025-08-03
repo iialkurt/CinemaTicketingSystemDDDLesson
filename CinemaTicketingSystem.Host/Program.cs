@@ -26,7 +26,7 @@ builder.Services.RegisterServiceBus(builder.Configuration);
 builder.Services.RegisterDomainServices(typeof(ApplicationAssembly).Assembly);
 builder.Services.RegisterPersistence(builder.Configuration);
 builder.Services.RegisterConventions(typeof(ApplicationAssembly).Assembly,
-    typeof(ApplicationAbstractionAssembly).Assembly, typeof(IdentityAssembly).Assembly);
+    typeof(ApplicationAbstractionAssembly).Assembly, typeof(IdentityAssembly).Assembly, typeof(ApiAssembly).Assembly);
 
 
 builder.Services.AddMediatR(configuration =>
