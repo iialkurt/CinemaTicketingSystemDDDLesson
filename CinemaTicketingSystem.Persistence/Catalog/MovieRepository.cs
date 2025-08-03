@@ -1,10 +1,10 @@
 ﻿using CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
-using CinemaTicketingSystem.Domain.Catalog.Repositories;
+using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace CinemaTicketingSystem.Persistence.Catalog;
 
-internal class MovieRepository(AppDbContext context) : GenericRepository<Guid, Movie>(context), IMovieRepository
+internal class MovieRepository(AppDbContext context) : GenericRepository<Movie>(context), IMovieRepository
 {
     public Task<bool> CheckIfMovieExists(string title)
     {

@@ -12,8 +12,8 @@ using System.Net;
 namespace CinemaTicketingSystem.Application.Schedules;
 
 public class ScheduleAppService(
-    IGenericRepository<Guid, CinemaHallSnapshot> CinemaHallSnapshotRepository,
-    IGenericRepository<Guid, MovieSnapshot> movieShotRepository,
+    IGenericRepository<CinemaHallSnapshot> CinemaHallSnapshotRepository,
+    IGenericRepository<MovieSnapshot> movieShotRepository,
     MovieHallCompatibilityService movieHallCompatibilityService,
     IScheduleRepository scheduleRepository,
     AppDependencyService appDependencyService) : IScopedDependency, IScheduleAppService

@@ -3,7 +3,7 @@ using CinemaTicketingSystem.Application.Abstraction.Catalog.Movie;
 using CinemaTicketingSystem.Application.Abstraction.Catalog.Movie.Create;
 using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Movie.Create;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
-using CinemaTicketingSystem.Domain.Catalog.Repositories;
+using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.Repositories;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
 

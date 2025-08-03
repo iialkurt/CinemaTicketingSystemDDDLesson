@@ -1,9 +1,8 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
-using CinemaTicketingSystem.Domain.Repositories;
+﻿using CinemaTicketingSystem.Domain.Repositories;
 
-namespace CinemaTicketingSystem.Domain.Catalog.Repositories;
+namespace CinemaTicketingSystem.Domain.BoundedContexts.Catalog.Repositories;
 
-public interface ICinemaRepository : IGenericRepository<Guid, Cinema>
+public interface ICinemaRepository : IGenericRepository<Cinema>
 {
     Task<Cinema?> GetByHallId(Guid hallId);
 }

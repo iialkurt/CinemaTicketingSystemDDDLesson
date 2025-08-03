@@ -2,6 +2,6 @@
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
 
-public interface IReservationRepository : IGenericRepository<Guid, Reservation>
+public interface IReservationRepository : IGenericRepository<Reservation>
 {
 }

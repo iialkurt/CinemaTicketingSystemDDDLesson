@@ -1,5 +1,4 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.Contracts;
-using CinemaTicketingSystem.SharedKernel;
+﻿using CinemaTicketingSystem.SharedKernel;
 using MassTransit;
 
 namespace CinemaTicketingSystem.ServiceBus;

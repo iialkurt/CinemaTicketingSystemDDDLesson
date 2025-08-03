@@ -1,9 +1,8 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
-using CinemaTicketingSystem.Domain.Repositories;
+﻿using CinemaTicketingSystem.Domain.Repositories;
 
-namespace CinemaTicketingSystem.Domain.Catalog.Repositories;
+namespace CinemaTicketingSystem.Domain.BoundedContexts.Catalog.Repositories;
 
-public interface IMovieRepository : IGenericRepository<Guid, Movie>
+public interface IMovieRepository : IGenericRepository<Movie>
 {
     Task<bool> CheckIfMovieExists(string title);
 }

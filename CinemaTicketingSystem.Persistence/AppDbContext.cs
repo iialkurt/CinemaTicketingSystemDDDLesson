@@ -5,7 +5,7 @@ using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
 using CinemaTicketingSystem.Persistence.Accounts;
 using CinemaTicketingSystem.Persistence.Interceptors;
-using MediatR;
+using CinemaTicketingSystem.SharedKernel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +13,7 @@ using System.Reflection;
 
 namespace CinemaTicketingSystem.Persistence;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options, IPublisher publisher)
+public class AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventBus domainEventBus, IIntegrationEventBus integrationEventBus)
     : IdentityDbContext<AppUser, AppRole, Guid>(options)
 {
     public DbSet<Purchase> MovieTickets { get; set; }
@@ -42,7 +42,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IPublisher pub
     {
         optionsBuilder.UseLazyLoadingProxies();
 
-        optionsBuilder.AddInterceptors(new DomainEventsInterceptor(publisher));
+        optionsBuilder.AddInterceptors(new DomainEventsInterceptor(integrationEventBus, domainEventBus));
         base.OnConfiguring(optionsBuilder);
     }
 

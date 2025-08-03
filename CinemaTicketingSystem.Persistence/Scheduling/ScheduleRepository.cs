@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CinemaTicketingSystem.Persistence.Scheduling;
 
 internal class ScheduleRepository(AppDbContext context)
-    : GenericRepository<Guid, Schedule>(context), IScheduleRepository
+    : GenericRepository<Schedule>(context), IScheduleRepository
 {
     public Task<List<Schedule>> GetMoviesByHallIdAsync(Guid hallId, CancellationToken cancellationToken = default)
     {

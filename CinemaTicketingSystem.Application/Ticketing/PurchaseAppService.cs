@@ -4,7 +4,6 @@ using CinemaTicketingSystem.Application.Abstraction.Ticketing;
 using CinemaTicketingSystem.Application.Catalog.ICL;
 using CinemaTicketingSystem.Application.Schedules.ICL;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
-using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Repositories;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
 using System.Net;

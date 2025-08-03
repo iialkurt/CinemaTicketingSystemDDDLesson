@@ -6,7 +6,7 @@ using CinemaTicketingSystem.Domain.Repositories;
 namespace CinemaTicketingSystem.Application.Schedules.IntegrationEventHandlers;
 
 public class MovieCreatedIntegrationEventHandler(
-    IGenericRepository<Guid, MovieSnapshot> movieScheduleRepository,
+    IGenericRepository<MovieSnapshot> movieScheduleRepository,
     IUnitOfWork unitOfWork) : IIntegrationEventHandler<MovieCreatedIntegrationEvent>
 {
     public async Task HandleAsync(MovieCreatedIntegrationEvent message, CancellationToken cancellationToken = default)

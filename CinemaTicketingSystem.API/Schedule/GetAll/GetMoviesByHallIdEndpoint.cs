@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace CinemaTicketingSystem.API.Schedule;
+namespace CinemaTicketingSystem.API.Schedule.GetAll;
 
 internal static class GetMoviesByHallIdEndpoint
 {

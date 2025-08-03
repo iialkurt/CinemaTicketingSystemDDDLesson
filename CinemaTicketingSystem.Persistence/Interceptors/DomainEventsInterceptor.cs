@@ -1,11 +1,10 @@
 ﻿using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.AggregateRoot;
-using MediatR;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace CinemaTicketingSystem.Persistence.Interceptors;
 
-internal class DomainEventsInterceptor(IPublisher publisher) : SaveChangesInterceptor
+internal class DomainEventsInterceptor(IIntegrationEventBus integrationEventBus, IDomainEventBus domainEventBus) : SaveChangesInterceptor
 {
     public override async ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result,
         CancellationToken cancellationToken = new())
@@ -26,7 +25,7 @@ internal class DomainEventsInterceptor(IPublisher publisher) : SaveChangesInterc
             aggr.ClearDomainEvents();
         }
 
-        foreach (var ev in events) await publisher.Publish(ev, cancellationToken);
+        foreach (var ev in events) await domainEventBus.PublishAsync(ev, cancellationToken);
 
 
         var savedChangesResult = await base.SavedChangesAsync(eventData, result, cancellationToken);
@@ -36,11 +35,11 @@ internal class DomainEventsInterceptor(IPublisher publisher) : SaveChangesInterc
         var integrationEvents = new List<IIntegrationEvent>();
         foreach (var aggr in aggregates)
         {
-            events.AddRange(aggr.DomainEvents);
+            integrationEvents.AddRange(aggr.IntegrationEvents);
             aggr.ClearDomainEvents();
         }
 
-        foreach (var ev in events) await publisher.Publish(ev, cancellationToken);
+        foreach (var ev in integrationEvents) await integrationEventBus.PublishAsync(ev, cancellationToken);
 
 
 

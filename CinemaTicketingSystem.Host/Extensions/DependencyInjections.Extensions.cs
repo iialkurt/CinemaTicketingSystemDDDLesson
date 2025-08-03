@@ -50,13 +50,23 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IIntegrationEventHandler<MovieCreatedIntegrationEvent>, MovieCreatedIntegrationEventHandler>();
 
         services.AddScoped<IIntegrationEventBus, IntegrationEventBus>();
-
         services.AddScoped<IDomainEventBus, DomainEventBus>();
+
+
         services.AddMassTransit(configure =>
         {
             configure.AddConsumer<MassTransitConsumerAdapter<CinemaHallCreatedIntegrationEvent>>();
             configure.AddConsumer<MassTransitConsumerAdapter<MovieCreatedIntegrationEvent>>();
-            configure.UsingInMemory((context, cfg) => { cfg.ConfigureEndpoints(context); });
+
+
+
+            configure.UsingInMemory((context, cfg) =>
+            {
+
+
+
+                cfg.ConfigureEndpoints(context);
+            });
         });
 
         return services;
@@ -110,7 +120,6 @@ public static class ServiceCollectionExtensions
         }).AddEntityFrameworkStores<AppDbContext>();
 
 
-        services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -135,7 +144,7 @@ public static class ServiceCollectionExtensions
         foreach (var repositoryType in repositoryTypes)
         {
             var interfaces = repositoryType.GetInterfaces()
-                .Where(i => i.Name.EndsWith("Repository") && i != typeof(IGenericRepository<,>))
+                .Where(i => i.Name.EndsWith("Repository") && i != typeof(IGenericRepository<>))
                 .ToList();
 
             if (interfaces.Any())

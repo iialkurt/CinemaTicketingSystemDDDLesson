@@ -1,9 +1,8 @@
-using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
 using CinemaTicketingSystem.Domain.Repositories;
 
-namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Repositories;
+namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
 
-public interface IPurchaseRepository : IGenericRepository<Guid, Purchase>
+public interface IPurchaseRepository : IGenericRepository<Purchase>
 {
     List<Purchase> GetTicketsPurchaseByScheduleId(Guid scheduleId);
 }

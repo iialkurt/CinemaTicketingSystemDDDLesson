@@ -1,6 +1,4 @@
-﻿using CinemaTicketingSystem.SharedKernel;
-
-namespace CinemaTicketingSystem.Application.Abstraction.Contracts
+﻿namespace CinemaTicketingSystem.SharedKernel
 {
     public interface IDomainEventBus
     {
