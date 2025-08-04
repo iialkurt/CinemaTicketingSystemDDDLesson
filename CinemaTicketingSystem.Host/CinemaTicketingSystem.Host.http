@@ -1,5 +1,5 @@
 ﻿@HostAddress = http://localhost:5094
-@accessToken = eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjAxOTg3NGZmLTFjZDUtNzZkNC04NmM2LTdjZDY5OWNjZTk1YSIsImVtYWlsIjoiZi1jYWtpcm9nbHVAb3V0bG9vay5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZmNha2lyb2dsdTM4MTEiLCJqdGkiOiI4MTQ0MzdiNy1kODk1LTQ3N2YtYjk1Yi00OGM5NjEyYzZlYTkiLCJuYmYiOjE3NTQzMDk1MzgsImV4cCI6MTc1NDMyMzkzOCwiaXNzIjoiYXBpLmNpbmVtYS10aWNrZXRpbmctc3l0ZW0uY29tIn0.WJNPwUKDz7-M1hRSZGEsFxYV3Oh8-OG7oAyubZg50RQ
+@accessToken = eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjAxOTg3NGZmLTFjZDUtNzZkNC04NmM2LTdjZDY5OWNjZTk1YSIsImVtYWlsIjoiZi1jYWtpcm9nbHVAb3V0bG9vay5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZmNha2lyb2dsdTM4MTEiLCJqdGkiOiI5NmVjNjQ3Ny1lMWJkLTQ2NWQtYjcyYy05YTQxMzlmYTNkY2IiLCJuYmYiOjE3NTQzNDI2MTMsImV4cCI6MTc1NDM1NzAxMywiaXNzIjoiYXBpLmNpbmVtYS10aWNrZXRpbmctc3l0ZW0uY29tIn0.mfEs80_hQVGDIIYvSd6wIgc8FTbAWreb0CuP1MvmMAw
 ###
 POST {{HostAddress}}/api/v1/catalogs/movies
 Accept: application/json
@@ -143,7 +143,7 @@ Authorization: Bearer {{accessToken}}
 {
   "seatPosition": [
     {
-      "row": "B",
+      "row": "C",
       "number": 1
     }
   ],
@@ -160,6 +160,21 @@ Authorization: Bearer {{accessToken}}
   "seatPositionList": [
     {
       "row": "B",
+      "number": 1
+    }
+  ],
+  "scheduledMovieShowId": "01987510-c5ec-7a23-905d-44a519a20774"
+}
+###
+POST {{HostAddress}}/api/v1/ticketing/reservations
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "seatPositionList": [
+    {
+      "row": "C",
       "number": 1
     }
   ],

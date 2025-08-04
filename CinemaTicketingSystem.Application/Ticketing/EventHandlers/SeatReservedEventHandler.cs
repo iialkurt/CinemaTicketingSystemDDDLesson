@@ -13,7 +13,7 @@ public class SeatReservedEventHandler(ISeatHoldRepository seatHoldRepository) : 
     {
         var seatHoldToDelete = await seatHoldRepository.GetAsync(
             x => x.ScheduledMovieShowId == notification.ScheduledMovieShowId && x.CustomerId == notification.CustomerId &&
-                 x.SeatPosition == notification.SeatPosition, cancellationToken);
+                 x.SeatPosition.Number == notification.SeatPosition.Number && x.SeatPosition.Row==notification.SeatPosition.Row, cancellationToken);
 
         if (seatHoldToDelete is null)
             throw new BusinessException(ErrorCodes.SeatHoldNotFound).AddData(notification.SeatPosition.Row)

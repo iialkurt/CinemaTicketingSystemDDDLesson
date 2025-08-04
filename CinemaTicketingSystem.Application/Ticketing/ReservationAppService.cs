@@ -10,7 +10,7 @@ using System.Net;
 
 namespace CinemaTicketingSystem.Application.Ticketing;
 
-internal class ReservationAppService(
+public class ReservationAppService(
     AppDependencyService appDependencyService,
     IScheduleQueryService iScheduleQueryService,
     ICatalogQueryService catalogQueryService,
