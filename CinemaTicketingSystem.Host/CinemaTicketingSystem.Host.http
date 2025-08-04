@@ -150,8 +150,6 @@ Authorization: Bearer {{accessToken}}
   "scheduledMovieShowId": "01987510-c5ec-7a23-905d-44a519a20774"
 }
 
-
-}
 ###
 POST {{HostAddress}}/api/v1/ticketing/purchases
 Accept: application/json
@@ -161,7 +159,7 @@ Authorization: Bearer {{accessToken}}
 {
   "seatPositionList": [
     {
-      "row": "A",
+      "row": "B",
       "number": 1
     }
   ],

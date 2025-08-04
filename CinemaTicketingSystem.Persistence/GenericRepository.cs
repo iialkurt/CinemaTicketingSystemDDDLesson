@@ -49,10 +49,10 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         return await _dbSet.Where(predicate).ToListAsync(cancellationToken);
     }
 
-    public Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate,
+    public Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate,
         CancellationToken cancellationToken = default)
     {
-        return _dbSet.SingleAsync(predicate, cancellationToken);
+        return _dbSet.FirstOrDefaultAsync(predicate, cancellationToken);
     }
 
 

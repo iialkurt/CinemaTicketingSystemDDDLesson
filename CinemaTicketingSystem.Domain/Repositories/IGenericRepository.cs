@@ -15,7 +15,7 @@ public interface IGenericRepository<TEntity> where TEntity : EntityBase
     Task<IEnumerable<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> predicate,
         CancellationToken cancellationToken = default);
 
-    Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate,
+    Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate,
         CancellationToken cancellationToken = default);
 
     Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate,

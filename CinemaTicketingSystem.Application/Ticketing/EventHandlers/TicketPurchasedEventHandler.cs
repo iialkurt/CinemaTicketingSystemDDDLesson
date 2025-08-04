@@ -13,14 +13,12 @@ public class TicketPurchasedEventHandler(ISeatHoldRepository seatHoldRepository)
     public async Task Handle(TicketPurchasedEvent notification, CancellationToken cancellationToken)
     {
 
-        var x = await seatHoldRepository.GetAllAsync();
-
 
         var seatHoldToDelete = await seatHoldRepository.GetAsync(
             x => x.ScheduledMovieShowId == notification.ScheduledMovieShowId && x.CustomerId == notification.CustomerId && x.SeatPosition.Row == notification.SeatPosition.Row && x.SeatPosition.Number == notification.SeatPosition.Number, cancellationToken);
 
-        var seatHoldToDelete2 = await seatHoldRepository.GetAsync(
-            x => x.ScheduledMovieShowId == notification.ScheduledMovieShowId && x.CustomerId == notification.CustomerId && x.SeatPosition.Equals(notification.SeatPosition), cancellationToken);
+        //var seatHoldToDelete2 = await seatHoldRepository.GetAsync(
+        //    x => x.ScheduledMovieShowId == notification.ScheduledMovieShowId && x.CustomerId == notification.CustomerId && x.SeatPosition.Equals(notification.SeatPosition), cancellationToken);
 
 
         if (seatHoldToDelete is null)

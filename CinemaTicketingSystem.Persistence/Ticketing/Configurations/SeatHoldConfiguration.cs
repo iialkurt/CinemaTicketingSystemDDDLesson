@@ -26,6 +26,8 @@ internal class SeatHoldConfiguration : IEntityTypeConfiguration<SeatHold>
                 .HasColumnName("Row")
                 .HasMaxLength(1).IsFixedLength()
                 .IsRequired().IsUnicode(false);
+
+            seatBuilder.WithOwner();
         });
     }
 }
