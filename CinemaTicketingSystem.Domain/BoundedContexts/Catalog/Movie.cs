@@ -1,10 +1,14 @@
-﻿using Ardalis.GuardClauses;
+﻿#region
+
+using Ardalis.GuardClauses;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.DomainEvents;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.IntegrationEvents;
 using CinemaTicketingSystem.Domain.Catalog.DomainEvents;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.SharedKernel.AggregateRoot;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
 
@@ -58,14 +62,10 @@ public class Movie : AggregateRoot<Guid>
 
     private bool CheckEarliestShowingDate(DateTime earliestDate)
     {
-
         if (!ShowingStartDate.HasValue) return true;
 
         return earliestDate.Date >= ShowingStartDate.Value;
-
-
     }
-
 
 
     public void ClearEarliestShowingDate()

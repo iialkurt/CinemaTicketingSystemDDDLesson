@@ -1,3 +1,5 @@
+#region
+
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Abstraction.Ticketing;
@@ -6,7 +8,8 @@ using CinemaTicketingSystem.Application.Schedules.ICL;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
-using System.Net;
+
+#endregion
 
 namespace CinemaTicketingSystem.Application.Ticketing;
 
@@ -35,13 +38,11 @@ public class PurchaseAppService(
 
         var availableSeatCount = catalogInfo.Data!.SeatCount - purchasedTicketCount;
         if (availableSeatCount <= 0)
-            return appDependencyService.LocalizeError.Error(ErrorCodes.SeatNotAvailable,
-                HttpStatusCode.BadRequest);
+            return appDependencyService.LocalizeError.Error(ErrorCodes.SeatNotAvailable);
 
 
         if (availableSeatCount < request.SeatPositionList.Count)
-            return appDependencyService.LocalizeError.Error(ErrorCodes.NotEnoughSeatsAvailable, [availableSeatCount],
-                HttpStatusCode.BadRequest);
+            return appDependencyService.LocalizeError.Error(ErrorCodes.NotEnoughSeatsAvailable, [availableSeatCount]);
 
 
         foreach (var seat in request.SeatPositionList)
@@ -49,8 +50,7 @@ public class PurchaseAppService(
             var seatNumber = new SeatPosition(seat.Row, seat.Number);
             var hasTicket = ticketPurchaseList.Any(x => x.HasTicketForSeat(seatNumber));
             if (hasTicket)
-                return appDependencyService.LocalizeError.Error(ErrorCodes.DuplicateSeat, [seat.Row, seat.Number],
-                    HttpStatusCode.BadRequest);
+                return appDependencyService.LocalizeError.Error(ErrorCodes.DuplicateSeat, [seat.Row, seat.Number]);
         }
 
 

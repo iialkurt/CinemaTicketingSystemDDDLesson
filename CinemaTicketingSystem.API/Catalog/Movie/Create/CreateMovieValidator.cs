@@ -1,6 +1,10 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Movie.Create;
+﻿#region
+
+using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Movie.Create;
 using CinemaTicketingSystem.Domain.Core;
 using FluentValidation;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Catalog.Movie.Create;
 

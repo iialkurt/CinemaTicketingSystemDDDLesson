@@ -1,9 +1,13 @@
-﻿using Ardalis.GuardClauses;
+﻿#region
+
+using Ardalis.GuardClauses;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.DomainEvents;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.IntegrationEvents;
 using CinemaTicketingSystem.Domain.Catalog;
 using CinemaTicketingSystem.SharedKernel.AggregateRoot;
 using CinemaTicketingSystem.SharedKernel.Exceptions;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
 

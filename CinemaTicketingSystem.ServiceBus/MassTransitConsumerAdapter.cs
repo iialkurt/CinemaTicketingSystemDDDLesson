@@ -1,6 +1,10 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.Contracts;
+﻿#region
+
+using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.SharedKernel;
 using MassTransit;
+
+#endregion
 
 namespace CinemaTicketingSystem.Infrastructure.Messaging;
 

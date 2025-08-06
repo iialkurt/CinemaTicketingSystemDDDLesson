@@ -1,9 +1,13 @@
-﻿using System.Globalization;
+﻿#region
+
+using System.Globalization;
 using System.Text.Json;
 using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Domain.Core;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Localization;
 

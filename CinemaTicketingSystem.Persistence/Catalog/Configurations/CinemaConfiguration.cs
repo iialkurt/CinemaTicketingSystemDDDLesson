@@ -1,7 +1,11 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
+﻿#region
+
+using CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
 using CinemaTicketingSystem.Domain.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+#endregion
 
 namespace CinemaTicketingSystem.Persistence.Catalog.Configurations;
 
@@ -57,12 +61,8 @@ public class CinemaConfiguration : IEntityTypeConfiguration<Cinema>
         });
 
 
-
-
         builder.HasMany(x => x.Halls).WithOne(x => x.Cinema);
 
         builder.Metadata.FindNavigation(nameof(Cinema.Halls))!.SetField("cinemaHalls");
-
-
     }
 }

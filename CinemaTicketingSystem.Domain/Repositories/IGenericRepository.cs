@@ -1,8 +1,11 @@
-﻿using CinemaTicketingSystem.SharedKernel.Entities;
+﻿#region
+
 using System.Linq.Expressions;
+using CinemaTicketingSystem.SharedKernel.Entities;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.Repositories;
-
 
 public interface IGenericRepository<TEntity> where TEntity : EntityBase
 {

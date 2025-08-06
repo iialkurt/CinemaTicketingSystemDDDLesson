@@ -1,6 +1,10 @@
-﻿using FluentValidation;
+﻿#region
+
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Filters;
 

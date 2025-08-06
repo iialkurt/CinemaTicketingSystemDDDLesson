@@ -1,7 +1,6 @@
-﻿namespace CinemaTicketingSystem.SharedKernel
+﻿namespace CinemaTicketingSystem.SharedKernel;
+
+public interface IDomainEventMediator
 {
-    public interface IDomainEventMediator
-    {
-        Task PublishAsync<T>(T domainEvent, CancellationToken cancellationToken = default) where T : IDomainEvent;
-    }
+    Task PublishAsync<T>(T domainEvent, CancellationToken cancellationToken = default) where T : IDomainEvent;
 }

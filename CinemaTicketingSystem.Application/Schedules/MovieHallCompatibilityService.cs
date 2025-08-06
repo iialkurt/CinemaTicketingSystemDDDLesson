@@ -1,7 +1,11 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.Contracts;
+﻿#region
+
+using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Domain.BoundedContexts.Scheduling;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.SharedKernel;
+
+#endregion
 
 namespace CinemaTicketingSystem.Application.Schedules;
 

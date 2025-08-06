@@ -1,10 +1,13 @@
+#region
+
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Abstraction.Ticketing;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Holds;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
-using System.Net;
+
+#endregion
 
 namespace CinemaTicketingSystem.Application.Ticketing;
 
@@ -21,13 +24,9 @@ public class SeatHoldAppService(AppDependencyService appDependencyService, ISeat
             (await seatHoldRepository.WhereAsync(x => x.ScheduledMovieShowId == request.ScheduledMovieShowId)).ToList();
 
 
-
-
-
         foreach (var seat in request.SeatPosition.Where(seat =>
                      seatHold.Any(x => x.SeatPosition == new SeatPosition(seat.Row, seat.Number))))
-            return appDependencyService.LocalizeError.Error(ErrorCodes.SeatAlreadyHeld, [seat.Row, seat.Number],
-                HttpStatusCode.BadRequest);
+            return appDependencyService.LocalizeError.Error(ErrorCodes.SeatAlreadyHeld, [seat.Row, seat.Number]);
 
 
         foreach (var newSeatHold in request.SeatPosition.Select(seat =>

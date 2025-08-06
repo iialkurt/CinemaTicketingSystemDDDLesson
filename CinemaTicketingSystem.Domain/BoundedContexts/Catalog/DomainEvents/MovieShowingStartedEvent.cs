@@ -1,4 +1,8 @@
-﻿using CinemaTicketingSystem.SharedKernel;
+﻿#region
+
+using CinemaTicketingSystem.SharedKernel;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.Catalog.DomainEvents;
 

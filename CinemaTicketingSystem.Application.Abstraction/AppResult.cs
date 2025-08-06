@@ -1,5 +1,9 @@
-﻿using System.Net;
+﻿#region
+
+using System.Net;
 using System.Text.Json.Serialization;
+
+#endregion
 
 namespace CinemaTicketingSystem.Application.Abstraction;
 

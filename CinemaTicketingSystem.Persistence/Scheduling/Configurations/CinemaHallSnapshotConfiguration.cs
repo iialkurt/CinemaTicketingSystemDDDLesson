@@ -1,6 +1,10 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Scheduling;
+﻿#region
+
+using CinemaTicketingSystem.Domain.BoundedContexts.Scheduling;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+#endregion
 
 namespace CinemaTicketingSystem.Persistence.Scheduling.Configurations;
 

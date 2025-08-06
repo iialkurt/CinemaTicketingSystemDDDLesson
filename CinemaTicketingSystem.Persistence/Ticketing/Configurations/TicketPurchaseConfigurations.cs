@@ -1,6 +1,10 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
+﻿#region
+
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+#endregion
 
 namespace CinemaTicketingSystem.Persistence.Ticketing.Configurations;
 

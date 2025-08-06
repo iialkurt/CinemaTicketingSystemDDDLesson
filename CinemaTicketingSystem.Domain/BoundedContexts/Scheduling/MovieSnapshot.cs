@@ -1,7 +1,11 @@
-﻿using Ardalis.GuardClauses;
+﻿#region
+
+using Ardalis.GuardClauses;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.SharedKernel.AggregateRoot;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Scheduling;
 

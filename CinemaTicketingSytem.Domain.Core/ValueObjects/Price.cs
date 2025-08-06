@@ -1,4 +1,8 @@
-﻿using Ardalis.GuardClauses;
+﻿#region
+
+using Ardalis.GuardClauses;
+
+#endregion
 
 namespace CinemaTicketingSystem.SharedKernel.ValueObjects;
 

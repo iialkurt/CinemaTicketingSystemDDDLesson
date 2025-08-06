@@ -1,3 +1,5 @@
+#region
+
 using CinemaTicketingSystem.API;
 using CinemaTicketingSystem.API.Account;
 using CinemaTicketingSystem.API.Catalog;
@@ -14,6 +16,8 @@ using CinemaTicketingSystem.Persistence;
 using FluentValidation;
 using Microsoft.Extensions.Options;
 using Scalar.AspNetCore;
+
+#endregion
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,17 +56,12 @@ if (app.Environment.IsDevelopment())
 }
 
 
-
-
-
 var locOptions = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>();
 app.UseRequestLocalization(locOptions.Value);
 app.AddCatalogGroupEndpointExt(app.AddVersionSetExt());
 app.AddScheduleGroupEndpointExt(app.AddVersionSetExt());
 app.AddAccountGroupEndpointExt(app.AddVersionSetExt());
 app.AddTicketingGroupEndpointExt(app.AddVersionSetExt());
-
-
 
 
 app.UseAuthentication();

@@ -1,4 +1,8 @@
-﻿using Ardalis.GuardClauses;
+﻿#region
+
+using Ardalis.GuardClauses;
+
+#endregion
 
 namespace CinemaTicketingSystem.SharedKernel.ValueObjects;
 
@@ -11,8 +15,8 @@ public class SeatPosition : ValueObject
         Number = Guard.Against.NegativeOrZero(number, nameof(number), "Seat number must be positive.");
     }
 
-    public string Row { get; private set; }
-    public int Number { get; private set; }
+    public string Row { get; }
+    public int Number { get; }
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

@@ -5,17 +5,16 @@ public abstract class Entity<TKey> : EntityBase
 {
     public TKey Id { get; set; } = default!;
 
-    protected override object?[] GetKeys() => [Id];
+    protected override object?[] GetKeys()
+    {
+        return [Id];
+    }
 }
 
 public abstract class Entity : EntityBase
 {
     protected abstract override object?[] GetKeys();
-
-
 }
-
-
 
 public abstract class EntityBase
 {
@@ -29,7 +28,7 @@ public abstract class EntityBase
 
     public override int GetHashCode()
     {
-        return GetKeys().Aggregate(17, (current, key) => (current * 31) + (key?.GetHashCode() ?? 0));
+        return GetKeys().Aggregate(17, (current, key) => current * 31 + (key?.GetHashCode() ?? 0));
     }
 
     public static bool operator ==(EntityBase? left, EntityBase? right)
@@ -39,7 +38,10 @@ public abstract class EntityBase
         return left.Equals(right);
     }
 
-    public static bool operator !=(EntityBase? left, EntityBase? right) => !(left == right);
+    public static bool operator !=(EntityBase? left, EntityBase? right)
+    {
+        return !(left == right);
+    }
 
     protected abstract object?[] GetKeys();
 }

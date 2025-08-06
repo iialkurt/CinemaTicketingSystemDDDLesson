@@ -1,5 +1,9 @@
+#region
+
 using CinemaTicketingSystem.SharedKernel.Entities;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
 

@@ -1,8 +1,12 @@
-﻿using System.Security.Claims;
+﻿#region
+
+using System.Security.Claims;
 using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.SharedKernel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+
+#endregion
 
 namespace CinemaTicketingSystem.Identity;
 

@@ -1,10 +1,14 @@
-﻿using CinemaTicketingSystem.API.Extensions;
+﻿#region
+
+using CinemaTicketingSystem.API.Extensions;
 using CinemaTicketingSystem.API.Filters;
 using CinemaTicketingSystem.Application.Abstraction.Ticketing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Ticketing.Purchase.Purchase;
 

@@ -1,9 +1,13 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.Contracts;
+﻿#region
+
+using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.SharedKernel.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Extensions;
 

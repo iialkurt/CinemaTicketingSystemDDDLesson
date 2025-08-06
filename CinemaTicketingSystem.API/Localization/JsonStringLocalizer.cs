@@ -1,5 +1,9 @@
-﻿using System.Globalization;
+﻿#region
+
+using System.Globalization;
 using Microsoft.Extensions.Localization;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Localization;
 

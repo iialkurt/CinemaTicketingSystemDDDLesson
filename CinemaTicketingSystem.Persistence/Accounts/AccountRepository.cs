@@ -1,19 +1,21 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
+﻿#region
+
+using CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
 using CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
 using Microsoft.AspNetCore.Identity;
+
+#endregion
 
 namespace CinemaTicketingSystem.Persistence.Accounts;
 
 internal class AccountRepository(UserManager<AppUser> userManager) : IAccountRepository
 {
-
-
     public async Task<bool> ExistEmailAsync(Email email)
     {
-
         var userFromDb = await userManager.FindByEmailAsync(email);
         return userFromDb is not null;
     }
+
     public async Task CreateAsync(User user)
     {
         var newUser = new AppUser
@@ -27,17 +29,6 @@ internal class AccountRepository(UserManager<AppUser> userManager) : IAccountRep
         };
 
         await userManager.CreateAsync(newUser, user.Password);
-
-    }
-
-    public async Task<User?> GetAsync(UserId id)
-    {
-        var userFromDb = await userManager.FindByIdAsync(id.ToString());
-
-        if (userFromDb is null) return null;
-
-        return new User(userFromDb.Id, UserName.From(userFromDb.UserName!), Email.From(userFromDb.Email!),
-            userFromDb.FirstName!, userFromDb.LastName!, userFromDb.CreatedAt);
     }
 
     public async Task<User?> GetAsync(Email email, Password password)
@@ -52,4 +43,13 @@ internal class AccountRepository(UserManager<AppUser> userManager) : IAccountRep
             userFromDb.FirstName!, userFromDb.LastName!, userFromDb.CreatedAt);
     }
 
+    public async Task<User?> GetAsync(UserId id)
+    {
+        var userFromDb = await userManager.FindByIdAsync(id.ToString());
+
+        if (userFromDb is null) return null;
+
+        return new User(userFromDb.Id, UserName.From(userFromDb.UserName!), Email.From(userFromDb.Email!),
+            userFromDb.FirstName!, userFromDb.LastName!, userFromDb.CreatedAt);
+    }
 }

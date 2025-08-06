@@ -1,7 +1,11 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
+﻿#region
+
+using CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
 using CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+#endregion
 
 namespace CinemaTicketingSystem.Persistence.Accounts;
 
@@ -9,7 +13,6 @@ internal class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken
 {
     public void Configure(EntityTypeBuilder<RefreshToken> builder)
     {
-
         builder.ToTable("RefreshTokens", "accounts");
         builder.HasKey(x => x.UserId);
         builder.Property(x => x.UserId).ValueGeneratedNever();

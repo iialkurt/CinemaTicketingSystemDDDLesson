@@ -1,6 +1,10 @@
-using CinemaTicketingSystem.DbMigrator;
+#region
+
+using CinemaTicketingSystem.Infrastructure.DbMigrator;
 using CinemaTicketingSystem.Persistence;
 using Microsoft.EntityFrameworkCore;
+
+#endregion
 
 var builder = Host.CreateApplicationBuilder(args);
 

@@ -1,4 +1,8 @@
-﻿using CinemaTicketingSystem.SharedKernel.ValueObjects;
+﻿#region
+
+using CinemaTicketingSystem.SharedKernel.ValueObjects;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.Catalog;
 

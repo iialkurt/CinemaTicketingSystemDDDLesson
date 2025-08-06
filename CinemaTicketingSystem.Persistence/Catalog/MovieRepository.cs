@@ -1,6 +1,10 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
+﻿#region
+
+using CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.Repositories;
 using Microsoft.EntityFrameworkCore;
+
+#endregion
 
 namespace CinemaTicketingSystem.Persistence.Catalog;
 

@@ -1,5 +1,9 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.Ticketing;
+﻿#region
+
+using CinemaTicketingSystem.Application.Abstraction.Ticketing;
 using FluentValidation;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Ticketing.Purchase.Purchase;
 

@@ -1,7 +1,10 @@
+#region
+
 using CinemaTicketingSystem.SharedKernel.Entities;
 
-namespace CinemaTicketingSystem.SharedKernel.AggregateRoot;
+#endregion
 
+namespace CinemaTicketingSystem.SharedKernel.AggregateRoot;
 
 public abstract class AggregateRootBase : EntityBase
 {
@@ -11,10 +14,25 @@ public abstract class AggregateRootBase : EntityBase
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
     public IReadOnlyCollection<IIntegrationEvent> IntegrationEvents => _integrationEvents.AsReadOnly();
 
-    public void ClearDomainEvents() => _domainEvents.Clear();
-    public void ClearIntegrationEvents() => _integrationEvents.Clear();
-    public void AddDomainEvent(IDomainEvent eventData) => _domainEvents.Add(eventData);
-    public void AddIntegrationEvent(IIntegrationEvent eventData) => _integrationEvents.Add(eventData);
+    public void ClearDomainEvents()
+    {
+        _domainEvents.Clear();
+    }
+
+    public void ClearIntegrationEvents()
+    {
+        _integrationEvents.Clear();
+    }
+
+    public void AddDomainEvent(IDomainEvent eventData)
+    {
+        _domainEvents.Add(eventData);
+    }
+
+    public void AddIntegrationEvent(IIntegrationEvent eventData)
+    {
+        _integrationEvents.Add(eventData);
+    }
 }
 
 public abstract class AggregateRoot<T> : AggregateRootBase, IAggregateRoot where T : notnull

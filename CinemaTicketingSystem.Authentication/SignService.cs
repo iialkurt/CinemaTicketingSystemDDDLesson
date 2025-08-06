@@ -1,5 +1,9 @@
-﻿using System.Text;
+﻿#region
+
+using System.Text;
 using Microsoft.IdentityModel.Tokens;
+
+#endregion
 
 namespace CinemaTicketingSystem.Identity;
 

@@ -1,4 +1,8 @@
-﻿using CinemaTicketingSystem.SharedKernel.Identities;
+﻿#region
+
+using CinemaTicketingSystem.SharedKernel.Identities;
+
+#endregion
 
 namespace CinemaTicketingSystem.Application.Abstraction.Accounts;
 

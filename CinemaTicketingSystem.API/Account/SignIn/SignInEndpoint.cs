@@ -1,4 +1,6 @@
-﻿using CinemaTicketingSystem.API.Account.SignIn;
+﻿#region
+
+using CinemaTicketingSystem.API.Account.SignIn;
 using CinemaTicketingSystem.API.Extensions;
 using CinemaTicketingSystem.API.Filters;
 using CinemaTicketingSystem.Application.Abstraction.Accounts;
@@ -7,6 +9,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+
+#endregion
 
 namespace CinemaTicketingSystem.Presentation.API.Account.SignIn;
 

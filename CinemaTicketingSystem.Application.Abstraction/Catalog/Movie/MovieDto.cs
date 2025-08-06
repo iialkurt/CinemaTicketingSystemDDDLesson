@@ -1,4 +1,8 @@
-﻿using CinemaTicketingSystem.Domain.Core;
+﻿#region
+
+using CinemaTicketingSystem.Domain.Core;
+
+#endregion
 
 namespace CinemaTicketingSystem.Application.Abstraction.Catalog.Movie;
 

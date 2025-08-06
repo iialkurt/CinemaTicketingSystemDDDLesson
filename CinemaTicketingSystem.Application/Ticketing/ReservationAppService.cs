@@ -1,4 +1,6 @@
-﻿using CinemaTicketingSystem.Application.Abstraction;
+﻿#region
+
+using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Abstraction.Ticketing;
 using CinemaTicketingSystem.Application.Catalog.ICL;
@@ -6,7 +8,8 @@ using CinemaTicketingSystem.Application.Schedules.ICL;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
-using System.Net;
+
+#endregion
 
 namespace CinemaTicketingSystem.Application.Ticketing;
 
@@ -40,20 +43,18 @@ public class ReservationAppService(
         var availableSeatCount = catalogInfo.Data!.SeatCount - reservationCount;
 
         if (availableSeatCount <= 0)
-            return appDependencyService.LocalizeError.Error(ErrorCodes.SeatNotAvailable,
-                HttpStatusCode.BadRequest);
+            return appDependencyService.LocalizeError.Error(ErrorCodes.SeatNotAvailable);
 
 
         if (request.SeatPositionList.Count > availableSeatCount)
-            return appDependencyService.LocalizeError.Error(ErrorCodes.NotEnoughSeatsAvailable, [availableSeatCount],
-                HttpStatusCode.BadRequest);
+            return appDependencyService.LocalizeError.Error(ErrorCodes.NotEnoughSeatsAvailable, [availableSeatCount]);
 
 
         foreach (var seatPosition in from seatPosition in request.SeatPositionList
-                                     let seatNumber = new SeatPosition(seatPosition.Row, seatPosition.Number)
-                                     let hasSeat = reservationList.Any(r => r.HasSeat(seatNumber))
-                                     where hasSeat
-                                     select seatPosition)
+                 let seatNumber = new SeatPosition(seatPosition.Row, seatPosition.Number)
+                 let hasSeat = reservationList.Any(r => r.HasSeat(seatNumber))
+                 where hasSeat
+                 select seatPosition)
             return appDependencyService.LocalizeError.Error(ErrorCodes.SeatAlreadyReserved,
                 [seatPosition.Row, seatPosition.Number]);
 

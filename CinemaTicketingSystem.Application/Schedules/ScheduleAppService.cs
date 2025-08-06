@@ -1,4 +1,7 @@
-﻿using CinemaTicketingSystem.Application.Abstraction;
+﻿#region
+
+using System.Net;
+using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Abstraction.Schedule;
 using CinemaTicketingSystem.Domain.BoundedContexts.Scheduling;
@@ -6,7 +9,8 @@ using CinemaTicketingSystem.Domain.BoundedContexts.Scheduling.Repositories;
 using CinemaTicketingSystem.Domain.Repositories;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
-using System.Net;
+
+#endregion
 
 namespace CinemaTicketingSystem.Application.Schedules;
 
@@ -75,7 +79,8 @@ public class ScheduleAppService(
         var schedules = await scheduleRepository.GetMoviesByHallIdAsync(hallId);
 
         var response = schedules
-            .Select(x => new GetMoviesByHallIdResponse(x.Id, x.MovieId, x.ShowTime.StartTime, x.ShowTime.EndTime)).ToList();
+            .Select(x => new GetMoviesByHallIdResponse(x.Id, x.MovieId, x.ShowTime.StartTime, x.ShowTime.EndTime))
+            .ToList();
 
         return AppResult<List<GetMoviesByHallIdResponse>>.SuccessAsOk(response);
     }

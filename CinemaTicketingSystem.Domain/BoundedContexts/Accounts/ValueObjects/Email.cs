@@ -1,6 +1,10 @@
+#region
+
+using System.Text.RegularExpressions;
 using Ardalis.GuardClauses;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
-using System.Text.RegularExpressions;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
 
@@ -17,8 +21,6 @@ public class Email : ValueObject
 
         Guard.Against.InvalidInput(normalizedEmail, nameof(value), IsValidEmail,
             $"Invalid email format: {value}");
-
-
 
 
         Guard.Against.InvalidInput(normalizedEmail, nameof(value), email => email.Length < 254,
@@ -44,8 +46,6 @@ public class Email : ValueObject
 
 
         return EmailRegex.IsMatch(email);
-
-
     }
 
     protected override IEnumerable<object> GetEqualityComponents()

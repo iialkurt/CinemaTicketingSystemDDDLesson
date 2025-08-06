@@ -1,7 +1,11 @@
-﻿using CinemaTicketingSystem.Application.Abstraction;
+﻿#region
+
+using System.Net;
+using CinemaTicketingSystem.Application.Abstraction;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Extensions;
 

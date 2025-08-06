@@ -1,7 +1,11 @@
+#region
+
 using CinemaTicketingSystem.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace CinemaTicketingSystem.DbMigrator;
+#endregion
+
+namespace CinemaTicketingSystem.Infrastructure.DbMigrator;
 
 public class Migrator(
     ILogger<Migrator> logger,

@@ -1,6 +1,10 @@
-﻿using Ardalis.GuardClauses;
-using CinemaTicketingSystem.SharedKernel.ValueObjects;
+﻿#region
+
 using System.Text.RegularExpressions;
+using Ardalis.GuardClauses;
+using CinemaTicketingSystem.SharedKernel.ValueObjects;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
 

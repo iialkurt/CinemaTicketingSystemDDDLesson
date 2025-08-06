@@ -1,5 +1,9 @@
+#region
+
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.Exceptions;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.Core.Exceptions;
 

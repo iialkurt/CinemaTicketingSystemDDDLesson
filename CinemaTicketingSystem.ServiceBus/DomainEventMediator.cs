@@ -1,5 +1,9 @@
-﻿using CinemaTicketingSystem.SharedKernel;
+﻿#region
+
+using CinemaTicketingSystem.SharedKernel;
 using MediatR;
+
+#endregion
 
 namespace CinemaTicketingSystem.ServiceBus;
 

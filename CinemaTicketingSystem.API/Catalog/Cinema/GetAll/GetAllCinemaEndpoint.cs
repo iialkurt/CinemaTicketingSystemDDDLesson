@@ -1,8 +1,12 @@
-﻿using CinemaTicketingSystem.API.Extensions;
+﻿#region
+
+using CinemaTicketingSystem.API.Extensions;
 using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Catalog.Cinema.GetAll;
 
@@ -11,7 +15,8 @@ public static class GetAllCinemaEndpoint
     public static RouteGroupBuilder GetAllCinemaGroupItemEndpoint(this RouteGroupBuilder group)
     {
         group.MapGet("/cinemas", async
-                ([FromServices] ICinemaAppService cinemaAppService) => (await cinemaAppService.GetAllAsync()).ToGenericResult())
+                ([FromServices] ICinemaAppService cinemaAppService) =>
+                (await cinemaAppService.GetAllAsync()).ToGenericResult())
             .WithName("GetAllCinema")
             .MapToApiVersion(1, 0);
 

@@ -1,5 +1,9 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.Contracts;
+﻿#region
+
+using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using Microsoft.Extensions.Caching.Memory;
+
+#endregion
 
 namespace CinemaTicketingSystem.Caching;
 

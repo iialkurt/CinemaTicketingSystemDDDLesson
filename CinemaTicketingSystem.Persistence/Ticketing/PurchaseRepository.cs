@@ -1,4 +1,8 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
+﻿#region
+
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
+
+#endregion
 
 namespace CinemaTicketingSystem.Persistence.Ticketing;
 

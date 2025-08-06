@@ -1,7 +1,11 @@
-﻿using Asp.Versioning;
+﻿#region
+
+using Asp.Versioning;
 using Asp.Versioning.Builder;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Extensions;
 

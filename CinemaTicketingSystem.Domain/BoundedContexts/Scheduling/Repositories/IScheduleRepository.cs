@@ -1,4 +1,8 @@
-﻿using CinemaTicketingSystem.Domain.Repositories;
+﻿#region
+
+using CinemaTicketingSystem.Domain.Repositories;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Scheduling.Repositories;
 

@@ -1,4 +1,8 @@
+#region
+
 using CinemaTicketingSystem.SharedKernel;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations.DomainEvents;
 

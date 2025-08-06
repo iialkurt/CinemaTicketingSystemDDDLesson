@@ -1,8 +1,13 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
+﻿#region
+
+using CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
+using CinemaTicketingSystem.SharedKernel.AggregateRoot;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
 
-public class RefreshToken : SharedKernel.AggregateRoot.AggregateRoot
+public class RefreshToken : AggregateRoot
 {
     protected RefreshToken()
     {

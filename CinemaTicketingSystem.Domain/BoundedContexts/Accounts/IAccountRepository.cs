@@ -1,4 +1,8 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
+﻿#region
+
+using CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
 

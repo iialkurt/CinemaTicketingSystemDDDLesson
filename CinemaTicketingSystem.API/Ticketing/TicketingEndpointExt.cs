@@ -1,9 +1,13 @@
-﻿using Asp.Versioning.Builder;
+﻿#region
+
+using Asp.Versioning.Builder;
 using CinemaTicketingSystem.API.Ticketing.Purchase.Purchase;
 using CinemaTicketingSystem.API.Ticketing.Reservation.Reserve;
 using CinemaTicketingSystem.API.Ticketing.SeatHold.Create;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Ticketing;
 

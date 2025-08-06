@@ -1,4 +1,7 @@
-﻿using CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
+﻿#region
+
+using System.Reflection;
+using CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
 using CinemaTicketingSystem.Domain.BoundedContexts.Scheduling;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Holds;
@@ -10,17 +13,19 @@ using CinemaTicketingSystem.SharedKernel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+
+#endregion
 
 namespace CinemaTicketingSystem.Persistence;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventMediator domainEventMediator, IIntegrationEventBus integrationEventBus)
+public class AppDbContext(
+    DbContextOptions<AppDbContext> options,
+    IDomainEventMediator domainEventMediator,
+    IIntegrationEventBus integrationEventBus)
     : IdentityDbContext<AppUser, AppRole, Guid>(options)
 {
-
     public DbSet<Cinema> Cinemas { get; set; }
     public DbSet<Movie> Movies { get; set; }
-
 
 
     public DbSet<CinemaHallSnapshot> CinemaHallSchedules { get; set; }
@@ -30,19 +35,13 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventMe
     public DbSet<Schedule> Schedules { get; set; }
 
 
-
-
-
     public DbSet<RefreshToken> RefreshTokens { get; set; }
-
-
 
 
     public DbSet<Purchase> Purchases { get; set; }
 
     public DbSet<Reservation> Reservations { get; set; }
     public DbSet<SeatHold> SeatHolds { get; set; }
-
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -56,12 +55,12 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventMe
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-            foreach (var mutableProperty in entityType.GetProperties())
-            {
-                if (!ReferenceEquals(mutableProperty.ClrType, typeof(decimal))) continue;
-                mutableProperty.SetPrecision(9);
-                mutableProperty.SetScale(2);
-            }
+        foreach (var mutableProperty in entityType.GetProperties())
+        {
+            if (!ReferenceEquals(mutableProperty.ClrType, typeof(decimal))) continue;
+            mutableProperty.SetPrecision(9);
+            mutableProperty.SetScale(2);
+        }
 
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

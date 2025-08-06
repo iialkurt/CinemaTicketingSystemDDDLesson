@@ -1,8 +1,13 @@
-﻿using CinemaTicketingSystem.Domain.Core;
+﻿#region
+
+using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.SharedKernel;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Catalog.IntegrationEvents;
 
-public record CinemaHallCreatedIntegrationEvent(Guid HallId, ScreeningTechnology hallTechnology, short SeatCount) : IIntegrationEvent
+public record CinemaHallCreatedIntegrationEvent(Guid HallId, ScreeningTechnology hallTechnology, short SeatCount)
+    : IIntegrationEvent
 {
 }

@@ -1,8 +1,12 @@
-﻿using CinemaTicketingSystem.API.Extensions;
+﻿#region
+
+using CinemaTicketingSystem.API.Extensions;
 using CinemaTicketingSystem.Application.Abstraction.Schedule;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Schedule.GetAll;
 

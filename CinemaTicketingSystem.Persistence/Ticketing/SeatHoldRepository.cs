@@ -1,4 +1,8 @@
+#region
+
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Holds;
+
+#endregion
 
 namespace CinemaTicketingSystem.Persistence.Ticketing;
 

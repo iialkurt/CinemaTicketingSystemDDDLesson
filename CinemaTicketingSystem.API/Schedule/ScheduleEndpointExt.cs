@@ -1,8 +1,12 @@
-﻿using Asp.Versioning.Builder;
+﻿#region
+
+using Asp.Versioning.Builder;
 using CinemaTicketingSystem.API.Schedule.AddMovieToHall;
 using CinemaTicketingSystem.API.Schedule.GetAll;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Schedule;
 

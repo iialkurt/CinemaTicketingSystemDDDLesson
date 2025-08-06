@@ -1,4 +1,7 @@
-﻿using CinemaTicketingSystem.Application.Abstraction;
+﻿#region
+
+using System.Net;
+using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema;
 using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema.Hall;
 using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Cinema;
@@ -10,7 +13,8 @@ using CinemaTicketingSystem.Domain.Catalog;
 using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
-using System.Net;
+
+#endregion
 
 namespace CinemaTicketingSystem.Application.Catalog.Cinema;
 

@@ -1,5 +1,9 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema.Hall;
+﻿#region
+
+using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema.Hall;
 using FluentValidation;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Catalog.Cinema.Hall.Add;
 

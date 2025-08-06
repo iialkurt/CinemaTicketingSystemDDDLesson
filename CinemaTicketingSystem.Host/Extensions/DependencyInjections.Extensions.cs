@@ -1,4 +1,7 @@
-﻿using CinemaTicketingSystem.API.Localization;
+﻿#region
+
+using System.Reflection;
+using CinemaTicketingSystem.API.Localization;
 using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
 using CinemaTicketingSystem.Application.Schedules.IntegrationEventHandlers;
@@ -15,7 +18,8 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
-using System.Reflection;
+
+#endregion
 
 namespace CinemaTicketingSystem.Host.Extensions;
 

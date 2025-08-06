@@ -1,6 +1,10 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema.Hall;
+﻿#region
+
+using CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema.Hall;
 using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Cinema;
 using CinemaTicketingSystem.Application.Abstraction.CinemaManagement.Cinema.Hall;
+
+#endregion
 
 namespace CinemaTicketingSystem.Application.Abstraction.Catalog.Cinema;
 

@@ -1,5 +1,9 @@
-﻿using CinemaTicketingSystem.Domain.Core;
+﻿#region
+
+using CinemaTicketingSystem.Domain.Core;
 using CinemaTicketingSystem.SharedKernel;
+
+#endregion
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Catalog.DomainEvents;
 

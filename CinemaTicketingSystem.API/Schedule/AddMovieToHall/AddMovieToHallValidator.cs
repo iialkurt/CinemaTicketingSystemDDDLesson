@@ -1,5 +1,9 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.Schedule;
+﻿#region
+
+using CinemaTicketingSystem.Application.Abstraction.Schedule;
 using FluentValidation;
+
+#endregion
 
 namespace CinemaTicketingSystem.API.Schedule.AddMovieToHall;
 

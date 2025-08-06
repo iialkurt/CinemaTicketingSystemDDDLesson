@@ -1,20 +1,21 @@
-﻿using CinemaTicketingSystem.SharedKernel;
+﻿#region
+
+using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.AggregateRoot;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
+#endregion
+
 namespace CinemaTicketingSystem.Persistence.Interceptors;
 
-
-
-
-
-
-internal class DomainEventsInterceptor(IIntegrationEventBus integrationEventBus, IDomainEventMediator domainEventMediator) : SaveChangesInterceptor
+internal class DomainEventsInterceptor(
+    IIntegrationEventBus integrationEventBus,
+    IDomainEventMediator domainEventMediator) : SaveChangesInterceptor
 {
-    public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result,
-        CancellationToken cancellationToken = new CancellationToken())
+    public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData,
+        InterceptionResult<int> result,
+        CancellationToken cancellationToken = new())
     {
-
         if (eventData.Context is null) return await base.SavingChangesAsync(eventData, result, cancellationToken);
 
 
@@ -34,17 +35,13 @@ internal class DomainEventsInterceptor(IIntegrationEventBus integrationEventBus,
         foreach (var ev in events) await domainEventMediator.PublishAsync(ev, cancellationToken);
 
 
-
         return await base.SavingChangesAsync(eventData, result, cancellationToken);
     }
-
 
 
     public override async ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result,
         CancellationToken cancellationToken = new())
     {
-
-
         if (eventData.Context is null) return await base.SavedChangesAsync(eventData, result, cancellationToken);
 
         var aggregates = eventData.Context.ChangeTracker
@@ -52,9 +49,6 @@ internal class DomainEventsInterceptor(IIntegrationEventBus integrationEventBus,
             .Where(e => e.Entity.DomainEvents.Any())
             .Select(e => e.Entity)
             .ToList();
-
-
-
 
 
         var integrationEvents = new List<IIntegrationEvent>();
@@ -67,9 +61,6 @@ internal class DomainEventsInterceptor(IIntegrationEventBus integrationEventBus,
         foreach (var ev in integrationEvents) await integrationEventBus.PublishAsync(ev, cancellationToken);
 
 
-
-
         return await base.SavedChangesAsync(eventData, result, cancellationToken);
-
     }
 }
