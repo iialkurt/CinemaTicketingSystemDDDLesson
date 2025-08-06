@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\CinemaTicketingSystem.Application.Abstraction\CinemaTicketingSystem.Application.Abstraction.csproj" />
+        <ProjectReference Include="..\CinemaTicketingSystem.Application.Abstraction\CinemaTicketingSystem.Application.Contracts.csproj" />
         <ProjectReference Include="..\CinemaTicketingSystem.Domain\CinemaTicketingSystem.Domain.csproj" />
     </ItemGroup>
 

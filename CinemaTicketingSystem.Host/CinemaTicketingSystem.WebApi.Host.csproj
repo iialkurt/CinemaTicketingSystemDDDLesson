@@ -15,12 +15,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\CinemaTicketingSystem.API\CinemaTicketingSystem.API.csproj" />
+        <ProjectReference Include="..\CinemaTicketingSystem.API\CinemaTicketingSystem.Presentation.API.csproj" />
         <ProjectReference Include="..\CinemaTicketingSystem.Application\CinemaTicketingSystem.Application.csproj" />
-        <ProjectReference Include="..\CinemaTicketingSystem.Authentication\CinemaTicketingSystem.Identity.csproj" />
-        <ProjectReference Include="..\CinemaTicketingSystem.Caching\CinemaTicketingSystem.Caching.csproj" />
-        <ProjectReference Include="..\CinemaTicketingSystem.Persistence\CinemaTicketingSystem.Persistence.csproj" />
-        <ProjectReference Include="..\CinemaTicketingSystem.ServiceBus\CinemaTicketingSystem.ServiceBus.csproj" />
+        <ProjectReference Include="..\CinemaTicketingSystem.Authentication\CinemaTicketingSystem.Infrastructure.Authentication.csproj" />
+        <ProjectReference Include="..\CinemaTicketingSystem.Caching\CinemaTicketingSystem.Infrastructure.Caching.csproj" />
+        <ProjectReference Include="..\CinemaTicketingSystem.Persistence\CinemaTicketingSystem.Infrastructure.Persistence.csproj" />
+        <ProjectReference Include="..\CinemaTicketingSystem.ServiceBus\CinemaTicketingSystem.Infrastructure.Messaging.csproj" />
     </ItemGroup>
 
 </Project>

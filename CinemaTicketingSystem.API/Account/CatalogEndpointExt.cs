@@ -1,6 +1,6 @@
 ﻿using Asp.Versioning.Builder;
-using CinemaTicketingSystem.API.Account.SignIn;
-using CinemaTicketingSystem.API.Account.SignUp;
+using CinemaTicketingSystem.Presentation.API.Account.SignIn;
+using CinemaTicketingSystem.Presentation.API.Account.SignUp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 

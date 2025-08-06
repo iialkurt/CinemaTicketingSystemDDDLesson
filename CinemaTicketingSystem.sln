@@ -11,17 +11,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Application", "CinemaTicketingSystem.Application\CinemaTicketingSystem.Application.csproj", "{137A0908-F6AA-4480-8EC4-C7B51EEBE91C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Host", "CinemaTicketingSystem.Host\CinemaTicketingSystem.Host.csproj", "{6741FE32-211F-4B61-B13B-5B6338568ABA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.WebApi.Host", "CinemaTicketingSystem.Host\CinemaTicketingSystem.WebApi.Host.csproj", "{6741FE32-211F-4B61-B13B-5B6338568ABA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{5ED7C5E2-3A60-42D4-BFBE-76DA6F30C852}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Persistence", "CinemaTicketingSystem.Persistence\CinemaTicketingSystem.Persistence.csproj", "{AD1B085F-5B14-4B6A-983F-EFFFE8BFC9A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Infrastructure.Persistence", "CinemaTicketingSystem.Persistence\CinemaTicketingSystem.Infrastructure.Persistence.csproj", "{AD1B085F-5B14-4B6A-983F-EFFFE8BFC9A5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "application", "application", "{0B2805BE-6A00-4190-B4D4-831B735C76B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Application.Abstraction", "CinemaTicketingSystem.Application.Abstraction\CinemaTicketingSystem.Application.Abstraction.csproj", "{389914CC-0D31-4E36-BC4B-A7E9A4199ECC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Application.Contracts", "CinemaTicketingSystem.Application.Abstraction\CinemaTicketingSystem.Application.Contracts.csproj", "{389914CC-0D31-4E36-BC4B-A7E9A4199ECC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.API", "CinemaTicketingSystem.API\CinemaTicketingSystem.API.csproj", "{1C226047-484E-4A7B-855C-E2BB19EA7A0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Presentation.API", "CinemaTicketingSystem.API\CinemaTicketingSystem.Presentation.API.csproj", "{1C226047-484E-4A7B-855C-E2BB19EA7A0F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "domain", "domain", "{DF13FB37-2580-4226-A3F2-861289EFABF3}"
 EndProject
@@ -31,15 +31,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "presentation", "presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "host", "host", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.DbMigrator", "CinemaTicketingSystem.DbMigrator\CinemaTicketingSystem.DbMigrator.csproj", "{61CFCBD1-F1C2-4239-ABFA-73DC6698D975}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Infrastructure.DbMigrator", "CinemaTicketingSystem.DbMigrator\CinemaTicketingSystem.Infrastructure.DbMigrator.csproj", "{61CFCBD1-F1C2-4239-ABFA-73DC6698D975}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{F2B89BA6-2F87-48BF-8D5E-D40CB2D2FCE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.ServiceBus", "CinemaTicketingSystem.ServiceBus\CinemaTicketingSystem.ServiceBus.csproj", "{2300BEC5-F014-4EB8-921E-688F04041551}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Infrastructure.Messaging", "CinemaTicketingSystem.ServiceBus\CinemaTicketingSystem.Infrastructure.Messaging.csproj", "{2300BEC5-F014-4EB8-921E-688F04041551}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Caching", "CinemaTicketingSystem.Caching\CinemaTicketingSystem.Caching.csproj", "{2B471098-BA97-412E-A80B-F11CB8BA219A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Infrastructure.Caching", "CinemaTicketingSystem.Caching\CinemaTicketingSystem.Infrastructure.Caching.csproj", "{2B471098-BA97-412E-A80B-F11CB8BA219A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Identity", "CinemaTicketingSystem.Authentication\CinemaTicketingSystem.Identity.csproj", "{16E4C4B2-94D8-46A9-BDBA-309BB9E283B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicketingSystem.Infrastructure.Authentication", "CinemaTicketingSystem.Authentication\CinemaTicketingSystem.Infrastructure.Authentication.csproj", "{16E4C4B2-94D8-46A9-BDBA-309BB9E283B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

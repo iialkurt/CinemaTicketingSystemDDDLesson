@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CinemaTicketingSystem.Application.Abstraction\CinemaTicketingSystem.Application.Abstraction.csproj" />
+    <ProjectReference Include="..\CinemaTicketingSystem.Application.Abstraction\CinemaTicketingSystem.Application.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

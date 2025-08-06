@@ -2,7 +2,7 @@
 using CinemaTicketingSystem.SharedKernel;
 using MassTransit;
 
-namespace CinemaTicketingSystem.ServiceBus;
+namespace CinemaTicketingSystem.Infrastructure.Messaging;
 
 public class MassTransitConsumerAdapter<TMessage>(IIntegrationEventHandler<TMessage> handler) : IConsumer<TMessage>
     where TMessage : class, IIntegrationEvent

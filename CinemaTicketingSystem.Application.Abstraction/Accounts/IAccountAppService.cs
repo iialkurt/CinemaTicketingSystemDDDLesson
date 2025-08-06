@@ -1,4 +1,7 @@
-namespace CinemaTicketingSystem.Application.Abstraction.Accounts;
+using CinemaTicketingSystem.Application.Abstraction;
+using CinemaTicketingSystem.Application.Abstraction.Accounts;
+
+namespace CinemaTicketingSystem.Application.Contracts.Accounts;
 
 public interface IAccountAppService
 {

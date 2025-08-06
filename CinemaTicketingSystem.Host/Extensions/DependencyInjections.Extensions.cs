@@ -5,6 +5,7 @@ using CinemaTicketingSystem.Application.Schedules.IntegrationEventHandlers;
 using CinemaTicketingSystem.Caching;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.IntegrationEvents;
 using CinemaTicketingSystem.Domain.Repositories;
+using CinemaTicketingSystem.Infrastructure.Messaging;
 using CinemaTicketingSystem.Persistence;
 using CinemaTicketingSystem.Persistence.Accounts;
 using CinemaTicketingSystem.ServiceBus;
@@ -34,12 +35,14 @@ public static class ServiceCollectionExtensions
     }
 
 
-
     public static IServiceCollection RegisterServiceBus(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddScoped<IIntegrationEventHandler<CinemaHallCreatedIntegrationEvent>, CinemaHallCreatedIntegrationEventHandler>();
-        services.AddScoped<IIntegrationEventHandler<MovieCreatedIntegrationEvent>, MovieCreatedIntegrationEventHandler>();
+        services
+            .AddScoped<IIntegrationEventHandler<CinemaHallCreatedIntegrationEvent>,
+                CinemaHallCreatedIntegrationEventHandler>();
+        services
+            .AddScoped<IIntegrationEventHandler<MovieCreatedIntegrationEvent>, MovieCreatedIntegrationEventHandler>();
 
 
         services.AddScoped<IIntegrationEventBus, IntegrationEventBus>();
@@ -50,13 +53,7 @@ public static class ServiceCollectionExtensions
             configure.AddConsumer<MassTransitConsumerAdapter<MovieCreatedIntegrationEvent>>();
 
 
-            configure.UsingInMemory((context, cfg) =>
-            {
-
-
-
-                cfg.ConfigureEndpoints(context);
-            });
+            configure.UsingInMemory((context, cfg) => { cfg.ConfigureEndpoints(context); });
         });
 
         return services;

@@ -1,12 +1,14 @@
-﻿using CinemaTicketingSystem.API.Extensions;
+﻿using CinemaTicketingSystem.API.Account.SignIn;
+using CinemaTicketingSystem.API.Extensions;
 using CinemaTicketingSystem.API.Filters;
 using CinemaTicketingSystem.Application.Abstraction.Accounts;
+using CinemaTicketingSystem.Application.Contracts.Accounts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace CinemaTicketingSystem.API.Account.SignIn;
+namespace CinemaTicketingSystem.Presentation.API.Account.SignIn;
 
 public static class SignInEndpoint
 {

@@ -1,6 +1,7 @@
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.Accounts;
 using CinemaTicketingSystem.Application.Abstraction.DependencyInjections;
+using CinemaTicketingSystem.Application.Contracts.Accounts;
 using CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.Identities;
@@ -13,8 +14,6 @@ public class AccountAppService(
     ITokenService tokenService,
     IRefreshTokenRepository refreshTokenRepository) : IScopedDependency, IAccountAppService
 {
-
-
     //public async Task<AppResult> CheckEmailAsync(Email email)
     //{
     //    var user = await accountRepository.GetByEmailAsync(email);
@@ -24,11 +23,8 @@ public class AccountAppService(
     //}
 
 
-
     public async Task<AppResult> SignUpAsync(SignUpRequest request)
     {
-
-
         var emailExists = await accountRepository.ExistEmailAsync(request.Email);
 
         if (emailExists)
@@ -67,8 +63,6 @@ public class AccountAppService(
                 new RefreshToken(tokenResponse.RefreshToken, tokenResponse.RefreshTokenExpiration, user.Id);
             await refreshTokenRepository.AddAsync(hasRefreshToken);
         }
-
-
 
 
         await appDependencyService.UnitOfWork.SaveChangesAsync();
