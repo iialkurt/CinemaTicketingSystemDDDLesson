@@ -20,7 +20,6 @@ public class ReservationAppService(
     ICatalogQueryService catalogQueryService,
     IReservationRepository reservationRepository,
     ISeatHoldRepository seatHoldRepository,
-    IUserContext userContext,
     ReservationEligibilityPolicy reservationEligibilityPolicy) : IScopedDependency, IReservationAppService
 {
     public async Task<AppResult> ReserveSeats(ReserveSeatsRequest request)
@@ -64,7 +63,7 @@ public class ReservationAppService(
 
         var seatHoldList = (await seatHoldRepository.WhereAsync(x =>
             x.ScheduledMovieShowId == request.ScheduledMovieShowId &&
-            x.CustomerId == userContext.UserId)).ToList();
+            x.CustomerId == appDependencyService.UserContext.UserId)).ToList();
 
 
         var IsValidateOwnershipAndValidityResult = reservationEligibilityPolicy.ValidateOwnershipAndValidity(
@@ -86,7 +85,7 @@ public class ReservationAppService(
                 [seatPosition.Row, seatPosition.Number]);
 
 
-        var reservation = new Reservation(request.ScheduledMovieShowId, userContext.UserId);
+        var reservation = new Reservation(request.ScheduledMovieShowId, appDependencyService.UserContext.UserId);
 
 
         foreach (var seatPosition in request.SeatPositionList.Select(seatPositionDto =>
