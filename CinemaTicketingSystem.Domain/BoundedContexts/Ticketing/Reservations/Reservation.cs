@@ -15,7 +15,7 @@ public class Reservation : AggregateRoot<Guid>
 {
     private const int MaxSeatCountPerReservation = 10;
 
-    private const int ReservationExpiryMinutes = 30;
+    private const int ReservationExpiryMinutes = 60;
     private readonly List<ReservationSeat> _reservationSeatList = [];
 
 
