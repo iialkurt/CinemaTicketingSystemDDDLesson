@@ -1,11 +1,10 @@
 ﻿#region
 
-using System.Reflection;
 using CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog;
 using CinemaTicketingSystem.Domain.BoundedContexts.Scheduling;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Holds;
-using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Issuance;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
 using CinemaTicketingSystem.Persistence.Accounts;
 using CinemaTicketingSystem.Persistence.Interceptors;
@@ -13,10 +12,11 @@ using CinemaTicketingSystem.SharedKernel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 #endregion
 
-namespace CinemaTicketingSystem.Persistence;
+namespace CinemaTicketingSystem.Infrastructure.Persistence;
 
 public class AppDbContext(
     DbContextOptions<AppDbContext> options,
@@ -38,7 +38,7 @@ public class AppDbContext(
     public DbSet<RefreshToken> RefreshTokens { get; set; }
 
 
-    public DbSet<Purchase> Purchases { get; set; }
+    public DbSet<TicketIssuance> TicketIssuance { get; set; }
 
     public DbSet<Reservation> Reservations { get; set; }
     public DbSet<SeatHold> SeatHolds { get; set; }

@@ -1,12 +1,12 @@
 ﻿#region
 
-using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Issuance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 #endregion
 
-namespace CinemaTicketingSystem.Persistence.Ticketing.Configurations;
+namespace CinemaTicketingSystem.Infrastructure.Persistence.Ticketing.Configurations;
 
 internal class TicketConfiguration : IEntityTypeConfiguration<Ticket>
 {

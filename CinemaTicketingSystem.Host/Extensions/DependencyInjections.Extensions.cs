@@ -1,6 +1,5 @@
 ﻿#region
 
-using System.Reflection;
 using CinemaTicketingSystem.API.Localization;
 using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Application.Contracts.DependencyInjections;
@@ -9,6 +8,7 @@ using CinemaTicketingSystem.Caching;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.IntegrationEvents;
 using CinemaTicketingSystem.Domain.Repositories;
 using CinemaTicketingSystem.Infrastructure.Messaging;
+using CinemaTicketingSystem.Infrastructure.Persistence;
 using CinemaTicketingSystem.Persistence;
 using CinemaTicketingSystem.Persistence.Accounts;
 using CinemaTicketingSystem.ServiceBus;
@@ -18,10 +18,11 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using System.Reflection;
 
 #endregion
 
-namespace CinemaTicketingSystem.Host.Extensions;
+namespace CinemaTicketingSystem.WebApi.Host.Extensions;
 
 public static class ServiceCollectionExtensions
 {

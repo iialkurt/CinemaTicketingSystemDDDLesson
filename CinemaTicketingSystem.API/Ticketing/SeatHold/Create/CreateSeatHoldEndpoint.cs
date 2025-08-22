@@ -2,7 +2,6 @@
 
 using CinemaTicketingSystem.API.Extensions;
 using CinemaTicketingSystem.API.Filters;
-using CinemaTicketingSystem.Application.Abstraction.Ticketing;
 using CinemaTicketingSystem.Application.Contracts.Ticketing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +16,7 @@ public static class CreateSeatHoldEndpoint
 {
     public static RouteGroupBuilder CreateSeatHoldGroupItemEndpoint(this RouteGroupBuilder group)
     {
-        group.MapPost("/seatholds",
+        group.MapPost("/seathold",
                 async (CreateSeatHoldRequest request, [FromServices] ISeatHoldAppService seatHoldAppService) =>
                 (await seatHoldAppService.CreateAsync(request)).ToGenericResult())
             .WithName("CreateSeatHold")

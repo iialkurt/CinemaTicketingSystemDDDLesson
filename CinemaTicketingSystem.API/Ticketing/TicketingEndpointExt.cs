@@ -1,10 +1,11 @@
 ﻿#region
 
 using Asp.Versioning.Builder;
-using CinemaTicketingSystem.Presentation.API.Ticketing.Purchase.Create;
 using CinemaTicketingSystem.Presentation.API.Ticketing.Reservation.Reserve;
 using CinemaTicketingSystem.Presentation.API.Ticketing.SeatHold.Cancel;
+using CinemaTicketingSystem.Presentation.API.Ticketing.SeatHold.Confirm;
 using CinemaTicketingSystem.Presentation.API.Ticketing.SeatHold.Create;
+using CinemaTicketingSystem.Presentation.API.Ticketing.TicketIssuance.Create;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
@@ -18,9 +19,10 @@ public static class TicketingEndpointExt
     {
         app.MapGroup("api/v{version:apiVersion}/ticketing").WithTags("ticketing")
             .WithApiVersionSet(apiVersionSet)
-            .CreateSeatHoldGroupItemEndpoint()
             .ReserveSeatsGroupItemEndpoint()
             .PurchaseTicketsGroupItemEndpoint()
-            .CancelSeatHoldGroupItemEndpoint().RequireAuthorization();
+            .CreateSeatHoldGroupItemEndpoint()
+            .CancelSeatHoldGroupItemEndpoint()
+            .confirmSeatHoldGroupItemEndpoint().RequireAuthorization();
     }
 }

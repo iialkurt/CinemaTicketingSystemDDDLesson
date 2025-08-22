@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CinemaTicketingSystem.Persistence.Migrations
+namespace CinemaTicketingSystem.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class initial : Migration
@@ -116,6 +116,7 @@ namespace CinemaTicketingSystem.Persistence.Migrations
                     ScheduledMovieShowId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReservationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExpirationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ScreeningDate = table.Column<DateOnly>(type: "date", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -163,10 +164,12 @@ namespace CinemaTicketingSystem.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ScheduledMovieShowId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ScreeningDate = table.Column<DateOnly>(type: "date", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Row = table.Column<string>(type: "char(1)", unicode: false, fixedLength: true, maxLength: 1, nullable: false),
                     Number = table.Column<int>(type: "int", nullable: false),
-                    ExpiresAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ExpiresAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -174,18 +177,20 @@ namespace CinemaTicketingSystem.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TicketPurchases",
+                name: "TicketIssuance",
                 schema: "Ticketing",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ScheduledMovieShowId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ScreeningDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    PurchaseId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IsDiscountApplied = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TicketPurchases", x => x.Id);
+                    table.PrimaryKey("PK_TicketIssuance", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -293,7 +298,7 @@ namespace CinemaTicketingSystem.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PurchaseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TicketIssuanceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Row = table.Column<string>(type: "char(1)", unicode: false, fixedLength: true, maxLength: 1, nullable: false),
                     Number = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(9,2)", precision: 9, scale: 2, nullable: false),
@@ -306,10 +311,10 @@ namespace CinemaTicketingSystem.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Ticket", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ticket_TicketPurchases_PurchaseId",
-                        column: x => x.PurchaseId,
+                        name: "FK_Ticket_TicketIssuance_TicketIssuanceId",
+                        column: x => x.TicketIssuanceId,
                         principalSchema: "Ticketing",
-                        principalTable: "TicketPurchases",
+                        principalTable: "TicketIssuance",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -472,10 +477,10 @@ namespace CinemaTicketingSystem.Persistence.Migrations
                 column: "CinemaHallId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ticket_PurchaseId",
+                name: "IX_Ticket_TicketIssuanceId",
                 schema: "Ticketing",
                 table: "Ticket",
-                column: "PurchaseId");
+                column: "TicketIssuanceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserClaims_UserId",
@@ -578,7 +583,7 @@ namespace CinemaTicketingSystem.Persistence.Migrations
                 schema: "catalogs");
 
             migrationBuilder.DropTable(
-                name: "TicketPurchases",
+                name: "TicketIssuance",
                 schema: "Ticketing");
 
             migrationBuilder.DropTable(

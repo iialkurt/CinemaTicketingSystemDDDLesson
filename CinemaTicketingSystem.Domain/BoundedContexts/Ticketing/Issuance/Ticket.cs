@@ -7,7 +7,8 @@ using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 #endregion
 
-namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
+namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Issuance;
+
 
 public class Ticket : Entity<Guid>
 {
@@ -24,7 +25,7 @@ public class Ticket : Entity<Guid>
     {
     }
 
-    public virtual Purchase Purchase { get; private set; } = null!;
+    public virtual TicketIssuance TicketIssuance { get; private set; } = null!;
 
     public SeatPosition SeatPosition { get; } = null!;
     public Price Price { get; } = null!;

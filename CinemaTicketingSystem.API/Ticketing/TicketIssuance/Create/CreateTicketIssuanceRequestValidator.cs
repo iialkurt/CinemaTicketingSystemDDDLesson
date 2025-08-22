@@ -5,11 +5,11 @@ using FluentValidation;
 
 #endregion
 
-namespace CinemaTicketingSystem.API.Ticketing.Purchase.Purchase;
+namespace CinemaTicketingSystem.Presentation.API.Ticketing.TicketIssuance.Create;
 
-public class PurchaseTicketRequestValidator : AbstractValidator<PurchaseTicketRequest>
+public class CreateTicketIssuanceRequestValidator : AbstractValidator<CreateTicketIssuanceRequest>
 {
-    public PurchaseTicketRequestValidator()
+    public CreateTicketIssuanceRequestValidator()
     {
         RuleFor(x => x.SeatPositionList).NotEmpty();
         RuleFor(x => x.ScheduledMovieShowId).NotEmpty();

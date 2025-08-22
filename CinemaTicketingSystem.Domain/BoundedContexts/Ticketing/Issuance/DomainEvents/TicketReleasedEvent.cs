@@ -4,7 +4,7 @@ using CinemaTicketingSystem.SharedKernel;
 
 #endregion
 
-namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases.DomainEvents;
+namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Issuance.DomainEvents;
 
 public record TicketReleasedEvent(Guid TicketId) : IDomainEvent
 {

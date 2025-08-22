@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 #endregion
 
-namespace CinemaTicketingSystem.Persistence.Catalog;
+namespace CinemaTicketingSystem.Infrastructure.Persistence.Catalog;
 
 internal class MovieRepository(AppDbContext context) : GenericRepository<Movie>(context), IMovieRepository
 {

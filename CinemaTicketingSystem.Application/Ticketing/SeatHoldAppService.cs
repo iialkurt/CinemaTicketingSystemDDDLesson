@@ -1,7 +1,6 @@
 #region
 
 using CinemaTicketingSystem.Application.Abstraction;
-using CinemaTicketingSystem.Application.Abstraction.Ticketing;
 using CinemaTicketingSystem.Application.Contracts.DependencyInjections;
 using CinemaTicketingSystem.Application.Contracts.Ticketing;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Holds;
@@ -22,7 +21,10 @@ public class SeatHoldAppService(AppDependencyService appDependencyService, ISeat
 
         //TODO: redis lock eklenebilir
         var seatHold =
-            (await seatHoldRepository.WhereAsync(x => x.ScheduledMovieShowId == request.ScheduledMovieShowId)).ToList();
+            (await seatHoldRepository.WhereAsync(x =>
+                x.ScheduledMovieShowId == request.ScheduledMovieShowId && x.ScreeningDate == request.ScreeningDate &&
+                x.Status == HoldStatus.Confirm))
+            .ToList();
 
 
         foreach (var seat in request.SeatPosition.Where(seat =>
@@ -31,7 +33,9 @@ public class SeatHoldAppService(AppDependencyService appDependencyService, ISeat
 
 
         foreach (var newSeatHold in request.SeatPosition.Select(seat =>
-                     new SeatHold(request.ScheduledMovieShowId, customerId, new SeatPosition(seat.Row, seat.Number))))
+                     new SeatHold(request.ScheduledMovieShowId, customerId, new SeatPosition(seat.Row, seat.Number),
+                         request.ScreeningDate)))
+
             await seatHoldRepository.AddAsync(newSeatHold);
 
 
@@ -40,6 +44,25 @@ public class SeatHoldAppService(AppDependencyService appDependencyService, ISeat
         return AppResult.SuccessAsNoContent();
     }
 
+
+    public async Task<AppResult> ConfirmAsync(ConfirmSeatHoldRequest request)
+    {
+        var customerId = appDependencyService.UserContext.UserId;
+
+        var seatHolds = (await seatHoldRepository.WhereAsync(x =>
+                x.ScheduledMovieShowId == request.ScheduledMovieShowId && x.ScreeningDate == request.ScreeningDate &&
+                x.CustomerId == customerId))
+            .ToList();
+
+        foreach (var seatHold in seatHolds)
+        {
+            seatHold.ConfirmHold();
+            await seatHoldRepository.UpdateAsync(seatHold);
+        }
+
+        await appDependencyService.UnitOfWork.SaveChangesAsync();
+        return AppResult.SuccessAsNoContent();
+    }
 
     public async Task<AppResult> Cancel()
     {

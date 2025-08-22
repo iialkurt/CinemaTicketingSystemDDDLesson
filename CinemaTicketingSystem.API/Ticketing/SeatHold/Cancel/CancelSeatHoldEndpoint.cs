@@ -14,7 +14,7 @@ public static class CancelSeatHoldEndpoint
 {
     public static RouteGroupBuilder CancelSeatHoldGroupItemEndpoint(this RouteGroupBuilder group)
     {
-        group.MapPost("/seatholds/cancel",
+        group.MapPost("/seathold/cancel",
                 async ([FromServices] ISeatHoldAppService seatHoldAppService) =>
                 (await seatHoldAppService.Cancel()).ToGenericResult())
             .WithName("CancelSeatHold")

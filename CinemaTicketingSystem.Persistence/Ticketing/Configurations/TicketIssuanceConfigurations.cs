@@ -1,19 +1,19 @@
 ﻿#region
 
-using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Issuance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 #endregion
 
-namespace CinemaTicketingSystem.Persistence.Ticketing.Configurations;
+namespace CinemaTicketingSystem.Infrastructure.Persistence.Ticketing.Configurations;
 
-internal class TicketPurchaseConfigurations : IEntityTypeConfiguration<Purchase>
+internal class TicketIssuanceConfigurations : IEntityTypeConfiguration<TicketIssuance>
 {
-    public void Configure(EntityTypeBuilder<Purchase> builder)
+    public void Configure(EntityTypeBuilder<TicketIssuance> builder)
     {
         // Configure primary key and table
-        builder.ToTable("TicketPurchases", "Ticketing");
+        builder.ToTable("TicketIssuance", "Ticketing");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 
@@ -26,9 +26,9 @@ internal class TicketPurchaseConfigurations : IEntityTypeConfiguration<Purchase>
         //builder.Metadata.FindNavigation(nameof(MovieTicket.TicketSales))!.SetPropertyAccessMode(
         //    PropertyAccessMode.Field);
 
-        builder.Metadata.FindNavigation(nameof(Purchase.TicketList))!.SetField("_ticketList");
+        builder.Metadata.FindNavigation(nameof(TicketIssuance.TicketList))!.SetField("_ticketList");
 
 
-        builder.HasMany(x => x.TicketList).WithOne(y => y.Purchase);
+        builder.HasMany(x => x.TicketList).WithOne(y => y.TicketIssuance);
     }
 }

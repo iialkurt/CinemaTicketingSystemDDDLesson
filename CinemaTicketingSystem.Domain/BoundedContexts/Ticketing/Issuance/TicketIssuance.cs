@@ -1,7 +1,6 @@
 ﻿#region
 
-using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases.DomainEvents;
-using CinemaTicketingSystem.Domain.Ticketing.DomainEvents;
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Issuance.DomainEvents;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.AggregateRoot;
 using CinemaTicketingSystem.SharedKernel.Exceptions;
@@ -9,32 +8,54 @@ using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 #endregion
 
-namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
+namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Issuance;
 
-public class Purchase : AggregateRoot<Guid>
+public enum TicketIssuanceStatus
+{
+    Created,
+    Confirmed,
+    Cancelled
+}
+
+public class TicketIssuance : AggregateRoot<Guid>
 {
     private const int MaxTicketsPerPurchase = 10;
 
     private readonly List<Ticket> _ticketList = [];
 
-    protected Purchase()
+    protected TicketIssuance()
     {
     }
 
-    public Purchase(Guid scheduleId, Guid customerId, DateOnly screeningDate)
+    public TicketIssuance(Guid scheduleId, Guid customerId, DateOnly screeningDate)
     {
         Id = Guid.CreateVersion7();
         ScheduledMovieShowId = scheduleId;
         CustomerId = customerId;
         ScreeningDate = screeningDate;
+        Status = TicketIssuanceStatus.Created;
+    }
+
+    public void Confirm()
+    {
+        Status = TicketIssuanceStatus.Confirmed;
+    }
+
+    public void Cancel()
+    {
+        Status = TicketIssuanceStatus.Cancelled;
     }
 
 
     public Guid? CustomerId { get; }
     public Guid ScheduledMovieShowId { get; }
+    public DateOnly ScreeningDate { get; private set; }
+
+    public Guid? PurchaseId { get; set; }
+
     public bool IsDiscountApplied { get; private set; }
 
-    public DateOnly ScreeningDate { get; private set; }
+    public TicketIssuanceStatus Status { get; private set; }
 
     public virtual IReadOnlyCollection<Ticket> TicketList => _ticketList.AsReadOnly();
 
@@ -48,7 +69,7 @@ public class Purchase : AggregateRoot<Guid>
                 .AddData(ticket.SeatPosition.Number);
         _ticketList.Add(ticket);
         ApplyBulkDiscountIfEligible();
-        AddDomainEvent(new TicketPurchasedEvent(ticket.Id, ScheduledMovieShowId, CustomerId!.Value, ticket.SeatPosition,
+        AddDomainEvent(new TicketIssuedEvent(ticket.Id, ScheduledMovieShowId, CustomerId!.Value, ticket.SeatPosition,
             ticket.Price));
     }
 

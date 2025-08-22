@@ -1,7 +1,7 @@
 #region
 
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Holds;
-using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases.DomainEvents;
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Issuance.DomainEvents;
 using MediatR;
 
 #endregion
@@ -9,9 +9,9 @@ using MediatR;
 namespace CinemaTicketingSystem.Application.Ticketing.EventHandlers;
 
 public class TicketPurchasedEventHandler(ISeatHoldRepository seatHoldRepository)
-    : INotificationHandler<TicketPurchasedEvent>
+    : INotificationHandler<TicketIssuanceCreatedEvent>
 {
-    public async Task Handle(TicketPurchasedEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(TicketIssuanceCreatedEvent notification, CancellationToken cancellationToken)
     {
         var seatHoldToDelete = await seatHoldRepository.GetAsync(
             x => x.ScheduledMovieShowId == notification.ScheduledMovieShowId &&

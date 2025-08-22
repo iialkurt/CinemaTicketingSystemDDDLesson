@@ -5,9 +5,9 @@ using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 #endregion
 
-namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases.DomainEvents;
+namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Issuance.DomainEvents;
 
-public record TicketPurchasedEvent(
+public record TicketIssuanceCreatedEvent(
     Guid TicketId,
     Guid ScheduledMovieShowId,
     Guid CustomerId,

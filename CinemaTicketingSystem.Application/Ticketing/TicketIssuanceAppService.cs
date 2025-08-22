@@ -1,13 +1,12 @@
 #region
 
 using CinemaTicketingSystem.Application.Abstraction;
-using CinemaTicketingSystem.Application.Abstraction.Ticketing;
 using CinemaTicketingSystem.Application.Catalog.ICL;
 using CinemaTicketingSystem.Application.Contracts.DependencyInjections;
 using CinemaTicketingSystem.Application.Contracts.Ticketing;
 using CinemaTicketingSystem.Application.Schedules.ICL;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Holds;
-using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Purchases;
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Issuance;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
@@ -16,16 +15,16 @@ using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 namespace CinemaTicketingSystem.Application.Ticketing;
 
-public class PurchaseAppService(
+public class TicketIssuanceAppService(
     AppDependencyService appDependencyService,
-    IPurchaseRepository purchaseRepository,
+    ITicketIssuanceRepository purchaseRepository,
     IUserContext userContext,
     ICatalogQueryService catalogQueryService,
     IScheduleQueryService iScheduleQueryService,
     ISeatHoldRepository seatHoldRepository,
     IReservationRepository reservationRepository) : IScopedDependency, ITicketPurchaseAppService
 {
-    public async Task<AppResult> Create(PurchaseTicketRequest request)
+    public async Task<AppResult> Create(CreateTicketIssuanceRequest request)
     {
         var scheduleInfo = await iScheduleQueryService.GetScheduleInfo(request.ScheduledMovieShowId);
 
@@ -37,7 +36,7 @@ public class PurchaseAppService(
 
 
         var ticketPurchaseList =
-            purchaseRepository.GetTicketsPurchaseByScheduleIdAndScreeningDate(request.ScheduledMovieShowId,
+            purchaseRepository.GetTicketsIssuanceByScheduleIdAndScreeningDate(request.ScheduledMovieShowId,
                 request.ScreeningDate);
 
 
@@ -92,7 +91,7 @@ public class PurchaseAppService(
         }
 
 
-        var purchase = new Purchase(request.ScheduledMovieShowId, userContext.UserId, request.ScreeningDate);
+        var purchase = new TicketIssuance(request.ScheduledMovieShowId, userContext.UserId, request.ScreeningDate);
 
         foreach (var seat in request.SeatPositionList)
         {
@@ -119,7 +118,7 @@ public class PurchaseAppService(
             return appDependencyService.LocalizeError.Error(ErrorCodes.ReservationExpired);
         }
 
-        var purchase = new Purchase(reservation.ScheduledMovieShowId, reservation.CustomerId,
+        var purchase = new TicketIssuance(reservation.ScheduledMovieShowId, reservation.CustomerId,
             reservation.ScreeningDate);
 
 

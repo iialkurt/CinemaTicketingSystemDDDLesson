@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 #endregion
 
-namespace CinemaTicketingSystem.Persistence.Scheduling;
+namespace CinemaTicketingSystem.Infrastructure.Persistence.Scheduling;
 
 internal class ScheduleRepository(AppDbContext context)
     : GenericRepository<Schedule>(context), IScheduleRepository

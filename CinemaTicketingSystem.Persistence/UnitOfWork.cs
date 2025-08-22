@@ -1,6 +1,7 @@
 ﻿#region
 
 using CinemaTicketingSystem.Domain.Repositories;
+using CinemaTicketingSystem.Infrastructure.Persistence;
 
 #endregion
 

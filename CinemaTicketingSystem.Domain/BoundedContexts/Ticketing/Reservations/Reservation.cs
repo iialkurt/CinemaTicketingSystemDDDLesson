@@ -24,24 +24,22 @@ public class Reservation : AggregateRoot<Guid>
     }
 
 
-    public Reservation(Guid scheduleId, Guid customerId, DateOnly screeningDate, TimeOnly MovieStartTime)
+    public Reservation(Guid scheduleId, Guid customerId, DateOnly screeningDate)
     {
         Id = Guid.CreateVersion7();
         ScheduledMovieShowId = scheduleId;
         CustomerId = customerId;
-        ReservationTime = DateTime.UtcNow;
+
 
         AddDomainEvent(new ReservationCreatedEvent(Id, CustomerId, scheduleId, ReservationTime));
         ScreeningDate = screeningDate;
-
-        var movieStartDateTime = screeningDate.ToDateTime(MovieStartTime);
-        ExpirationTime = movieStartDateTime.AddHours(ReservationCutoffHours);
+        Status = ReservationStatus.Created;
     }
 
     public Guid CustomerId { get; }
     public Guid ScheduledMovieShowId { get; }
-    public DateTime ReservationTime { get; }
-    public DateTime ExpirationTime { get; }
+    public DateTime ReservationTime { get; private set; }
+    public DateTime ExpirationTime { get; private set; }
 
     public DateOnly ScreeningDate { get; private set; }
     public ReservationStatus Status { get; private set; }
@@ -84,11 +82,16 @@ public class Reservation : AggregateRoot<Guid>
         return _reservationSeatList.Any(s => s.SeatPosition == seatPosition);
     }
 
-    public void Confirm()
+    public void Confirm(TimeOnly MovieStartTime)
     {
         if (_reservationSeatList.Count == 0)
             throw new BusinessException(ErrorCodes.NoSeatsReserved);
 
+
+        var movieStartDateTime = ScreeningDate.ToDateTime(MovieStartTime);
+        ExpirationTime = movieStartDateTime.AddHours(ReservationCutoffHours);
+
+        ReservationTime = DateTime.UtcNow;
         Status = ReservationStatus.Confirmed;
         AddDomainEvent(new ReservationConfirmedEvent(Id, CustomerId, ScheduledMovieShowId));
     }

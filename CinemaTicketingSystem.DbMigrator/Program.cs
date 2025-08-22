@@ -1,7 +1,7 @@
 #region
 
 using CinemaTicketingSystem.Infrastructure.DbMigrator;
-using CinemaTicketingSystem.Persistence;
+using CinemaTicketingSystem.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 #endregion
