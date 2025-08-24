@@ -1,7 +1,7 @@
 ﻿#region
 
 using System.Security.Claims;
-using CinemaTicketingSystem.Application.Abstraction.Contracts;
+using CinemaTicketingSystem.Application.Contracts.Contracts;
 using CinemaTicketingSystem.SharedKernel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;

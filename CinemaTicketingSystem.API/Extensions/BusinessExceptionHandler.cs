@@ -1,7 +1,7 @@
 ﻿#region
 
 using System.Net;
-using CinemaTicketingSystem.Application.Abstraction.Contracts;
+using CinemaTicketingSystem.Application.Contracts.Contracts;
 using CinemaTicketingSystem.SharedKernel.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;

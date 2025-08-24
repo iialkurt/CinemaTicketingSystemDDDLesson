@@ -2,6 +2,7 @@
 
 using CinemaTicketingSystem.API.Localization;
 using CinemaTicketingSystem.Application.Abstraction.Contracts;
+using CinemaTicketingSystem.Application.Contracts.Contracts;
 using CinemaTicketingSystem.Application.Contracts.DependencyInjections;
 using CinemaTicketingSystem.Application.Schedules.IntegrationEventHandlers;
 using CinemaTicketingSystem.Caching;
@@ -11,6 +12,7 @@ using CinemaTicketingSystem.Infrastructure.Messaging;
 using CinemaTicketingSystem.Infrastructure.Persistence;
 using CinemaTicketingSystem.Persistence;
 using CinemaTicketingSystem.Persistence.Accounts;
+using CinemaTicketingSystem.Presentation.API.Localization;
 using CinemaTicketingSystem.ServiceBus;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.Options;

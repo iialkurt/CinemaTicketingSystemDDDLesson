@@ -1,13 +1,14 @@
 ﻿#region
 
-using System.Net;
 using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.Contracts;
+using CinemaTicketingSystem.Application.Contracts.Contracts;
 using CinemaTicketingSystem.Application.Contracts.DependencyInjections;
+using System.Net;
 
 #endregion
 
-namespace CinemaTicketingSystem.API.Localization;
+namespace CinemaTicketingSystem.Presentation.API.Localization;
 
 public class LocalizeErrorService(ILocalizer localizer) : ILocalizeErrorService, IScopedDependency
 

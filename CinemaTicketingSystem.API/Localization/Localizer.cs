@@ -1,11 +1,12 @@
 ﻿#region
 
-using CinemaTicketingSystem.Application.Abstraction.Contracts;
+using CinemaTicketingSystem.API.Localization;
+using CinemaTicketingSystem.Application.Contracts.Contracts;
 using Microsoft.Extensions.Localization;
 
 #endregion
 
-namespace CinemaTicketingSystem.API.Localization;
+namespace CinemaTicketingSystem.Presentation.API.Localization;
 
 public class Localizer(IStringLocalizer<SharedResource> stringLocalizer) : ILocalizer
 {
