@@ -28,9 +28,7 @@ public class SeatHoldAppService(AppDependencyService appDependencyService, ISeat
 
         foreach (var seat in request.SeatPositions.Where(seat =>
                      seatHold.Any(x => x.SeatPosition.Equals(new SeatPosition(seat.Row, seat.Number)))))
-        {
             return appDependencyService.LocalizeError.Error(ErrorCodes.SeatAlreadyHeld, [seat.Row, seat.Number]);
-        }
 
 
         var customerSeatHolds = await seatHoldRepository.WhereAsync(x =>
@@ -45,17 +43,13 @@ public class SeatHoldAppService(AppDependencyService appDependencyService, ISeat
 
         foreach (var seat in request.SeatPositions.Where(seat =>
                      customerSeatHolds.Any(x => x.SeatPosition.Equals(new SeatPosition(seat.Row, seat.Number)))))
-        {
             newSeats.Remove(seat);
-        }
 
 
         foreach (var newSeatHold in newSeats.Select(seat =>
                      new SeatHold(request.ScheduledMovieShowId, customerId, new SeatPosition(seat.Row, seat.Number),
                          request.ScreeningDate)))
-        {
             await seatHoldRepository.AddAsync(newSeatHold);
-        }
 
 
         await appDependencyService.UnitOfWork.SaveChangesAsync();

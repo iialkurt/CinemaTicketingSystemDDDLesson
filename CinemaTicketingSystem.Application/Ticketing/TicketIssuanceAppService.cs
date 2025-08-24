@@ -98,10 +98,7 @@ public class TicketIssuanceAppService(
         var reservation = await reservationRepository.GetByIdAsync(ReservationId);
 
 
-        if (reservation!.IsExpired())
-        {
-            return appDependencyService.LocalizeError.Error(ErrorCodes.ReservationExpired);
-        }
+        if (reservation!.IsExpired()) return appDependencyService.LocalizeError.Error(ErrorCodes.ReservationExpired);
 
         var purchase = new TicketIssuance(reservation.ScheduledMovieShowId, reservation.CustomerId,
             reservation.ScreeningDate);

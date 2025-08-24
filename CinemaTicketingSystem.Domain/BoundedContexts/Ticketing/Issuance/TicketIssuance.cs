@@ -21,7 +21,7 @@ public class TicketIssuance : AggregateRoot<Guid>
 {
     private const int MaxTicketsPerPurchase = 10;
 
-    private List<Ticket> _ticketList = [];
+    private readonly List<Ticket> _ticketList = [];
 
     protected TicketIssuance()
     {
@@ -36,16 +36,6 @@ public class TicketIssuance : AggregateRoot<Guid>
         Status = TicketIssuanceStatus.Created;
     }
 
-    public void Confirm()
-    {
-        Status = TicketIssuanceStatus.Confirmed;
-    }
-
-    public void Cancel()
-    {
-        Status = TicketIssuanceStatus.Cancelled;
-    }
-
 
     public Guid? CustomerId { get; }
     public Guid ScheduledMovieShowId { get; }
@@ -58,6 +48,16 @@ public class TicketIssuance : AggregateRoot<Guid>
     public TicketIssuanceStatus Status { get; private set; }
 
     public virtual IReadOnlyCollection<Ticket> TicketList => _ticketList.AsReadOnly();
+
+    public void Confirm()
+    {
+        Status = TicketIssuanceStatus.Confirmed;
+    }
+
+    public void Cancel()
+    {
+        Status = TicketIssuanceStatus.Cancelled;
+    }
 
     public void AddTicket(Ticket ticket)
     {

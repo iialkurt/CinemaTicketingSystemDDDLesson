@@ -1,5 +1,9 @@
-﻿using CinemaTicketingSystem.Application.Abstraction;
+﻿#region
+
+using CinemaTicketingSystem.Application.Abstraction;
 using CinemaTicketingSystem.Application.Abstraction.Schedule;
+
+#endregion
 
 namespace CinemaTicketingSystem.Application.Contracts.Schedule;
 

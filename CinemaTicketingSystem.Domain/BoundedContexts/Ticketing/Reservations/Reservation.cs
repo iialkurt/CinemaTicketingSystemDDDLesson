@@ -41,7 +41,7 @@ public class Reservation : AggregateRoot<Guid>
     public DateTime ReservationTime { get; private set; }
     public DateTime ExpirationTime { get; private set; }
 
-    public DateOnly ScreeningDate { get; private set; }
+    public DateOnly ScreeningDate { get; }
     public ReservationStatus Status { get; private set; }
 
     public virtual IReadOnlyCollection<ReservationSeat> ReservationSeatList => _reservationSeatList.AsReadOnly();

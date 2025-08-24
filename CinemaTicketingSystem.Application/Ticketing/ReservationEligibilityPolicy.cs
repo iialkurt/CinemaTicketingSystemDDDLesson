@@ -1,62 +1,58 @@
-﻿using CinemaTicketingSystem.Application.Abstraction.Contracts;
+﻿#region
+
+using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Holds;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
-namespace CinemaTicketingSystem.Application.Ticketing
+#endregion
+
+namespace CinemaTicketingSystem.Application.Ticketing;
+
+public class ReservationEligibilityPolicy : IDomainService
 {
-    public class ReservationEligibilityPolicy : IDomainService
+    private const int ReservationCutoffHours = 6;
+
+    public DomainResult ValidateOwnershipAndValidity(
+        List<SeatHold> seatHolds,
+        List<SeatPosition> requestedSeats)
     {
-        private const int ReservationCutoffHours = 6;
+        if (seatHolds.Count != requestedSeats.Count) return DomainResult.Failure(ErrorCodes.SeatHoldNotFound);
 
-        public DomainResult ValidateOwnershipAndValidity(
-            List<SeatHold> seatHolds,
-            List<SeatPosition> requestedSeats)
+        foreach (var seatHold in seatHolds)
         {
-            if (seatHolds.Count != requestedSeats.Count)
-            {
-                return DomainResult.Failure(ErrorCodes.SeatHoldNotFound);
-            }
+            var match = requestedSeats.Any(seat =>
+                seatHold.SeatPosition == new SeatPosition(seat.Row, seat.Number));
 
-            foreach (var seatHold in seatHolds)
-            {
-                var match = requestedSeats.Any(seat =>
-                    seatHold.SeatPosition == new SeatPosition(seat.Row, seat.Number));
+            if (!match)
+                return DomainResult.Failure(ErrorCodes.SeatHoldNotFound, seatHold.SeatPosition.Row,
+                    seatHold.SeatPosition.Number);
 
-                if (!match)
-                {
-                    return DomainResult.Failure(ErrorCodes.SeatHoldNotFound,
-                        [seatHold.SeatPosition.Row, seatHold.SeatPosition.Number]);
-                }
-
-                if (!seatHold.CanBeConvertedToReservationOrPurchase())
-                {
-                    return DomainResult.Failure(ErrorCodes.SeatHoldExpired,
-                        [seatHold.SeatPosition.Row, seatHold.SeatPosition.Number]);
-                }
-            }
-
-            return DomainResult.Success();
+            if (!seatHold.CanBeConvertedToReservationOrPurchase())
+                return DomainResult.Failure(ErrorCodes.SeatHoldExpired, seatHold.SeatPosition.Row,
+                    seatHold.SeatPosition.Number);
         }
 
-        public DomainResult IsReservationTooLate(TimeOnly movieStartTime, DateOnly screeningDate)
-        {
-            var now = DateTime.UtcNow;
-            var screeningDateTime = new DateTime(
-                screeningDate.Year,
-                screeningDate.Month,
-                screeningDate.Day,
-                movieStartTime.Hour,
-                movieStartTime.Minute,
-                movieStartTime.Second);
+        return DomainResult.Success();
+    }
 
-            var timeSpan = screeningDateTime - now;
-            var cutoff = TimeSpan.FromHours(ReservationCutoffHours);
+    public DomainResult IsReservationTooLate(TimeOnly movieStartTime, DateOnly screeningDate)
+    {
+        var now = DateTime.UtcNow;
+        var screeningDateTime = new DateTime(
+            screeningDate.Year,
+            screeningDate.Month,
+            screeningDate.Day,
+            movieStartTime.Hour,
+            movieStartTime.Minute,
+            movieStartTime.Second);
 
-            if (timeSpan < cutoff)
-                return DomainResult.Failure(ErrorCodes.ReservationTooLate);
+        var timeSpan = screeningDateTime - now;
+        var cutoff = TimeSpan.FromHours(ReservationCutoffHours);
 
-            return DomainResult.Success();
-        }
+        if (timeSpan < cutoff)
+            return DomainResult.Failure(ErrorCodes.ReservationTooLate);
+
+        return DomainResult.Success();
     }
 }

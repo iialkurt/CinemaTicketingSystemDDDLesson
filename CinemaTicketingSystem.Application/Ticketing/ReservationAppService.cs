@@ -35,9 +35,7 @@ public class ReservationAppService(
 
 
         foreach (var seatPosition in seatHoldList.Select(x => x.SeatPosition))
-        {
             reservation.AddSeat(new ReservationSeat(seatPosition));
-        }
 
 
         await reservationRepository.AddAsync(reservation);
