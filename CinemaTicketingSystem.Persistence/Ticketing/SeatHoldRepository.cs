@@ -8,9 +8,4 @@ namespace CinemaTicketingSystem.Infrastructure.Persistence.Ticketing;
 
 public class SeatHoldRepository(AppDbContext context) : GenericRepository<SeatHold>(context), ISeatHoldRepository
 {
-
-    private Task Confirm()
-
-
-
 }

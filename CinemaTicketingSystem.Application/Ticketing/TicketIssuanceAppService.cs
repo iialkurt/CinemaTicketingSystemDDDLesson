@@ -1,7 +1,6 @@
 #region
 
 using CinemaTicketingSystem.Application.Abstraction;
-using CinemaTicketingSystem.Application.Catalog.ICL;
 using CinemaTicketingSystem.Application.Contracts.DependencyInjections;
 using CinemaTicketingSystem.Application.Contracts.Ticketing;
 using CinemaTicketingSystem.Application.Ticketing.External;
@@ -22,17 +21,18 @@ public class TicketIssuanceAppService(
     ISeatHoldRepository seatHoldRepository,
     IReservationRepository reservationRepository) : IScopedDependency, ITicketPurchaseAppService
 {
-    public async Task<AppResult> Create(CreateTicketIssuanceRequest request)
+    public async Task<AppResult<CreateTicketIssuanceResponse>> Create(CreateTicketIssuanceRequest request)
     {
         var scheduleInfo = await iScheduleQueryService.GetScheduleInfo(request.ScheduledMovieShowId);
 
-        if (scheduleInfo.IsFail) return scheduleInfo;
+        if (scheduleInfo.IsFail)
+            return AppResult<CreateTicketIssuanceResponse>.Error(scheduleInfo.ProblemDetails!);
 
 
         var catalogInfo =
             await catalogQueryService.GetCinemaInfo(scheduleInfo.Data!.CinemaHallId, scheduleInfo.Data.MovieId);
 
-        if (catalogInfo.IsFail) return catalogInfo;
+        if (catalogInfo.IsFail) return AppResult<CreateTicketIssuanceResponse>.Error(catalogInfo.ProblemDetails!);
 
 
         var userId = appDependencyService.UserContext.UserId;
@@ -44,9 +44,10 @@ public class TicketIssuanceAppService(
             .ToList();
 
 
-        var isSeatHoldExpired = userSeatHoldList.First().IsExpired();
+        //var isSeatHoldExpired = userSeatHoldList.First().IsExpired();
 
-        if (isSeatHoldExpired) return appDependencyService.LocalizeError.Error(ErrorCodes.SeatHoldExpired);
+        //if (isSeatHoldExpired)
+        //    return appDependencyService.LocalizeError.Error<CreateTicketIssuanceResponse>(ErrorCodes.SeatHoldExpired);
 
 
         var confirmedTicketList =
@@ -59,18 +60,19 @@ public class TicketIssuanceAppService(
 
         var availableSeatCount = catalogInfo.Data!.SeatCount - confirmedTicketCount;
         if (availableSeatCount <= 0)
-            return appDependencyService.LocalizeError.Error(ErrorCodes.SeatNotAvailable);
+            return appDependencyService.LocalizeError.Error<CreateTicketIssuanceResponse>(ErrorCodes.SeatNotAvailable);
 
 
         if (availableSeatCount < userSeatHoldList.Count)
-            return appDependencyService.LocalizeError.Error(ErrorCodes.NotEnoughSeatsAvailable, [availableSeatCount]);
+            return appDependencyService.LocalizeError.Error<CreateTicketIssuanceResponse>(
+                ErrorCodes.NotEnoughSeatsAvailable, [availableSeatCount]);
 
 
         foreach (var seat in userSeatHoldList)
         {
             var hasTicket = confirmedTicketList.Any(x => x.HasTicketForSeat(seat.SeatPosition));
             if (hasTicket)
-                return appDependencyService.LocalizeError.Error(ErrorCodes.DuplicateSeat,
+                return appDependencyService.LocalizeError.Error<CreateTicketIssuanceResponse>(ErrorCodes.DuplicateSeat,
                     [seat.SeatPosition.Row, seat.SeatPosition.Number]);
         }
 
@@ -88,7 +90,8 @@ public class TicketIssuanceAppService(
 
         await appDependencyService.UnitOfWork.SaveChangesAsync();
 
-        return AppResult.SuccessAsNoContent();
+        return AppResult<CreateTicketIssuanceResponse>.SuccessAsCreated(
+            new CreateTicketIssuanceResponse(newTicketIssuance.Id), string.Empty);
     }
 
 

@@ -8,7 +8,7 @@ namespace CinemaTicketingSystem.Application.Contracts.Ticketing;
 
 public interface ITicketPurchaseAppService
 {
-    Task<AppResult> Create(CreateTicketIssuanceRequest request);
+    Task<AppResult<CreateTicketIssuanceResponse>> Create(CreateTicketIssuanceRequest request);
 
     Task<AppResult> CreateFromReservation(Guid reservationId);
 }

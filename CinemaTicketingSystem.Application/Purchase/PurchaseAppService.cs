@@ -8,16 +8,14 @@ namespace CinemaTicketingSystem.Application.Purchase
 {
     public class PurchaseAppService(
         AppDependencyService appDependencyService,
-        IGenericRepository<Domain.BoundedContexts.Purchases.Purchase> purchaseRepository) : IScopedDependency
+        IGenericRepository<Domain.BoundedContexts.Purchases.Purchase> purchaseRepository)
+        : IScopedDependency, IPurchaseAppService
     {
         public async Task<AppResult> Create(CreatePurchaseRequest request)
         {
             var userId = appDependencyService.UserContext.UserId;
 
-
             // purchase operation
-
-
             var purchase = new Domain.BoundedContexts.Purchases.Purchase(userId,
                 new Price(request.Price.Amount, request.Price.Currency), request.TicketIssuanceId);
 

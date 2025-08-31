@@ -11,6 +11,7 @@ using CinemaTicketingSystem.Domain;
 using CinemaTicketingSystem.Host.Identities;
 using CinemaTicketingSystem.Identity;
 using CinemaTicketingSystem.Persistence;
+using CinemaTicketingSystem.Presentation.API.Purchase;
 using CinemaTicketingSystem.Presentation.API.Ticketing;
 using CinemaTicketingSystem.WebApi.Host.Extensions;
 using FluentValidation;
@@ -62,7 +63,7 @@ app.AddCatalogGroupEndpointExt(app.AddVersionSetExt());
 app.AddScheduleGroupEndpointExt(app.AddVersionSetExt());
 app.AddAccountGroupEndpointExt(app.AddVersionSetExt());
 app.AddTicketingGroupEndpointExt(app.AddVersionSetExt());
-
+app.AddPurchaseGroupEndpointExt(app.AddVersionSetExt());
 
 app.UseAuthentication();
 app.UseAuthorization();

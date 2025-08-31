@@ -1,11 +1,10 @@
 #region
 
 using CinemaTicketingSystem.Application.Abstraction;
-using CinemaTicketingSystem.Application.Catalog.ICL.Dto;
 
 #endregion
 
-namespace CinemaTicketingSystem.Application.Catalog.ICL;
+namespace CinemaTicketingSystem.Application.Ticketing.External;
 
 public interface ICatalogQueryService
 {

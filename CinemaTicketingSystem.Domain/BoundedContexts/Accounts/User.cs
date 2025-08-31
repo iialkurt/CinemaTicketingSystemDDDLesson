@@ -7,11 +7,11 @@ using CinemaTicketingSystem.SharedKernel.AggregateRoot;
 
 namespace CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
 
-public class User : AggregateRoot<UserId>
+public class User : AggregateRoot<Guid>
 {
     public User(Email email, Password password, string firstName, string lastName)
     {
-        Id = UserId.New();
+        Id = Guid.CreateVersion7();
         Email = email;
         Password = password;
         FirstName = firstName;

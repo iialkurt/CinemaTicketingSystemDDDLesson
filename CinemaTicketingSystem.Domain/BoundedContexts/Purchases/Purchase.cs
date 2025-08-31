@@ -16,6 +16,10 @@ namespace CinemaTicketingSystem.Domain.BoundedContexts.Purchases
         public DateTime Created { get; set; }
 
 
+        protected Purchase()
+        {
+        }
+
         public Purchase(UserId userId, Price totalPrice, Guid ticketIssuanceId)
         {
             Id = Guid.CreateVersion7();
@@ -25,7 +29,7 @@ namespace CinemaTicketingSystem.Domain.BoundedContexts.Purchases
             Created = DateTime.UtcNow;
 
 
-            AddIntegrationEvent(new PurchaseCreatedEvent(userId, ticketIssuanceId));
+            AddIntegrationEvent(new PurchaseCreatedIntegrationEvent(userId, ticketIssuanceId));
         }
     }
 }

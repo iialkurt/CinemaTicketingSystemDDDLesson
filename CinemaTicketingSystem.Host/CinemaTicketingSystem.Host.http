@@ -1,5 +1,5 @@
 ﻿@HostAddress = http://localhost:5094
-@accessToken = eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjAxOThkMGFmLWNiODktNzQ5Ni04NTY3LWNjNTVhNWU5MDBkZiIsImVtYWlsIjoiZi1jYWtpcm9nbHVAb3V0bG9vay5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZmNha2lyb2dsdTYxODAiLCJqdGkiOiJkZTEyMGI5NC1lY2E1LTRjZjctYjZkZS0yZTNhZTBmNGRmODEiLCJuYmYiOjE3NTY0MTQ2OTEsImV4cCI6MTc1NjQyOTA5MSwiaXNzIjoiYXBpLmNpbmVtYS10aWNrZXRpbmctc3l0ZW0uY29tIn0.E2KulflYxL2YrLBpSGpvp5dNX_FNeSl9m0R7ueMp5FU
+@accessToken = eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjAxOThkMGFmLWNiODktNzQ5Ni04NTY3LWNjNTVhNWU5MDBkZiIsImVtYWlsIjoiZi1jYWtpcm9nbHVAb3V0bG9vay5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZmNha2lyb2dsdTYxODAiLCJqdGkiOiIzODMwYjFlNS0xMmI1LTQ3MDctODc1My1kZjA0MDk5MDYxZDEiLCJuYmYiOjE3NTY2NzQ5NDMsImV4cCI6MTc1NjY4OTM0MywiaXNzIjoiYXBpLmNpbmVtYS10aWNrZXRpbmctc3l0ZW0uY29tIn0.JBdDXy0S2iBah-EpFVhhlyxZs6Z31nbtVPDaCr3aHzA
 ###
 POST {{HostAddress}}/api/v1/catalogs/movies
 Accept: application/json
@@ -185,7 +185,24 @@ Authorization: Bearer {{accessToken}}
   ],
   "scheduledMovieShowId": "01987510-c5ec-7a23-905d-44a519a20774"
 }
+###
+POST {{HostAddress}}/api/v1/purchases
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
+{
+  "cardNumber": "4111111111111111",
+  "cardHolderName": "FATIH CAKIROGLU",
+  "cardExpirationDate": "12/2027",
+  "cardSecurityNumber": "123",
+  "price": {
+    "amount": 100.00,
+    "currency": "TRY"
+  },
+  "ticketIssuanceId": "0199021f-cf5f-7453-a0da-54b505c3defb"
+
+}
 
 
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 #endregion
 
-namespace CinemaTicketingSystem.Persistence.Ticketing.Configurations;
+namespace CinemaTicketingSystem.Infrastructure.Persistence.Ticketing.Configurations;
 
 internal class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
 {

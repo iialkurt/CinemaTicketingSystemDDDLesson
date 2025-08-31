@@ -5,6 +5,7 @@ using CinemaTicketingSystem.Application.Abstraction.Accounts;
 using CinemaTicketingSystem.Application.Contracts.Accounts;
 using CinemaTicketingSystem.Application.Contracts.DependencyInjections;
 using CinemaTicketingSystem.Domain.BoundedContexts.Accounts;
+using CinemaTicketingSystem.Domain.BoundedContexts.Accounts.ValueObjects;
 using CinemaTicketingSystem.SharedKernel;
 using CinemaTicketingSystem.SharedKernel.Identities;
 
@@ -53,7 +54,7 @@ public class AccountAppService(
         var tokenResponse = tokenService.CreateToken(new CreateTokenRequest(user.Id, user.UserName, user.Email));
 
 
-        var hasRefreshToken = await refreshTokenRepository.GetByIdAsync(user.Id);
+        var hasRefreshToken = await refreshTokenRepository.GetByIdAsync(UserId.From(user.Id));
 
         if (hasRefreshToken is not null)
         {

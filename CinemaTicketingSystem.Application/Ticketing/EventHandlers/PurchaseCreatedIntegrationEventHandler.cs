@@ -10,13 +10,14 @@ using CinemaTicketingSystem.Domain.Repositories;
 
 namespace CinemaTicketingSystem.Application.Ticketing.EventHandlers;
 
-public class TicketPurchasedEventHandler(
+public class PurchaseCreatedIntegrationEventHandler(
     IUnitOfWork unitOfWork,
     ITicketIssuanceRepository ticketIssuanceRepository,
     ISeatHoldRepository seatHoldRepository)
-    : IIntegrationEventHandler<PurchaseCreatedEvent>
+    : IIntegrationEventHandler<PurchaseCreatedIntegrationEvent>
 {
-    public async Task HandleAsync(PurchaseCreatedEvent message, CancellationToken cancellationToken = default)
+    public async Task HandleAsync(PurchaseCreatedIntegrationEvent message,
+        CancellationToken cancellationToken = default)
     {
         var ticketIssuance = await ticketIssuanceRepository.Get(message.userId, message.TicketIssuanceId);
 

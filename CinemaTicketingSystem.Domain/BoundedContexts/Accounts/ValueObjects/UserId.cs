@@ -14,6 +14,11 @@ public class UserId : ValueObject
         Value = Guard.Against.Default(value, nameof(value), "UserId cannot be empty.");
     }
 
+    protected UserId()
+    {
+    }
+
+
     public Guid Value { get; }
 
     public static UserId New()

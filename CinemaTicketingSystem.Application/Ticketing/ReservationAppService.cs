@@ -1,7 +1,6 @@
 ﻿#region
 
 using CinemaTicketingSystem.Application.Abstraction;
-using CinemaTicketingSystem.Application.Catalog.ICL;
 using CinemaTicketingSystem.Application.Contracts.DependencyInjections;
 using CinemaTicketingSystem.Application.Contracts.Ticketing;
 using CinemaTicketingSystem.Application.Ticketing.External;
@@ -90,9 +89,9 @@ public class ReservationAppService(
 
 
         foreach (var reservationSeat in from reservationSeat in reservation.ReservationSeatList
-                 let hasSeat = reservationList.Any(r => r.HasSeat(reservationSeat.SeatPosition))
-                 where hasSeat
-                 select reservationSeat)
+                                        let hasSeat = reservationList.Any(r => r.HasSeat(reservationSeat.SeatPosition))
+                                        where hasSeat
+                                        select reservationSeat)
             return appDependencyService.LocalizeError.Error(ErrorCodes.SeatAlreadyReserved,
                 [reservationSeat.SeatPosition.Row, reservationSeat.SeatPosition.Number]);
 

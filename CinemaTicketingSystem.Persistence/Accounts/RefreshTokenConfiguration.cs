@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 #endregion
 
-namespace CinemaTicketingSystem.Persistence.Accounts;
+namespace CinemaTicketingSystem.Infrastructure.Persistence.Accounts;
 
 internal class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
 {
@@ -20,8 +20,7 @@ internal class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken
             .HasConversion(
                 userId => userId.Value,
                 value => new UserId(value)
-            )
-            .ValueGeneratedNever();
+            );
         builder.Property(x => x.Expiration).IsRequired();
         builder.HasIndex(x => x.Token).IsUnique();
         builder.Property(x => x.Token).HasMaxLength(36).IsRequired();

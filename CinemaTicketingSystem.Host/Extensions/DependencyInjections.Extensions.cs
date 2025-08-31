@@ -1,13 +1,14 @@
 ﻿#region
 
-using System.Reflection;
 using CinemaTicketingSystem.API.Localization;
 using CinemaTicketingSystem.Application.Abstraction.Contracts;
 using CinemaTicketingSystem.Application.Contracts.Contracts;
 using CinemaTicketingSystem.Application.Contracts.DependencyInjections;
 using CinemaTicketingSystem.Application.Schedules.IntegrationEventHandlers;
+using CinemaTicketingSystem.Application.Ticketing.EventHandlers;
 using CinemaTicketingSystem.Caching;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.IntegrationEvents;
+using CinemaTicketingSystem.Domain.BoundedContexts.Purchases.DomainEvents;
 using CinemaTicketingSystem.Domain.Repositories;
 using CinemaTicketingSystem.Infrastructure.Messaging;
 using CinemaTicketingSystem.Infrastructure.Persistence;
@@ -21,6 +22,7 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using System.Reflection;
 
 #endregion
 
@@ -51,6 +53,9 @@ public static class ServiceCollectionExtensions
         services
             .AddScoped<IIntegrationEventHandler<MovieCreatedIntegrationEvent>, MovieCreatedIntegrationEventHandler>();
 
+        services
+            .AddScoped<IIntegrationEventHandler<PurchaseCreatedIntegrationEvent>,
+                PurchaseCreatedIntegrationEventHandler>();
 
         services.AddScoped<IIntegrationEventBus, IntegrationEventBus>();
         services.AddScoped<IDomainEventMediator, DomainEventMediator>();
@@ -58,7 +63,7 @@ public static class ServiceCollectionExtensions
         {
             configure.AddConsumer<MassTransitConsumerAdapter<CinemaHallCreatedIntegrationEvent>>();
             configure.AddConsumer<MassTransitConsumerAdapter<MovieCreatedIntegrationEvent>>();
-
+            configure.AddConsumer<MassTransitConsumerAdapter<PurchaseCreatedIntegrationEvent>>();
 
             configure.UsingInMemory((context, cfg) => { cfg.ConfigureEndpoints(context); });
         });

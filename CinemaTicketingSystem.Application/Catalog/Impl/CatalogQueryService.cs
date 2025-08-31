@@ -1,16 +1,16 @@
 #region
 
-using System.Net;
 using CinemaTicketingSystem.Application.Abstraction;
-using CinemaTicketingSystem.Application.Catalog.ICL.Dto;
 using CinemaTicketingSystem.Application.Contracts.DependencyInjections;
+using CinemaTicketingSystem.Application.Ticketing.External;
 using CinemaTicketingSystem.Domain.BoundedContexts.Catalog.Repositories;
 using CinemaTicketingSystem.SharedKernel;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 #endregion
 
-namespace CinemaTicketingSystem.Application.Catalog.ICL;
+namespace CinemaTicketingSystem.Application.Catalog.Impl;
 
 public class CatalogQueryService(
     ICinemaRepository cinemaRepository,
