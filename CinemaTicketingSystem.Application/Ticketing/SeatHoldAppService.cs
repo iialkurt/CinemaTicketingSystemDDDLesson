@@ -26,9 +26,24 @@ public class SeatHoldAppService(AppDependencyService appDependencyService, ISeat
                 x.Status == HoldStatus.Hold && x.ExpiresAt < DateTime.UtcNow)).ToList();
 
 
-        foreach (var seat in request.SeatPositions.Where(seat =>
-                     seatHold.Any(x => x.SeatPosition.Equals(new SeatPosition(seat.Row, seat.Number)))))
+        var hasSeatPositionList = (request.SeatPositions.Where(seat =>
+            seatHold.Any(x => x.SeatPosition.Equals(new SeatPosition(seat.Row, seat.Number)))).ToList();
+
+        if (hasSeatPositionList.Any())
+        {
+            var seat = hasSeatPositionList.First();
             return appDependencyService.LocalizeError.Error(ErrorCodes.SeatAlreadyHeld, [seat.Row, seat.Number]);
+        }
+
+
+
+
+
+
+
+
+
+
 
 
         var customerSeatHolds = await seatHoldRepository.WhereAsync(x =>

@@ -129,12 +129,19 @@ public class ReservationAppService(
             return appDependencyService.LocalizeError.Error(ErrorCodes.NotEnoughSeatsAvailable, [availableSeatCount]);
 
 
-        foreach (var reservationSeat in from reservationSeat in reservation.ReservationSeatList
-                                        let hasSeat = reservationList.Any(r => r.HasSeat(reservationSeat.SeatPosition))
-                                        where hasSeat
-                                        select reservationSeat)
+        var hasReservationSeats = (from reservationSeat in reservation.ReservationSeatList
+                                   let hasSeat = reservationList.Any(r => r.HasSeat(reservationSeat.SeatPosition))
+                                   where hasSeat
+                                   select reservationSeat).ToList();
+
+
+        if (hasReservationSeats.Any())
+        {
+            var reservationSeat = hasReservationSeats.First();
+
             return appDependencyService.LocalizeError.Error(ErrorCodes.SeatAlreadyReserved,
                 [reservationSeat.SeatPosition.Row, reservationSeat.SeatPosition.Number]);
+        }
 
 
         var seatHoldList = (await seatHoldRepository.WhereAsync(x =>
