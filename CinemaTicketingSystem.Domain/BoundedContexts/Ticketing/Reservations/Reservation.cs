@@ -45,6 +45,7 @@ public class Reservation : AggregateRoot<Guid>
     public DateOnly ScreeningDate { get; }
     public ReservationStatus Status { get; private set; }
 
+
     public virtual IReadOnlyCollection<ReservationSeat> ReservationSeatList => _reservationSeatList.AsReadOnly();
 
     public void AddSeat(ReservationSeat reservationSeat)

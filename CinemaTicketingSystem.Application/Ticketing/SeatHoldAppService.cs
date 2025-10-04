@@ -23,7 +23,7 @@ public class SeatHoldAppService(AppDependencyService appDependencyService, ISeat
         var seatHold =
             (await seatHoldRepository.WhereAsync(x =>
                 x.ScheduledMovieShowId == request.ScheduledMovieShowId && x.ScreeningDate == request.ScreeningDate &&
-                x.Status == HoldStatus.Hold && x.ExpiresAt < DateTime.UtcNow)).ToList();
+                x.Status == HoldStatus.Hold && x.ExpiresAt > DateTime.UtcNow)).ToList();
 
 
         var hasSeatPositionList = request.SeatPositions.Where(seat =>
@@ -68,10 +68,12 @@ public class SeatHoldAppService(AppDependencyService appDependencyService, ISeat
     {
         var customerId = appDependencyService.UserContext.UserId;
 
+
         var seatHolds = (await seatHoldRepository.WhereAsync(x =>
                 x.ScheduledMovieShowId == request.ScheduledMovieShowId && x.ScreeningDate == request.ScreeningDate &&
                 x.CustomerId == customerId))
             .ToList();
+
 
         foreach (var seatHold in seatHolds)
         {

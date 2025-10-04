@@ -32,6 +32,8 @@ public static class ErrorCodes
     public const string CannotCancelExpiredReservation = "Ticketing:CannotCancelExpiredReservation";
     public const string SeatHoldExpired = "Ticketing:SeatHoldExpired";
     public const string SeatAlreadyHeld = "Ticketing:SeatAlreadyHeld";
+    public const string NoSeatHoldFound = "Ticketing:NoSeatHoldFound";
+
 
     public const string SeatHoldNotFound = "Ticketing:SeatHoldNotFound";
     public const string ReservationTooLate = "Ticketing:ReservationTooLate";

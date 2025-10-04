@@ -55,10 +55,18 @@ public class TicketIssuanceAppService(
             .ToList();
 
 
-        var isSeatHoldExpired = userSeatHoldList.First().IsExpired();
+        if (!userSeatHoldList.Any())
+        {
+            return appDependencyService.LocalizeError.Error<CreateTicketIssuanceResponse>(ErrorCodes.NoSeatHoldFound);
+        }
 
-        if (isSeatHoldExpired)
-            return appDependencyService.LocalizeError.Error<CreateTicketIssuanceResponse>(ErrorCodes.SeatHoldExpired);
+
+        if (userSeatHoldList.Any(seatHold => seatHold.IsExpired()))
+        {
+            return appDependencyService.LocalizeError.Error<CreateTicketIssuanceResponse>(
+                ErrorCodes.SeatHoldExpired);
+        }
+
 
         // Fetch confirmed seats from tickets
         var confirmedTicketSeatPositions =
@@ -72,9 +80,10 @@ public class TicketIssuanceAppService(
         // Fetch confirmed seats from holds
         var confirmedSeatHoldSeatPositions =
             (await seatHoldRepository.GetConfirmedListByScheduleIdAndScreeningDate(request.ScheduledMovieShowId,
-                request.ScreeningDate))
+                request.ScreeningDate)).Where(x => x.CustomerId != userId)
             .Select(x => x.SeatPosition)
             .ToList();
+
 
         // Merge uniquely by seat coordinates
         var occupiedSeatPositions = confirmedTicketSeatPositions

@@ -18,7 +18,7 @@ public class PurchaseAppService(
     public async Task<AppResult> Create(CreatePurchaseRequest request)
     {
         var userId = appDependencyService.UserContext.UserId;
-
+        //TODO : seat hold expire check can add here
         // purchase operation
         var purchase = new Domain.BoundedContexts.Purchases.Purchase(userId,
             new Price(request.Price.Amount, request.Price.Currency), request.TicketIssuanceId);

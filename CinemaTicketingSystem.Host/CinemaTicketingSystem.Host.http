@@ -1,5 +1,5 @@
 ﻿@HostAddress = http://localhost:5094
-@accessToken = eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjAxOThkMGFmLWNiODktNzQ5Ni04NTY3LWNjNTVhNWU5MDBkZiIsImVtYWlsIjoiZi1jYWtpcm9nbHVAb3V0bG9vay5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZmNha2lyb2dsdTYxODAiLCJqdGkiOiIzNDVhZjVmYS05NGZlLTQzODgtYTk0MS00N2EwZGRjNmViZTMiLCJuYmYiOjE3NTY3NjU2ODQsImV4cCI6MTc1Njc4MDA4NCwiaXNzIjoiYXBpLmNpbmVtYS10aWNrZXRpbmctc3l0ZW0uY29tIn0.f5tUqkpVM8UtBx0cgbaiSVHFAuuLEh5TyVfFmyhR0lo
+@accessToken = eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjAxOThkMGFmLWNiODktNzQ5Ni04NTY3LWNjNTVhNWU5MDBkZiIsImVtYWlsIjoiZi1jYWtpcm9nbHVAb3V0bG9vay5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZmNha2lyb2dsdTYxODAiLCJqdGkiOiI1Zjc2ZmJhMC1mOGVmLTRkYjgtYjRiZS03ZTE3ZGJiN2MwYjkiLCJuYmYiOjE3NTk1OTY1MzIsImV4cCI6MTc1OTYxMDkzMiwiaXNzIjoiYXBpLmNpbmVtYS10aWNrZXRpbmctc3l0ZW0uY29tIn0.HKbauuEVxcdPKH3lIzChs7s0dB6xtMbRcBB_1gDLBgw
 ###
 POST {{HostAddress}}/api/v1/catalogs/movies
 Accept: application/json
@@ -145,6 +145,10 @@ Authorization: Bearer {{accessToken}}
     {
       "row": "A",
       "number": 1
+    },
+      {
+      "row": "B",
+      "number": 1
     }
   ],
   "ScreeningDate": "2025-10-10",
@@ -171,21 +175,21 @@ Authorization: Bearer {{accessToken}}
   "scheduledMovieShowId": "0198d099-23eb-7568-9b05-19353f6a54e5"
 }
 ###
-POST {{HostAddress}}/api/v1/ticketing/reservations
+POST {{HostAddress}}/api/v1/ticketing/reservation
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "seatPositionList": [
-    {
-      "row": "C",
-      "number": 1
-    }
-  ],
-  "scheduledMovieShowId": "01987510-c5ec-7a23-905d-44a519a20774"
+  "ScreeningDate": "2025-10-10",
+  "scheduledMovieShowId": "0198d099-23eb-7568-9b05-19353f6a54e5"
 }
 ###
+POST {{HostAddress}}/api/v1/ticketing/reservation/confirm/0199b07f-faf5-7e61-b03f-52cc991caa98
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
 POST {{HostAddress}}/api/v1/purchases
 Accept: application/json
 Content-Type: application/json

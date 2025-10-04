@@ -43,8 +43,6 @@ public class SeatHold : AggregateRoot<Guid>
 
     public void ConfirmHold()
     {
-        if (IsExpired())
-            throw new BusinessException(ErrorCodes.SeatHoldExpired);
         Status = HoldStatus.Hold;
         ExpiresAt = DateTime.UtcNow.Add(TimeSpan.FromMinutes(DefaultHoldDurationMinutes));
         AddDomainEvent(new SeatHoldConfirmed(ScheduledMovieShowId, CustomerId, ScreeningDate, SeatPosition));
