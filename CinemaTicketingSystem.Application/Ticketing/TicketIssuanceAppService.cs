@@ -56,16 +56,12 @@ public class TicketIssuanceAppService(
 
 
         if (!userSeatHoldList.Any())
-        {
             return appDependencyService.LocalizeError.Error<CreateTicketIssuanceResponse>(ErrorCodes.NoSeatHoldFound);
-        }
 
 
         if (userSeatHoldList.Any(seatHold => seatHold.IsExpired()))
-        {
             return appDependencyService.LocalizeError.Error<CreateTicketIssuanceResponse>(
                 ErrorCodes.SeatHoldExpired);
-        }
 
 
         // Fetch confirmed seats from tickets

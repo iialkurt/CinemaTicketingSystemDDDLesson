@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Routing;
 
 #endregion
 
-namespace CinemaTicketingSystem.API.Catalog.Movie.Create;
+namespace CinemaTicketingSystem.Presentation.API.Catalog.Movie.Create;
 
 public static class CreateMovieEndpoint
 {

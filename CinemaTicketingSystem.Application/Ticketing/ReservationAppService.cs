@@ -49,9 +49,7 @@ public class ReservationAppService(
 
 
         if (seatHoldList.Any(seatHold => seatHold.IsExpired()))
-        {
             return appDependencyService.LocalizeError.Error<CreateReservationResponse>(ErrorCodes.SeatHoldExpired);
-        }
 
 
         // Fetch confirmed seats from tickets
@@ -92,10 +90,7 @@ public class ReservationAppService(
             request.ScreeningDate);
 
 
-        foreach (var seat in seatHoldList)
-        {
-            reservation.AddSeat(new ReservationSeat(seat.SeatPosition));
-        }
+        foreach (var seat in seatHoldList) reservation.AddSeat(new ReservationSeat(seat.SeatPosition));
 
 
         await reservationRepository.AddAsync(reservation);
@@ -172,9 +167,7 @@ public class ReservationAppService(
 
 
         if (seatHoldList.Any(seatHold => seatHold.IsExpired()))
-        {
             return appDependencyService.LocalizeError.Error(ErrorCodes.SeatHoldExpired);
-        }
 
         var IsValidateOwnershipAndValidityResult = reservationEligibilityPolicy.ValidateOwnershipAndValidity(
             seatHoldList,

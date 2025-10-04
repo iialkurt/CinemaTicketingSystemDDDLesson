@@ -1,11 +1,9 @@
-﻿namespace CinemaTicketingSystem.Domain.Test
-{
-    public class UnitTest1
-    {
-        [Fact]
-        public void Test1()
-        {
+﻿namespace CinemaTicketingSystem.Domain.Test;
 
-        }
+public class UnitTest1
+{
+    [Fact]
+    public void Test1()
+    {
     }
 }
