@@ -14,7 +14,7 @@ public class SeatHoldRepository(AppDbContext context) : GenericRepository<SeatHo
     {
         return _context.SeatHolds
             .Where(x => x.ScheduledMovieShowId == scheduledMovieShowId && x.ScreeningDate == ScreeningDate &&
-                        x.Status == HoldStatus.Hold)
+                        x.Status == HoldStatus.Hold && x.ExpiresAt > DateTime.UtcNow)
             .ToListAsync();
     }
 }

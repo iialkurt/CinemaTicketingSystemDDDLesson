@@ -9,6 +9,5 @@ namespace CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Reservations.Do
 public record ReservationCreatedEvent(
     Guid ReservationId,
     Guid CustomerId,
-    Guid ScheduledMovieShowId,
-    DateTime ReservationTime)
+    Guid ScheduledMovieShowId)
     : IDomainEvent;

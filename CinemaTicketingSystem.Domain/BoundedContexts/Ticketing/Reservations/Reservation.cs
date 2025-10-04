@@ -32,17 +32,18 @@ public class Reservation : AggregateRoot<Guid>
         CustomerId = customerId;
 
 
-        AddDomainEvent(new ReservationCreatedEvent(Id, CustomerId, scheduleId, ReservationTime));
+        AddDomainEvent(new ReservationCreatedEvent(Id, CustomerId, scheduleId));
         ScreeningDate = screeningDate;
+
         Status = ReservationStatus.Created;
     }
 
     public CustomerId CustomerId { get; }
     public Guid ScheduledMovieShowId { get; }
-    public DateTime ReservationTime { get; private set; }
-    public DateTime ExpirationTime { get; private set; }
+    public DateTime? ReservationTime { get; private set; }
+    public DateTime? ExpirationTime { get; private set; }
 
-    public DateOnly ScreeningDate { get; }
+    public DateOnly ScreeningDate { get; private set; }
     public ReservationStatus Status { get; private set; }
 
 

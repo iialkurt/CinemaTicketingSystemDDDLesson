@@ -19,8 +19,8 @@ internal class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
 
         builder.Property(x => x.ScheduledMovieShowId).IsRequired();
         builder.Property(x => x.CustomerId).IsRequired();
-        builder.Property(x => x.ReservationTime).IsRequired();
-        builder.Property(x => x.ExpirationTime).IsRequired();
+        builder.Property(x => x.ReservationTime);
+        builder.Property(x => x.ExpirationTime);
         builder.Property(x => x.Status).IsRequired();
 
         builder.Property(x => x.CustomerId)

@@ -66,9 +66,10 @@ public class ReservationAppService(
         // Fetch confirmed seats from holds
         var confirmedSeatHoldSeatPositions =
             (await seatHoldRepository.GetConfirmedListByScheduleIdAndScreeningDate(request.ScheduledMovieShowId,
-                request.ScreeningDate)).Where(x => x.CustomerId != userId)
+                request.ScreeningDate))
             .Select(x => x.SeatPosition)
             .ToList();
+
 
         // Merge uniquely by seat coordinates
         var occupiedSeatPositions = confirmedTicketSeatPositions
@@ -132,7 +133,7 @@ public class ReservationAppService(
         var reservationList =
             (await reservationRepository.WhereAsync(x =>
                 x.ScheduledMovieShowId == reservation.ScheduledMovieShowId &&
-                x.ScreeningDate == reservation.ScreeningDate))
+                x.ScreeningDate == reservation.ScreeningDate && x.Status == ReservationStatus.Confirmed))
             .ToList();
 
 
