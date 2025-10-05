@@ -2,7 +2,7 @@
 {
     public class TicketIssuanceAppServiceTests : BaseIntegrationTest
     {
-        protected TicketIssuanceAppServiceTests(IntegrationTestWebAppFactory factory) : base(factory)
+        public TicketIssuanceAppServiceTests(IntegrationTestWebAppFactory factory) : base(factory)
         {
         }
 

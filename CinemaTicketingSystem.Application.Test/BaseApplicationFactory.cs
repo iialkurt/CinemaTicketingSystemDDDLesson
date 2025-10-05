@@ -33,20 +33,19 @@ namespace CinemaTicketingSystem.Application.Test
             });
 
 
-            // base.ConfigureWebHost(builder);
+            base.ConfigureWebHost(builder);
         }
 
         public async Task InitializeAsync()
         {
+            await _mssqlContainer.StartAsync();
             var connectionString = _mssqlContainer.GetConnectionString();
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>()
-                .UseSqlServer(connectionString);
+                .UseSqlServer(connectionString,
+                    option => { option.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName); });
 
             await using var dbContext = new AppDbContext(optionsBuilder.Options, null, null);
             await dbContext.Database.MigrateAsync();
-
-
-            await _mssqlContainer.StartAsync();
         }
 
         public new async Task DisposeAsync()
