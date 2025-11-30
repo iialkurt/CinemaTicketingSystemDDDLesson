@@ -19,8 +19,10 @@ public class ShowTime : ValueObject
 
     public static ShowTime Create(TimeOnly startTime, TimeOnly endTime)
     {
-        Guard.Against.InvalidInput(startTime, nameof(startTime), x => x >= endTime,
-            "Start time must be before end time");
+        if (startTime >= endTime)
+        {
+            throw new ArgumentException("Start time must be before end time", nameof(startTime));
+        }
 
         return new ShowTime
         {
