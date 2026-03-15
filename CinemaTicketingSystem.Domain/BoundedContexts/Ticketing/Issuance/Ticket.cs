@@ -14,8 +14,8 @@ public class Ticket : Entity<Guid>
     public Ticket(SeatPosition seatPosition, Price price)
     {
         Id = Guid.CreateVersion7();
-        SeatPosition = seatPosition;
-        Price = price;
+        SeatPosition = new SeatPosition(seatPosition.Row, seatPosition.Number);
+        Price = new Price(price.Amount, price.Currency);
         TicketCode = GenerateTicketCode();
         IsUsed = false;
     }
