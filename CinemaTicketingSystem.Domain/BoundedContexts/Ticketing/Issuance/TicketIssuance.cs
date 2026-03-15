@@ -52,7 +52,9 @@ public class TicketIssuance : AggregateRoot<Guid>
     public void Confirm()
     {
         Status = TicketIssuanceStatus.Confirmed;
-        AddDomainEvent(new TicketIssuanceConfirmedEvent(CustomerId, _ticketList.Select(t => t.SeatPosition).ToList(),
+
+
+        AddDomainEvent(new TicketIssuanceConfirmedEvent(CustomerId, TicketList.Select(t => t.SeatPosition).ToList(),
             ScreeningDate));
     }
 

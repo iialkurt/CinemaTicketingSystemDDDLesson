@@ -8,7 +8,6 @@ namespace CinemaTicketingSystem.Application.Ticketing.EventHandlers;
 
 public class TicketIssuanceConfirmedEventDomainEventHandler(
     ISeatHoldRepository seatHoldRepository,
-    IUnitOfWork unitOfWork,
     ILogger<TicketIssuanceConfirmedEventDomainEventHandler> logger) : INotificationHandler<TicketIssuanceConfirmedEvent>
 {
     public async Task Handle(TicketIssuanceConfirmedEvent notification, CancellationToken cancellationToken)
@@ -25,7 +24,5 @@ public class TicketIssuanceConfirmedEventDomainEventHandler(
             notification.CustomerId,
             notification.ScreeningDate,
             notification.SeatPositions.Count);
-
-        await unitOfWork.SaveChangesAsync(cancellationToken);
     }
 }

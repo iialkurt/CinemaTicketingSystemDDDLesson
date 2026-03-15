@@ -13,27 +13,14 @@ namespace CinemaTicketingSystem.Application.Ticketing.EventHandlers;
 
 public class PurchaseCreatedIntegrationEventHandler(
     IUnitOfWork unitOfWork,
-    ITicketIssuanceRepository ticketIssuanceRepository,
-    ISeatHoldRepository seatHoldRepository)
+    ITicketIssuanceRepository ticketIssuanceRepository)
     : IIntegrationEventHandler<PurchaseCreatedIntegrationEvent>
 {
     public async Task HandleAsync(PurchaseCreatedIntegrationEvent message,
         CancellationToken cancellationToken = default)
     {
         TicketIssuance ticketIssuance = await ticketIssuanceRepository.Get(message.userId, message.TicketIssuanceId);
-
         ticketIssuance.Confirm();
-
-        //CustomerId customerId = CustomerId.From(message.userId.Value);
-
-        //IEnumerable<SeatHold> customerSeatHoldList = await seatHoldRepository.WhereAsync(x =>
-        //    x.CustomerId == customerId && x.ScheduledMovieShowId == ticketIssuance.ScheduledMovieShowId &&
-        //    x.ScreeningDate == ticketIssuance.ScreeningDate, cancellationToken);
-
-
-        //foreach (SeatHold customerSeatHold in customerSeatHoldList)
-        //    await seatHoldRepository.DeleteAsync(customerSeatHold, cancellationToken);
-
         await unitOfWork.SaveChangesAsync(cancellationToken);
     }
 }
