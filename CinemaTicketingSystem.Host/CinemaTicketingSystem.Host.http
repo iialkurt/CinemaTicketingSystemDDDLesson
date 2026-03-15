@@ -1,22 +1,5 @@
 ﻿@HostAddress = http://localhost:5094
-@accessToken = eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjAxOThkMGFmLWNiODktNzQ5Ni04NTY3LWNjNTVhNWU5MDBkZiIsImVtYWlsIjoiZi1jYWtpcm9nbHVAb3V0bG9vay5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZmNha2lyb2dsdTYxODAiLCJqdGkiOiI3ZTIxODU3Ny0yMGM1LTRjNDgtYWE5Yi0xMzQ2ZDNmMDI2ZDIiLCJuYmYiOjE3NTk2MTExMDMsImV4cCI6MTc1OTYyNTUwMywiaXNzIjoiYXBpLmNpbmVtYS10aWNrZXRpbmctc3l0ZW0uY29tIn0.lWAaxG49X222bJ9t9GdjZi3ssacjW2LdSEDuBY4rCcU
-###
-POST {{HostAddress}}/api/v1/catalogs/movies
-Accept: application/json
-Content-Type: application/json
-
-{
-  "title": "Inception 3",
-  "originalTitle": "Inception",
-  "description": "A mind-bending thriller that delves into the world of dreams.",
-  "EarliestShowingDate": "2026-07-16T00:00:00Z",
-  "duration": "01:30:00",
-  "posterImageUrl":"http://wwww.abc.com",
-  "supportedTechnology":1
-}
-###
-GET {{HostAddress}}/api/v1/catalogs/movies
-Accept: application/json
+@accessToken =eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjAxOWNmMTQ3LWJmZmQtN2QzYS1hZDM4LTY1MWZjN2NiZjU3YSIsImVtYWlsIjoiZi1jYWtpcm9nbHVAb3V0bG9vay5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZmNha2lyb2dsdTk3NjgiLCJqdGkiOiI2MTAyMzkzNS01MWI2LTQzZWEtOTIzMS1iNTA3MjMxMDM5MTEiLCJuYmYiOjE3NzM1NzQ1NDAsImV4cCI6MTc3MzU4ODk0MCwiaXNzIjoiYXBpLmNpbmVtYS10aWNrZXRpbmctc3l0ZW0uY29tIn0.Ft69hfvy-iTyx0IphmVFp_l4IgdHGKiFTf4aHCUescs
 
 ###
 POST {{HostAddress}}/api/v1/catalogs/cinemas
@@ -34,20 +17,15 @@ Content-Type: application/json
     "description": "Located in the heart of Beyoğlu, next to Galatasaray High School"
   }
 }
-
 ###
 GET {{HostAddress}}/api/v1/catalogs/cinemas
 Accept: application/json
 Accept-Language: tr
-
 ###
-
-
-POST {{HostAddress}}/api/v1/catalogs/cinemas/0198d08e-2bd3-70a8-b586-0c5ca6a9bf77/hall
+POST {{HostAddress}}/api/v1/catalogs/cinemas/019cf138-7340-76da-aac2-c171dc5c6f07/hall
 Accept: application/json
 Content-Type: application/json
 Accept-Language: en
-
 {
   "cinemaId": "f93795b0-e16f-4d00-9fbf-7657e9257945",
   "name": "Hall 5 - Strandart Premium 2",
@@ -91,20 +69,31 @@ Accept-Language: en
   ]
 }
 ###
-GET {{HostAddress}}/api/v1/catalogs/cinemas/0198d08e-2bd3-70a8-b586-0c5ca6a9bf77/hall
+GET {{HostAddress}}/api/v1/catalogs/cinemas/019cf138-7340-76da-aac2-c171dc5c6f07/hall
 Accept: application/json
-
 ###
-GET {{HostAddress}}/api/v1/schedules/halls/0198d08e-2bd3-70a8-b586-0c5ca6a9bf77/movies
+POST {{HostAddress}}/api/v1/catalogs/movies
 Accept: application/json
+Content-Type: application/json
 
+{
+  "title": "Inception 3",
+  "originalTitle": "Inception",
+  "description": "A mind-bending thriller that delves into the world of dreams.",
+  "EarliestShowingDate": "2026-07-16T00:00:00Z",
+  "duration": "01:30:00",
+  "posterImageUrl":"http://wwww.abc.com",
+  "supportedTechnology":1
+}
 ###
-
-POST {{HostAddress}}/api/v1/schedules/halls/0198d098-040c-7281-911a-adf62d676ffe/movies
+GET {{HostAddress}}/api/v1/catalogs/movies
+Accept: application/json
+###
+POST {{HostAddress}}/api/v1/schedules/halls/019cf13a-b973-713f-aded-44bb242e23a6/movies
 Accept: application/json
 Content-Type: application/json
 {
-  "movieId": "0198d096-d4c0-72b1-8f59-035c7e603523",
+  "movieId": "019cf13b-c5cc-7d28-8e69-2a9336b15904",
   "startTime": "19:00:00",
   "Price": {
     "Amount": 100,
@@ -112,7 +101,7 @@ Content-Type: application/json
   }
 }
 ###
-GET {{HostAddress}}/api/v1/schedules/halls/0198d098-040c-7281-911a-adf62d676ffe/movies
+GET {{HostAddress}}/api/v1/schedules/halls/019cf13a-b973-713f-aded-44bb242e23a6/movies
 Accept: application/json
 ###
 POST {{HostAddress}}/api/v1/accounts/auth/signup
@@ -152,7 +141,7 @@ Authorization: Bearer {{accessToken}}
     }
   ],
   "ScreeningDate": "2025-10-10",
-  "scheduledMovieShowId": "0198d099-23eb-7568-9b05-19353f6a54e5"
+  "scheduledMovieShowId": "019cf144-b1c4-7a97-8666-e9cf661db2a3"
 }
 ###
 POST {{HostAddress}}/api/v1/ticketing/seatholds/confirm
@@ -162,17 +151,16 @@ Authorization: Bearer {{accessToken}}
 
 {
   "ScreeningDate": "2025-10-10",
-  "scheduledMovieShowId": "0198d099-23eb-7568-9b05-19353f6a54e5"
+  "scheduledMovieShowId": "019cf144-b1c4-7a97-8666-e9cf661db2a3"
 }
 ###
 POST {{HostAddress}}/api/v1/ticketing/issuance
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
-
 {
   "ScreeningDate": "2025-10-10",
-  "scheduledMovieShowId": "0198d099-23eb-7568-9b05-19353f6a54e5"
+  "scheduledMovieShowId": "019cf144-b1c4-7a97-8666-e9cf661db2a3"
 }
 ###
 POST {{HostAddress}}/api/v1/ticketing/reservation

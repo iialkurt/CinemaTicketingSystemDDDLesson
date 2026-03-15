@@ -75,14 +75,4 @@ public class AccountAppService(
         return AppResult<SignInResponse>.SuccessAsOk(new SignInResponse(tokenResponse.AccessToken,
             tokenResponse.RefreshToken, tokenResponse.AccessTokenExpiration, tokenResponse.RefreshTokenExpiration));
     }
-
-    Task<AppResult<SignInResponse>> IAccountAppService.SignInAsync(SignInRequest userId)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<AppResult> IAccountAppService.SignUpAsync(SignUpRequest request)
-    {
-        throw new NotImplementedException();
-    }
 }

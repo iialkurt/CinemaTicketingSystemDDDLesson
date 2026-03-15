@@ -15,7 +15,7 @@ using System.Net;
 namespace CinemaTicketingSystem.Application.Schedules;
 
 public class ScheduleAppService(
-    IGenericRepository<CinemaHallSnapshot> CinemaHallSnapshotRepository,
+    IGenericRepository<CinemaHallSnapshot> cinemaHallSnapshotRepository,
     IGenericRepository<MovieSnapshot> movieShotRepository,
     MovieHallCompatibilityService movieHallCompatibilityService,
     IScheduleRepository scheduleRepository,
@@ -27,7 +27,7 @@ public class ScheduleAppService(
 
         if (movie is null) return appDependencyService.LocalizeError.Error(ErrorCodes.MovieNotFound);
 
-        CinemaHallSnapshot? hallSchedule = await CinemaHallSnapshotRepository.GetByIdAsync(hallId);
+        CinemaHallSnapshot? hallSchedule = await cinemaHallSnapshotRepository.GetByIdAsync(hallId);
 
         if (hallSchedule is null) return appDependencyService.LocalizeError.Error(ErrorCodes.CinemaHallNotFound);
 
@@ -83,15 +83,5 @@ public class ScheduleAppService(
             .ToList();
 
         return AppResult<List<GetMoviesByHallIdResponse>>.SuccessAsOk(response);
-    }
-
-    Task<AppResult> IScheduleAppService.AddMovieToHall(Guid hallId, AddMovieToHallRequest request)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<AppResult<List<GetMoviesByHallIdResponse>>> IScheduleAppService.GetMoviesByHallId(Guid hallId)
-    {
-        throw new NotImplementedException();
     }
 }

@@ -114,9 +114,9 @@ public class TicketIssuanceAppService(
     }
 
 
-    public async Task<AppResult> CreateFromReservation(Guid ReservationId)
+    public async Task<AppResult> CreateFromReservation(Guid reservationId)
     {
-        Reservation? reservation = await reservationRepository.GetByIdAsync(ReservationId);
+        Reservation? reservation = await reservationRepository.GetByIdAsync(reservationId);
 
 
         if (reservation!.IsExpired()) return appDependencyService.LocalizeError.Error(ErrorCodes.ReservationExpired);
@@ -136,15 +136,5 @@ public class TicketIssuanceAppService(
         await ticketIssuanceRepository.AddAsync(purchase);
         await appDependencyService.UnitOfWork.SaveChangesAsync();
         return AppResult.SuccessAsNoContent();
-    }
-
-    Task<AppResult<CreateTicketIssuanceResponse>> ITicketPurchaseAppService.Create(CreateTicketIssuanceRequest request)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<AppResult> ITicketPurchaseAppService.CreateFromReservation(Guid reservationId)
-    {
-        throw new NotImplementedException();
     }
 }
