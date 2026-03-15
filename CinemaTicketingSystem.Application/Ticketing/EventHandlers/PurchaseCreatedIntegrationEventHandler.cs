@@ -4,6 +4,7 @@ using CinemaTicketingSystem.Application.Contracts.Contracts;
 using CinemaTicketingSystem.Domain.BoundedContexts.Purchases.DomainEvents;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Holds;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Issuance;
+using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.ValueObjects;
 using CinemaTicketingSystem.Domain.Repositories;
 
 #endregion
@@ -23,12 +24,11 @@ public class PurchaseCreatedIntegrationEventHandler(
 
         ticketIssuance.Confirm();
 
+        CustomerId customerId = CustomerId.From(message.userId.Value);
+
         IEnumerable<SeatHold> customerSeatHoldList = await seatHoldRepository.WhereAsync(x =>
-            x.CustomerId == message.userId && x.ScheduledMovieShowId == ticketIssuance.ScheduledMovieShowId &&
+            x.CustomerId == customerId && x.ScheduledMovieShowId == ticketIssuance.ScheduledMovieShowId &&
             x.ScreeningDate == ticketIssuance.ScreeningDate, cancellationToken);
-
-
-
 
 
         foreach (SeatHold customerSeatHold in customerSeatHoldList)
