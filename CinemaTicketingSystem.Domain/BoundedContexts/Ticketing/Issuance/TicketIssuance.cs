@@ -1,5 +1,6 @@
 ﻿#region
 
+using Ardalis.GuardClauses;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.Issuance.DomainEvents;
 using CinemaTicketingSystem.Domain.BoundedContexts.Ticketing.ValueObjects;
 using CinemaTicketingSystem.SharedKernel;
@@ -69,6 +70,7 @@ public class TicketIssuance : AggregateRoot<Guid>
     public void AddTicket(SeatPosition seatPosition, Price price)
     {
         if (_ticketList.Count >= MaxTicketsPerPurchase)
+
             throw new BusinessException(ErrorCodes.MaxTicketsExceeded).AddData(MaxTicketsPerPurchase);
 
         if (_ticketList.Any(t => t.SeatPosition == seatPosition))

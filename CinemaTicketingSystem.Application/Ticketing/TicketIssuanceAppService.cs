@@ -18,7 +18,7 @@ using CinemaTicketingSystem.SharedKernel.ValueObjects;
 
 namespace CinemaTicketingSystem.Application.Ticketing;
 
-public class TicketIssuanceAppService(
+public class TicketPurchaseAppService(
     AppDependencyService appDependencyService,
     ITicketIssuanceRepository ticketIssuanceRepository,
     ICatalogQueryService catalogQueryService,
